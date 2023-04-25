@@ -72,36 +72,18 @@
       <div class="col-12 mt-3 mb-2">
         <h2 class="title primary-color">VAGAS EM DESTAQUE</h2>
       </div>
-      <div class="col-sm-4 pb-2">
-        <div class="card bg-light">
-          <div class="card-body">
-            <h4 class="card-title">Motorista Urbano</h4>
-            <h5 class="card-title">Ilhabela</h5>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <a href="#" class="btn btn-primary">Inscrever</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4 pb-2">
-        <div class="card bg-light">
-          <div class="card-body">
-            <h4 class="card-title">Técnico em Informática</h4>
-            <h5 class="card-title">Itatiba</h5>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <a href="#" class="btn btn-primary">Inscrever</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4 pb-2">
-        <div class="card bg-light">
-          <div class="card-body">
-            <h4 class="card-title">Recursos Humanos</h4>
-            <h5 class="card-title">Itatiba</h5>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <a href="#" class="btn btn-primary">Inscrever</a>
-          </div>
-        </div>
-      </div>
+        @foreach($vagasDestaque as $vagaDestaque)
+            <div class="col-sm-4 pb-2">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ $vagaDestaque['vaga'] }}</h4>
+                        <h5 class="card-title">{{ $vagaDestaque['garagem'] }}</h5>
+                        <p class="card-text">{{ $vagaDestaque['descricao_vaga'] }}</p>
+                        <a href="#" class="btn btn-primary">Inscrever</a>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div>
   </div>
   <div class="container mt-3">
@@ -109,56 +91,18 @@
       <div class="col-12 mt-3 mb-2">
         <h2 class="title primary-color">OUTRAS VAGAS</h2>
       </div>
-      <div class="col-sm-4 pb-2">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">Motorista Rodoviário</h4>
-            <h5 class="card-title">Itatiba</h5>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <a href="#" class="btn btn-primary">Inscrever</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4 pb-2">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">Funileiro</h4>
-            <h5 class="card-title">Águas de Lindóa</h5>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <a href="#" class="btn btn-primary">Inscrever</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4 pb-2">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">Almoxarifado</h4>
-            <h5 class="card-title">Cubatão</h5>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <a href="#" class="btn btn-primary">Inscrever</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4 pb-2">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">Eletricista</h4>
-            <h5 class="card-title">Amparo</h5>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <a href="#" class="btn btn-primary">Inscrever</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4 pb-2">
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">Mecânico Diesel</h4>
-            <h5 class="card-title">Itanhém</h5>
-            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <a href="#" class="btn btn-primary">Inscrever</a>
-          </div>
-        </div>
-      </div>
+        @foreach($outrasVagas as $outraVaga)
+            <div class="col-sm-4 pb-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ $outraVaga['vaga'] }}</h4>
+                        <h5 class="card-title">{{ $outraVaga['garagem'] }}</h5>
+                        <p class="card-text">{{ $outraVaga['descricao_vaga'] }}</p>
+                        <a href="#" class="btn btn-primary">Inscrever</a>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div>
   </div>
 </main>
