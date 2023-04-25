@@ -29,7 +29,7 @@
           <nav class="navbar navbar-expand-lg" id="navbar">
             <div class="container">
               <a class="navbar-brand" href="#">
-                <img src="../images/logo-mini.jpg" alt="JVCJobs" width="75%" height="75%" />
+                <img src="images/logo-mini.jpg" alt="JVCJobs" width="75%" height="75%" />
               </a>
               <button
                 class="navbar-toggler"
@@ -54,7 +54,7 @@
                     <a class="nav-link" href="#">Contato</a>
                   </li>
                   <li class="nav-item">
-                    <a class="navbar-item" href="#">
+                    <a class="navbar-item" data-bs-toggle="modal" data-bs-target="#loginModal" href="#">
                       <i class="material-icons" style="font-size: 3em;">account_circle</i>
                     </a>
                   </li>
@@ -162,8 +162,76 @@
     </div>
   </div>
 </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+      <!-- #Inicio do Modal -->
+      <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                  </div>
+                  <div class="modal-body">
+                      <div class="pb-3">
+                          <ul class="nav nav-tabs nav-justified" id="loginTabs" role="tablist">
+                              <li class="nav-item" role="presentation">
+                                  <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true">Iniciar sessão</button>
+                              </li>
+                              <li class="nav-item" role="presentation">
+                                  <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab" aria-controls="register" aria-selected="false">Criar uma conta</button>
+                              </li>
+                          </ul>
+                      </div>
+                      <div class="tab-content" id="loginTabsContent">
+                          <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                              <div class="text-center p-3">Informe os dados de acesso</div>
+                              <form>
+                                  <div class="mb-3">
+                                      <label for="username" class="form-label visually-hidden">CPF</label>
+                                      <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF" required>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label for="password" class="form-label visually-hidden">Senha</label>
+                                      <input type="password" class="form-control" id="password" name="password" placeholder="Senha" required>
+                                  </div>
+                                  <div class="text-center mb-3">
+                                      <button type="submit" class="btn btn-primary w-100">Entrar</button>
+                                  </div>
+                              </form>
+                          </div>
+                          <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                              <div class="text-center p-3">Informe os dados para cadastro</div>
+                              <form>
+                                  <div class="mb-3">
+                                      <label for="username" class="form-label visually-hidden">Nome</label>
+                                      <input type="text" class="form-control" id="username" name="username" placeholder="Nome" required>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label for="username" class="form-label visually-hidden">Sobrenome</label>
+                                      <input type="text" class="form-control" id="username" name="username" placeholder="Sobrenome" required>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label for="username" class="form-label visually-hidden">CPF</label>
+                                      <input type="text" class="form-control" id="username" name="username" placeholder="CPF" required>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label for="username" class="form-label visually-hidden">E-mail</label>
+                                      <input type="text" class="form-control" id="username" name="username" placeholder="E-mail" required>
+                                  </div>
+                                  <div class="mb-3">
+                                      <label for="password" class="form-label visually-hidden">Senha</label>
+                                      <input type="password" class="form-control" id="password" name="password" placeholder="Senha" required>
+                                  </div>
+                                  <div class="text-center mb-3">
+                                      <button type="submit" class="btn btn-primary w-100">Salvar</button>
+                                  </div>
 
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- ##Fim do Modal -->
 <footer class="bg-light text-center border-top">
   <!-- Grid container -->
   <div class="container p-4 pb-0">
@@ -211,6 +279,6 @@
   </div>
   <!-- Copyright -->
 </footer>
-
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
   </body>
 </html>
