@@ -12,7 +12,7 @@ class HomeController extends Controller
             [
                 'vaga' => 'Motorista Urbano',
                 'garagem' => 'Ilhabela',
-                'descricao_vaga' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+                'descricao_vaga' => 'Esse texto foi cortado porque ultrapassou a largura da DIV'
             ],
             [
                 'vaga' => 'Técnico em Informática',
