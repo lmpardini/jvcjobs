@@ -75,10 +75,10 @@
         @foreach($vagasDestaque as $vagaDestaque)
             <div class="col-sm-4 pb-2">
                 <div class="card bg-light">
-                    <div class="card-body">
+                    <div class="card-body overflow-hidden">
                         <h4 class="card-title">{{ $vagaDestaque['vaga'] }}</h4>
                         <h5 class="card-title">{{ $vagaDestaque['garagem'] }}</h5>
-                        <p class="card-text">{{ $vagaDestaque['descricao_vaga'] }}</p>
+                        <p class="card-text text-truncate">{{ $vagaDestaque['descricao_vaga'] }}</p>
                         <a href="#" class="btn btn-primary">Inscrever</a>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
         <h2 class="title primary-color">OUTRAS VAGAS</h2>
       </div>
         @foreach($outrasVagas as $outraVaga)
-            <div class="col-sm-4 pb-2">
+            <div class="col-sm-4 pb-2 vagas">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">{{ $outraVaga['vaga'] }}</h4>
@@ -127,14 +127,16 @@
                       <div class="tab-content" id="loginTabsContent">
                           <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
                               <div class="text-center p-3">Informe os dados de acesso</div>
-                              <form>
+                              <form class="needs-validation" novalidate autocomplete="off">
                                   <div class="mb-3">
-                                      <label for="username" class="form-label visually-hidden">CPF</label>
-                                      <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF" required>
+                                      <label for="username" class="form-label">CPF</label>
+                                      <input type="text" class="form-control" id="cpf" name="cpf" required>
+                                      <div class="invalid-feedback">Informe o seu CPF.</div>
                                   </div>
                                   <div class="mb-3">
-                                      <label for="password" class="form-label visually-hidden">Senha</label>
-                                      <input type="password" class="form-control" id="password" name="password" placeholder="Senha" required>
+                                      <label for="password" class="form-label">Senha</label>
+                                      <input type="password" class="form-control" id="password" name="password" required>
+                                      <div class="invalid-feedback">Informe a sua senha.</div>
                                   </div>
                                   <div class="text-center mb-3">
                                       <button type="submit" class="btn btn-primary w-100">Entrar</button>
@@ -143,26 +145,26 @@
                           </div>
                           <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
                               <div class="text-center p-3">Informe os dados para cadastro</div>
-                              <form>
+                              <form class="needs-validation" novalidate autocomplete="off">
                                   <div class="mb-3">
-                                      <label for="username" class="form-label visually-hidden">Nome</label>
-                                      <input type="text" class="form-control" id="username" name="username" placeholder="Nome" required>
+                                      <label for="nome" class="form-label">Nome</label>
+                                      <input type="text" class="form-control" id="nome" name="nome" required>
+                                      <div class="invalid-feedback">Informe o seu nome.</div>
                                   </div>
                                   <div class="mb-3">
-                                      <label for="username" class="form-label visually-hidden">Sobrenome</label>
-                                      <input type="text" class="form-control" id="username" name="username" placeholder="Sobrenome" required>
+                                      <label for="sobrenome" class="form-label">Sobrenome</label>
+                                      <input type="text" class="form-control" id="sobrenome" name="sobrenome" required>
+                                      <div class="invalid-feedback">Informe o seu sobrenome.</div>
                                   </div>
                                   <div class="mb-3">
-                                      <label for="username" class="form-label visually-hidden">CPF</label>
-                                      <input type="text" class="form-control" id="username" name="username" placeholder="CPF" required>
+                                      <label for="cpf" class="form-label">CPF</label>
+                                      <input type="text" class="form-control" id="cpf" name="cpf" required>
+                                      <div class="invalid-feedback">Informe o seu CPF.</div>
                                   </div>
                                   <div class="mb-3">
-                                      <label for="username" class="form-label visually-hidden">E-mail</label>
-                                      <input type="text" class="form-control" id="username" name="username" placeholder="E-mail" required>
-                                  </div>
-                                  <div class="mb-3">
-                                      <label for="password" class="form-label visually-hidden">Senha</label>
-                                      <input type="password" class="form-control" id="password" name="password" placeholder="Senha" required>
+                                      <label for="email" class="form-label">E-mail</label>
+                                      <input type="text" class="form-control" id="email" name="email" required>
+                                      <div class="invalid-feedback">Informe o seu e-mail.</div>
                                   </div>
                                   <div class="text-center mb-3">
                                       <button type="submit" class="btn btn-primary w-100">Salvar</button>
@@ -223,6 +225,28 @@
   </div>
   <!-- Copyright -->
 </footer>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+    // Estilizar validação do formulario
+    (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
   </body>
 </html>
