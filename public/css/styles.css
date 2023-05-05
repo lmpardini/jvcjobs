@@ -160,10 +160,15 @@
   margin-bottom: 4em;
 }
 
-.title {
+.title-destaque {
   font-size: 16px;
   font-weight: bold;
   text-decoration: overline;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: bold;
 }
 
 #featured-images {

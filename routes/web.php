@@ -18,3 +18,25 @@ Route::controller(\App\Http\Controllers\HomeController::class)
         Route::get('/', 'home');
     });
 
+Route::get('home', function () {
+    return view('home');
+});
+
+Route::get('logado', function () {
+    return view('home2');
+});
+
+Route::get('vagas', function () {
+    return view('vagas');
+});
+
+Route::get('vaga-detalhe', function () {
+    return view('vaga-detalhe');
+});
+
+Route::get('contato', function () {
+    return view('contato');
+});
+
+
+
