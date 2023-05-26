@@ -89,7 +89,7 @@
                     <div class="tab-content" id="loginTabsContent">
                         <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
                             <div class="text-center p-3">Informe os dados de acesso</div>
-                            <form class="needs-validation" novalidate autocomplete="off">
+                            <form action="logado" class="needs-validation" novalidate autocomplete="off">
                                 <div class="mb-3">
                                     <label for="username" class="form-label">CPF</label>
                                     <input type="text" class="form-control" id="cpf" name="cpf" required>

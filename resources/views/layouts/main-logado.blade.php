@@ -53,8 +53,8 @@
                             <a class="nav-link" href="contato">Contato</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                                Olá, Wendell
+                            <button class="btn btn-secondary dropdown-toggle w-100 text-start" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                                Olá, Lucas
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                 <li><button class="dropdown-item" type="button">Meus Dados</button></li>
@@ -147,48 +147,13 @@
     <!-- ##Fim do Modal -->
     <footer class="bg-light text-center border-top">
         <!-- Grid container -->
-        <div class="container p-4 pb-0">
-            <!-- Section: Form -->
-            <section class="">
-                <form action="">
-                    <!--Grid row-->
-                    <div class="row d-flex justify-content-center">
-                        <!--Grid column-->
-                        <div class="col-auto">
-                            <p class="pt-2">
-                                <strong>Receba nossas vagas por e-mail</strong>
-                            </p>
-                        </div>
-                        <!--Grid column-->
 
-                        <!--Grid column-->
-                        <div class="col-md-5 col-12">
-                            <!-- Email input -->
-                            <div class="form-outline mb-4">
-                                <input type="email" id="form5Example27" placeholder="Digite o seu e-mail" class="form-control" />
-                            </div>
-                        </div>
-                        <!--Grid column-->
-
-                        <!--Grid column-->
-                        <div class="col-auto">
-                            <!-- Submit button -->
-                            <button type="submit" class="btn btn-dark text-white mb-4">
-                                Enviar
-                            </button>
-                        </div>
-                        <!--Grid column-->
-                    </div>
-                    <!--Grid row-->
-                </form>
-            </section>
-            <!-- Section: Form -->
-        </div>
-        <!-- Grid container -->
 
         <!-- Copyright -->
-        <div class="text-center bg-light pb-3">
-            <a class="text-dark" href="https://www.jvcsolutions.com.br">©2023 - JVCJobs</a>
+        <div class="text-center bg-light p-3">
+            <p>© {{ \Carbon\Carbon::now()->format('Y') }} JVCJobs  - Todos os direitos reservados.</p>
+
+            <p>Desenvolvido por <a class="text-dark" href="https://www.jvcsolutions.com.br">JVCSolutions</a></p>
         </div>
         <!-- Copyright -->
     </footer>

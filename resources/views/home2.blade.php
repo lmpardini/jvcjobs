@@ -45,7 +45,7 @@
             <h2 class="title primary-color">OUTRAS VAGAS</h2>
             </div>
             <div class="col-sm-4 pb-2">
-                <div class="card bg-light">
+                <div class="card">
                     <div class="card-body overflow-hidden">
                         <h4 class="card-title">Motorista Urbano</h4>
                         <h5 class="card-title">Ilhabela</h5>
@@ -55,7 +55,7 @@
                 </div>
             </div>
             <div class="col-sm-4 pb-2">
-                <div class="card bg-light">
+                <div class="card">
                     <div class="card-body overflow-hidden">
                         <h4 class="card-title">Motorista Urbano</h4>
                         <h5 class="card-title">Ilhabela</h5>
@@ -65,7 +65,7 @@
                 </div>
             </div>
             <div class="col-sm-4 pb-2">
-                <div class="card bg-light">
+                <div class="card">
                     <div class="card-body overflow-hidden">
                         <h4 class="card-title">Motorista Urbano</h4>
                         <h5 class="card-title">Ilhabela</h5>
