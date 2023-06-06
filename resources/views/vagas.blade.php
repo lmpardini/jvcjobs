@@ -33,42 +33,10 @@
             </div>
             <div class="col-sm-9 pt-2">
                 <div class="row">
-                    <div class="col-sm-12 pb-2">
-                        <div class="card rounded-0">
-                            <div class="card-body">
-                                <h4 class="card-title"><strong>Motorista Urbano</strong></h4>
-                                <h6 class="card-title"><strong>Ilhabela</strong></h6>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 pb-2">
-                        <div class="card rounded-0 bg-vagas">
-                            <div class="card-body">
-                                <h4 class="card-title"><strong>Técnico em Informática</strong></h4>
-                                <h6 class="card-title"><strong>Caraguatatuba</strong></h6>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 pb-2">
-                        <div class="card rounded-0">
-                            <div class="card-body">
-                                <h4 class="card-title"><strong>Motorista Rodoviário</strong></h4>
-                                <h6 class="card-title"><strong>Itatiba</strong></h6>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 pb-2">
-                        <div class="card rounded-0 bg-vagas">
-                            <div class="card-body">
-                                <h4 class="card-title"><strong>Serviços Gerais</strong></h4>
-                                <h6 class="card-title"><strong>Cubatão</strong></h6>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit Lorem ipsum dolor sit amet, consectetur adipiscing elitLorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                            </div>
-                        </div>
-                    </div>
+                    @foreach($vagas as $vaga)
+                        @component('components/card-vagas', ['item' => $vaga, 'loop' => $loop])
+                        @endcomponent
+                    @endforeach
                 </div>
             </div>
         </div>

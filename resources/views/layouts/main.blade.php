@@ -57,9 +57,7 @@
                                 <i class="material-icons" style="font-size: 3em;">account_circle</i>
                             </a>
                         </li>
-
                     </ul>
-
                 </div>
             </div>
         </nav>
