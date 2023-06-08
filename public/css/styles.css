@@ -317,3 +317,10 @@
     padding-left: 2em;
   }
 }
+
+/* Login */
+.nav-pills {
+    --bs-nav-pills-link-active-bg: #495057;
+
+}
+/* Fim Login */
