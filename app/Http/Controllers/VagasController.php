@@ -11,10 +11,6 @@ class VagasController extends Controller
     {
         $vagas = Vagas::get()->sortByDesc('destaque');
 
-        /**
-         * TODO Implementar Logica de componente para quando não houver vagas cadastradas
-         */
-
         return view('vagas', [
             'vagas' => $vagas
         ]);
@@ -24,12 +20,8 @@ class VagasController extends Controller
     {
         $vaga = Vagas::whereId($id)->first();
 
-        /**
-         * TODO Implementar view page not found informando que houve erro na requisição
-         */
-
         if (!$vaga) {
-            return view('home');
+            return response()->view('errors.404');
         }
 
         return view('vaga-detalhe', [

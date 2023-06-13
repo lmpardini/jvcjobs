@@ -18,10 +18,11 @@
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                         <div class="text-center p-3"><h4>Login</h4></div>
-                        <form action="logado" class="needs-validation" novalidate autocomplete="off">
+                        <form action="{{ route('auth.do') }}" method="post" class="needs-validation" novalidate autocomplete="off">
+                            @csrf
                             <div class="mb-3">
-                                <label for="username" class="form-label">CPF</label>
-                                <input type="text" class="form-control" id="cpf" name="cpf" required>
+                                <label for="cpf" class="form-label">CPF</label>
+                                <input type="text" class="form-control" id="cpf" name="cpf" required value="{{ session()->getOldInput('cpf') }}">
                                 <div class="invalid-feedback">Informe o seu CPF</div>
                             </div>
                             <div class="mb-3">
@@ -36,7 +37,8 @@
                     </div>
                     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                         <div class="text-center p-3"><h4>Cadastro</h4></div>
-                        <form class="needs-validation" novalidate autocomplete="off">
+                        <form action=" {{ route('auth.register') }}" method="POST" class="needs-validation" novalidate>
+                            @csrf
                             <div class="mb-3">
                                 <label for="nome" class="form-label">Nome</label>
                                 <input type="text" class="form-control" id="nome" name="nome" required>
@@ -48,15 +50,26 @@
                                 <div class="invalid-feedback">Informe o seu sobrenome</div>
                             </div>
                             <div class="mb-3">
+                                <label for="email" class="form-label">E-mail</label>
+                                <input type="text" class="form-control" id="email" name="email" required>
+                                <div class="invalid-feedback">Informe o seu e-mail</div>
+                            </div>
+                            <div class="mb-3">
                                 <label for="cpf" class="form-label">CPF</label>
                                 <input type="text" class="form-control" id="cpf" name="cpf" required>
                                 <div class="invalid-feedback">Informe o seu CPF</div>
                             </div>
                             <div class="mb-3">
-                                <label for="email" class="form-label">E-mail</label>
-                                <input type="text" class="form-control" id="email" name="email" required>
-                                <div class="invalid-feedback">Informe o seu e-mail</div>
+                                <label for="cpf" class="form-label">Senha</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                                <div class="invalid-feedback">Informe sua Senha</div>
                             </div>
+                            <div class="mb-3">
+                                <label for="password_confirmation" class="form-label">Confirme sua Senha</label>
+                                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
+                                <div class="invalid-feedback">Informe o seu CPF</div>
+                            </div>
+
                             <div class="text-center mb-3">
                                 <button type="submit" class="btn btn-primary w-100">Salvar</button>
                             </div>
