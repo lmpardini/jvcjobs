@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
     <!-- CSS do projeto -->
     <link rel="stylesheet" href="css/styles.css" />
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <header>
     <div class="container-fluid p-0">
@@ -52,11 +54,29 @@
                         <li class="nav-item">
                             <a class="nav-link" href="contato">Contato</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="navbar-item" href=login>
-                                <i class="material-icons" style="font-size: 3em;">account_circle</i>
-                            </a>
-                        </li>
+
+                        @if(auth()->user())
+                            <li class="nav-item dropdown">
+                                <button class="btn btn-secondary dropdown-toggle w-100 text-start" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Olá, {{ auth()->user()->name }}
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                    <li><button class="dropdown-item" type="button">Meus Dados</button></li>
+                                    <li><button class="dropdown-item" type="button">Minhas Vagas</button></li>
+                                    <li><button class="dropdown-item" type="button">Alterar Senha</button></li>
+                                    <li><a href=" {{ route('auth.logout') }}" class="dropdown-item" type="button" >Sair</a></li>
+                                </ul>
+                            </li>
+
+                        @else
+                            <li class="nav-item">
+                                <a class="navbar-item" href={{ route('auth.login') }}>
+                                    <i class="material-icons" style="font-size: 3em;">account_circle</i>
+                                </a>
+                            </li>
+
+                        @endif
+
                     </ul>
                 </div>
             </div>
@@ -76,6 +96,23 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    @if($errors)
+        @foreach($errors->messages() as $errorMessage)
+            <script>
+                toastr.error(" {{ $errorMessage[0] }}")
+            </script>
+        @endforeach
+    @endif
+
+    @if(session()->has('success'))
+        <script>
+            toastr.success(" {{ session()->get('success') }}")
+        </script>
+
+    @endif
     <script>
         // Estilizar validação do formulario
         (() => {

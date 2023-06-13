@@ -15,33 +15,29 @@ use Illuminate\Support\Facades\Route;
 
 Route::controller(\App\Http\Controllers\HomeController::class)
     ->group(function () {
-        Route::get('/', 'home');
+        Route::get('/', 'home')->name('home');
     });
 
 Route::controller(\App\Http\Controllers\VagasController::class)
     ->prefix('vagas')
+    ->as('vagas.')
     ->group(function () {
-        Route::get('/', 'vagas');
-        Route::get('/{id}', 'vagasDetalhes');
+        Route::get('/', 'vagas')->name('listar');
+        Route::get('/{id}', 'vagasDetalhes')->name('detalhe');
     });
 
-
-Route::get('logado', function () {
-    return view('home2');
-});
+Route::controller(\App\Http\Controllers\Auth\AuthController::class)
+    ->prefix('login')
+    ->as('auth.')
+    ->group(function () {
+        Route::get('/', 'login')->name('login');
+        Route::post('/do', 'attempt')->name('do');
+        Route::post('/register', 'register')->name('register');
+        Route::get('/logout', 'logout')->name('logout');
+    });
 
 Route::get('contato', function () {
     return view('contato');
 });
-
-Route::get('404', function () {
-    return view('404');
-});
-
-Route::get('login', function () {
-    return view('login');
-});
-
-
 
 
