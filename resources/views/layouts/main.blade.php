@@ -20,7 +20,7 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
     <!-- CSS do projeto -->
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -30,7 +30,7 @@
         <nav class="navbar navbar-expand-lg" id="navbar">
             <div class="container">
                 <a class="navbar-brand" href="/">
-                    <img src="images/logo-mini.jpg" alt="JVCJobs" width="75%" height="75%" />
+                    <img src="/images/logo-mini.jpg" alt="JVCJobs" width="75%" height="75%" />
                 </a>
                 <button
                     class="navbar-toggler"
@@ -46,10 +46,10 @@
                 <div class="collapse navbar-collapse" id="navbar-items">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                            <a class="nav-link {{ Request::is('/') ? ' active' : '' }}" aria-current="page" href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('vagas.listar') }}">Vagas</a>
+                            <a class="nav-link {{ Request::is('vagas') ? ' active' : '' }}" href="{{ route('vagas.listar') }}">Vagas</a>
                         </li>
 
                         @if(auth()->user())
