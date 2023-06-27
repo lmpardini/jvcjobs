@@ -49,10 +49,7 @@
                             <a class="nav-link active" aria-current="page" href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="vagas">Vagas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contato">Contato</a>
+                            <a class="nav-link" href="{{ route('vagas.listar') }}">Vagas</a>
                         </li>
 
                         @if(auth()->user())
@@ -61,7 +58,7 @@
                                     Olá, {{ auth()->user()->name }}
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                    <li><button class="dropdown-item" type="button">Meus Dados</button></li>
+                                    <li><a href="{{ route('candidato.dados') }}" class="dropdown-item" type="button">Meus Dados</a></li>
                                     <li><button class="dropdown-item" type="button">Minhas Vagas</button></li>
                                     <li><button class="dropdown-item" type="button">Alterar Senha</button></li>
                                     <li><a href=" {{ route('auth.logout') }}" class="dropdown-item" type="button" >Sair</a></li>
@@ -83,9 +80,10 @@
         </nav>
     </div>
 </header>
-<body>
+<body class="content">
     @yield('content')
-    <footer class="bg-light text-center border-top">
+</body>
+    <footer class="mt-auto bg-light text-center border-top">
         <!-- Copyright -->
         <div class="text-center bg-light p-3">
             <p>© {{ \Carbon\Carbon::now()->format('Y') }} JVCJobs  - Todos os direitos reservados.</p>
@@ -134,5 +132,4 @@
             })
         })()
     </script>
-</body>
 </html>
