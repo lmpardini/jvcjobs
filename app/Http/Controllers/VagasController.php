@@ -9,6 +9,7 @@ class VagasController extends Controller
 {
     public function vagas(Request $request)
     {
+        $selectFiltro = Vagas::select('local', 'nome')->get();
 
         $cidades =  [];
         $cargos  =  [];
@@ -19,7 +20,7 @@ class VagasController extends Controller
             $query->where('nome', $request->cargo);
         })->get()->sortByDesc('destaque');
 
-        $vagas->map(function ($item) use (&$cargos, &$cidades) {
+        $selectFiltro->map(function ($item) use (&$cargos, &$cidades) {
            $cidades[] = $item->local;
            $cargos[] = $item->nome;
         });
