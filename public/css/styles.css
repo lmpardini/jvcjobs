@@ -324,3 +324,10 @@
 
 }
 /* Fim Login */
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Define uma altura mínima de 100% da altura da viewport */
+}
+
