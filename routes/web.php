@@ -36,8 +36,13 @@ Route::controller(\App\Http\Controllers\Auth\AuthController::class)
         Route::get('/logout', 'logout')->name('logout');
     });
 
-Route::get('contato', function () {
-    return view('contato');
-});
+Route::controller(\App\Http\Controllers\CandidatoController::class)
+    ->middleware('auth:sanctum')
+    ->prefix('candidato')
+    ->as('candidato.')
+    ->group(function () {
+        Route::get('/dados','meusDados')->name('dados');
+        Route::get('/vagas','minhasVagas')->name('vagas');
+    });
 
 

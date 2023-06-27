@@ -5,25 +5,24 @@
     <div class="container mt-3 mb-3">
         <div class="row">
             <div class="col-sm-3 pb-3">
-                <form class="row g-3">
+                <form action=" {{ route('vagas.listar') }}" class="row g-3">
                     <div class="col-12">
                         <label for="cidade" class="form-label">Cidade</label>
-                        <select id="cidade" class="form-select">
-                            <option selected>Todas</option>
-                            <option>Amparo</option>
-                            <option>Caraguatatuba</option>
-                            <option>Cubatão</option>
-                            <option>Ilhabela</option>
-                            <option>Itatiba</option>
+                        <select id="cidade" class="form-select" name="cidade">
+                            <option value="todos" selected>Todas</option>
+                            @foreach($cidades as $cidade)
+                                <option value="{{ $cidade }}">{{$cidade}}</option>
+                            @endforeach
+
                         </select>
                     </div>
                     <div class="col-12">
                         <label for="cidade" class="form-label">Cargo</label>
-                        <select id="cidade" class="form-select">
-                            <option selected>Todos</option>
-                            <option>Funileiro</option>
-                            <option>Mecânico</option>
-                            <option>Técnico em Informática</option>
+                        <select id="cidade" class="form-select" name="cargo">
+                            <option value="todos" selected>Todos</option>
+                            @foreach($cargos as $cargo)
+                                <option value="{{ $cargo }}">{{ $cargo }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-12">
