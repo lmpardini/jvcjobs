@@ -13,7 +13,6 @@
                             @foreach($cidades as $cidade)
                                 <option value="{{ $cidade }}">{{$cidade}}</option>
                             @endforeach
-
                         </select>
                     </div>
                     <div class="col-12">
