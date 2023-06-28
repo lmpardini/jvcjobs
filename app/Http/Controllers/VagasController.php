@@ -32,6 +32,8 @@ class VagasController extends Controller
             'vagas' => $vagas,
             'cidades' => $cidades,
             'cargos' => $cargos,
+            'input_cidade' => $request->cidade,
+            'input_cargo' => $request->cargo,
         ]);
     }
 

@@ -58,8 +58,8 @@
                                     Olá, {{ auth()->user()->name }}
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                    <li><a href="{{ route('candidato.dados') }}" class="dropdown-item" type="button">Meus Dados</a></li>
-                                    <li><button class="dropdown-item" type="button">Minhas Vagas</button></li>
+                                    <li><a href="{{ route('candidato.dados') }}" class="dropdown-item {{ Request::is('candidato/dados') ? ' active' : '' }}" type="button">Meus Dados</a></li>
+                                    <li><a href="{{ route('candidato.minhas-vagas') }}" class="dropdown-item {{ Request::is('candidato/vagas') ? ' active' : '' }}" type="button">Minhas Vagas</a></li>
                                     <li><button class="dropdown-item" type="button">Alterar Senha</button></li>
                                     <li><a href=" {{ route('auth.logout') }}" class="dropdown-item" type="button" >Sair</a></li>
                                 </ul>

@@ -11,7 +11,7 @@
                         <select id="cidade" class="form-select" name="cidade">
                             <option value="todos" selected>Todas</option>
                             @foreach($cidades as $cidade)
-                                <option value="{{ $cidade }}">{{$cidade}}</option>
+                                <option value="{{ $cidade }}" @selected($input_cidade === $cidade)>{{$cidade}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -20,7 +20,7 @@
                         <select id="cidade" class="form-select" name="cargo">
                             <option value="todos" selected>Todos</option>
                             @foreach($cargos as $cargo)
-                                <option value="{{ $cargo }}">{{ $cargo }}</option>
+                                <option value="{{ $cargo }}" @selected($input_cargo === $cargo)>{{ $cargo }}</option>
                             @endforeach
                         </select>
                     </div>
