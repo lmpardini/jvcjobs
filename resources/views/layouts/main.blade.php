@@ -83,7 +83,7 @@
 <body class="content">
     @yield('content')
 </body>
-    <footer class="mt-auto bg-light text-center border-top">
+    <footer class="mt-auto bg-light text-center border-top" id="rodape">
         <!-- Copyright -->
         <div class="text-center bg-light p-3">
             <p>© {{ \Carbon\Carbon::now()->format('Y') }} JVCJobs  - Todos os direitos reservados.</p>
@@ -131,5 +131,16 @@
                 }, false)
             })
         })()
+    </script>
+    <script>
+        let doc = $(document).height();
+        let win = $(window).height();
+        const footer = document.getElementById("rodape");
+
+        if (doc > win) {
+            footer.classList.remove("fixed-bottom");
+        } else {
+            footer.classList.add("fixed-bottom");
+        }
     </script>
 </html>

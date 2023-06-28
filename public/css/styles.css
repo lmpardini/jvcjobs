@@ -48,6 +48,15 @@ a {
   border-bottom: 1px solid #050505;
 }
 
+#navbar .dropdown .active {
+    border: none;
+    background-color: #e0e0e0;
+}
+
+#navbar .dropdown a:hover {
+    background-color: transparent;
+}
+
 .navbar-brand {
   display: flex;
 }
@@ -329,10 +338,4 @@ a {
 
 }
 /* Fim Login */
-
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Define uma altura mínima de 100% da altura da viewport */
-}
 
