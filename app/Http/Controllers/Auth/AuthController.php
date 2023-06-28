@@ -60,7 +60,12 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return back()->withInput(['cpf' => $request->cpf])->withErrors($validator->errors());
+            return back()->withInput([
+                'cpf'       => $request->cpf,
+                'nome'      => $request->nome,
+                'sobrenome' => $request->sobrenome,
+                'email'     => $request->email,
+            ])->with('register', true)->withErrors($validator->errors());
         }
 
         $credenciais = [

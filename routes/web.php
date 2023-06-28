@@ -42,7 +42,7 @@ Route::controller(\App\Http\Controllers\CandidatoController::class)
     ->as('candidato.')
     ->group(function () {
         Route::get('/dados','meusDados')->name('dados');
-        Route::get('/vagas','minhasVagas')->name('vagas');
+        Route::get('/vagas','minhasVagas')->name('minhas-vagas');
     });
 
 
