@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vagas', function (Blueprint $table) {
+        Schema::create('status_vagas', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->string('local');
-            $table->integer('numero_candidatos');
-            $table->text('descricao');
-            $table->text('requisitos');
-            $table->boolean('destaque');
-            $table->boolean('ativo')->default(true);
+            $table->string('slug');
+            $table->string('status_vagas_transoft_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('vagas');
+        Schema::dropIfExists('status_vagas');
     }
 };

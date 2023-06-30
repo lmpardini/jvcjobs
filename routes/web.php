@@ -43,6 +43,7 @@ Route::controller(\App\Http\Controllers\CandidatoController::class)
     ->group(function () {
         Route::get('/dados','meusDados')->name('dados');
         Route::get('/vagas','minhasVagas')->name('minhas-vagas');
+        Route::post('/inscrever-vaga','candidatarVaga')->name('inscrever-vaga');
     });
 
 
