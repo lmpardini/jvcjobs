@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\LocalVaga;
+use App\Models\StatusVaga;
 use App\Models\Vagas;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -73,13 +75,24 @@ class VagasSeeder extends Seeder
         ];
 
         foreach($vagas as $item) {
+            /**
+             * @var StatusVaga $status
+             */
+            $status = StatusVaga::where('slug', 'em_processo')->first();
+
+            /**
+             * @var LocalVaga $local
+             */
+            $local = LocalVaga::where('nome', $item['local'])->first();
+
             $vaga = new Vagas();
             $vaga->nome = $item['nome'];
-            $vaga->local = $item['local'];
             $vaga->numero_candidatos = $item['numero_candidatos'];
             $vaga->descricao = $item['descricao'];
             $vaga->requisitos = $item['requisitos'];
             $vaga->destaque = $item['destaque'];
+            $vaga->status_vaga_id = $status->id;
+            $vaga->local_vaga_id = $local->id;
             $vaga->save();
         }
     }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Http\Controllers\VagasController;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -20,6 +21,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property Carbon $email_verified_at
  * @property string $password
  * @property boolean $ativo
+ * @property Candidato $Candidato
  * @property string $remember_token
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -58,4 +60,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function Candidato()
+    {
+        return $this->hasOne(Candidato::class, 'user_id', 'id');
+    }
 }

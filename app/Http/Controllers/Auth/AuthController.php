@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Candidato;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -85,8 +86,18 @@ class AuthController extends Controller
         $usuario->password = Hash::make($request->password_confirmation);
         $usuario->save();
 
-        return back()->withInput(['cpf' => $request->cpf])->with('success', 'Cadastro efetuado com sucesso');
+        $candidato = new Candidato();
+        $candidato->user_id = $usuario->id;
+        $candidato->save();
 
+        if (Auth::attempt($credenciais)) {
+
+            Session::regenerateToken();
+
+            return redirect()->route('vagas.listar')->with('success', 'Cadastro efetuado com sucesso');
+        }
+
+        return back()->withInput(['cpf' => $request->cpf])->with('success', 'Cadastro efetuado com sucesso');
     }
 
     public function logout(Request $request)
