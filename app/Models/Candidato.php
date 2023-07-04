@@ -103,6 +103,11 @@ class Candidato extends Model
         return $this->hasMany(CandidaturaVaga::class, 'candidato_id', 'id');
     }
 
+    public function CandidatoExperienciaProfissional()
+    {
+        return $this->hasMany(CandidadoExperienciaProfissional::class, 'candidato_id', 'id');
+    }
+
     public function Estado()
     {
         return $this->hasOne(Estado::class, 'id', 'estado_id');

@@ -23,11 +23,12 @@ class CandidatoController extends Controller
         $dadosSelectForm = CandidatoService::carregaDadosSelectFormularios();
 
         return view('candidato.dados',[
-            'genero'  => $dadosSelectForm[0]['genero'],
-            'estados' => $dadosSelectForm[1]['estados'],
-            'paises'  => $dadosSelectForm[2]['paises'],
-            'etnias'  => $dadosSelectForm[3]['etnias'],
-            'locais'  => $dadosSelectForm[4]['locais'],
+            'genero'                     => $dadosSelectForm[0]['genero'],
+            'estados'                    => $dadosSelectForm[1]['estados'],
+            'paises'                     => $dadosSelectForm[2]['paises'],
+            'etnias'                     => $dadosSelectForm[3]['etnias'],
+            'locais'                     => $dadosSelectForm[4]['locais'],
+            'experienciasProfissionais'  => auth()->user()->Candidato->CandidatoExperienciaProfissional,
         ]);
     }
 
