@@ -47,4 +47,13 @@ Route::controller(\App\Http\Controllers\CandidatoController::class)
         Route::put('/dados','editarDados')->name('dados-update');
     });
 
+Route::controller(\App\Http\Controllers\CandidadoExperienciaProfissionalController::class)
+    ->middleware('auth:sanctum')
+    ->prefix('candidato-experiencia')
+    ->as('candidato-experiencia.')
+    ->group(function () {
+        Route::post('/','novaExperiencia')->name('create');
+        Route::put('/dados','editarDados')->name('dados-update');
+    });
+
 
