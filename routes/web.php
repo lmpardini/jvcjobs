@@ -44,6 +44,7 @@ Route::controller(\App\Http\Controllers\CandidatoController::class)
         Route::get('/dados','meusDados')->name('dados');
         Route::get('/vagas','minhasVagas')->name('minhas-vagas');
         Route::post('/inscrever-vaga','candidatarVaga')->name('inscrever-vaga');
+        Route::put('/dados','editarDados')->name('dados-update');
     });
 
 

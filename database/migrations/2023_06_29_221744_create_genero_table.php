@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('candidatos', function (Blueprint $table) {
+        Schema::create('generos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->boolean('ativo')->default(true);
-            $table->boolean('primeiro_acesso')->default(true);
-            $table->timestamps();
+            $table->string('nome');
+            $table->string('slug');
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('candidatos');
+        Schema::dropIfExists('sexos');
     }
 };

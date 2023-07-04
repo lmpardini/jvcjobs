@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,6 +16,10 @@ class DatabaseSeeder extends Seeder
             LocalVagaSeeder::class,
             VagasSeeder::class,
             StatusCandidaturaSeeder::class,
+            EstadoSeeder::class,
+            PaisesSeeder::class,
+            EtniaSeeder::class,
+            GeneroSeeder::class
         ]);
     }
 }

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->boolean('destaque');
             $table->boolean('ativo')->default(true);
             $table->unsignedBigInteger('local_vaga_id');
-            $table->foreign('local_vaga_id')->references('id')->on('local_vagas');
+            $table->foreign('local_vaga_id')->references('id')->on('local');
             $table->unsignedBigInteger('status_vaga_id');
             $table->foreign('status_vaga_id')->references('id')->on('status_vagas');
             $table->timestamps();
