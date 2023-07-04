@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\LocalVaga;
+use App\Models\Local;
 use App\Models\StatusVaga;
 use App\Models\Vagas;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -81,9 +81,9 @@ class VagasSeeder extends Seeder
             $status = StatusVaga::where('slug', 'em_processo')->first();
 
             /**
-             * @var LocalVaga $local
+             * @var Local $local
              */
-            $local = LocalVaga::where('nome', $item['local'])->first();
+            $local = Local::where('nome', $item['local'])->first();
 
             $vaga = new Vagas();
             $vaga->nome = $item['nome'];

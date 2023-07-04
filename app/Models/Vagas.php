@@ -22,7 +22,7 @@ use Carbon\Carbon;
  * @property integer $status_vaga_id
  * @property StatusVaga $StatusVaga
  * @property integer $local_vaga_id
- * @property LocalVaga $LocalVaga
+ * @property Local $Local
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Carbon $deleted_at
@@ -46,6 +46,6 @@ class Vagas extends Model
     }
     public function LocalVaga()
     {
-        return $this->hasOne(LocalVaga::class, 'id', 'local_vaga_id');
+        return $this->hasOne(Local::class, 'id', 'local_vaga_id');
     }
 }

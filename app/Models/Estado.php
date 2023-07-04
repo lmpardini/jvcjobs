@@ -8,26 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * LocalVaga Class
+ * Estado Class
  *
  * @property integer $id
  * @property string $nome
  * @property string $slug
- * @property integer $local_vaga_transoft_id
+ * @property string $abreviacao
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Carbon $deleted_at
  */
 
-class LocalVaga extends Model
+class Estado extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'local_vagas';
+    protected $table = 'estados';
 
     protected $hidden = [
-      'created_at',
-      'updated_at',
-      'deleted_at',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 }

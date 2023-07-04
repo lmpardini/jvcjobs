@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('local_vagas', function (Blueprint $table) {
+        Schema::create('paises', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
             $table->string('slug');
-            $table->string('local_vaga_transoft_id')->nullable();
-            $table->timestamps();
+            $table->string('abreviacao');
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('local_vagas');
+        Schema::dropIfExists('pais');
     }
 };

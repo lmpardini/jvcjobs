@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\LocalVaga;
+use App\Models\Local;
 use App\Models\StatusVaga;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -56,7 +56,7 @@ class LocalVagaSeeder extends Seeder
 
         foreach ($localVaga as $value) {
 
-            $status = new LocalVaga();
+            $status = new Local();
             $status->nome = $value['local'];
             $status->slug = Str::slug($value['local'], '_');
             $status->save();

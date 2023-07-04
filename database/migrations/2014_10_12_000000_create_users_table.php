@@ -19,7 +19,8 @@ return new class extends Migration
             $table->bigInteger('cpf')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('ativo')->default(false);
+            $table->boolean('ativo')->default(true);
+            $table->boolean('primeiro_acesso')->default(true);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
