@@ -19,7 +19,7 @@
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
                                 data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
-                                aria-selected="true">Experiencias Profissioanis
+                                aria-selected="true">Experiências Profissionais
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">

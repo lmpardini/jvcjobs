@@ -95,7 +95,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+    <script src="/js/scripts.js"></script>
 
     @if($errors)
         @foreach($errors->messages() as $errorMessage)
@@ -131,16 +131,5 @@
                 }, false)
             })
         })()
-    </script>
-    <script>
-        let doc = $(document).height();
-        let win = $(window).height();
-        const footer = document.getElementById("rodape");
-
-        if (doc > win) {
-            footer.classList.remove("fixed-bottom");
-        } else {
-            footer.classList.add("fixed-bottom");
-        }
     </script>
 </html>
