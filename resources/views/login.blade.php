@@ -2,7 +2,7 @@
 
 @section('content')
 <main>
-    <div class="container pt-5 pb-5" style="min-height: 500px;">
+    <div class="container pt-5 pb-5">
         <div class="row justify-content-center">
             <div class="col-lg-4 col-sm-12">
                 <div class="pb-2">
@@ -15,7 +15,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="tab-content" id="pills-tabContent">
+                <div class="tab-content" id="pills-tabContent" style="min-height: 346px;">
                     <div class="tab-pane fade {{ !session()->has('register') ? ' show active' : '' }}" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                         <div class="text-center p-3"><h4>Login</h4></div>
                         <form action="{{ route('auth.do') }}" method="post" class="needs-validation" novalidate autocomplete="off">
@@ -67,7 +67,7 @@
                             <div class="mb-3">
                                 <label for="password_confirmation" class="form-label">Confirme sua Senha</label>
                                 <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
-                                <div class="invalid-feedback">Informe o seu CPF</div>
+                                <div class="invalid-feedback">Repita sua Senha</div>
                             </div>
 
                             <div class="text-center mb-3">
