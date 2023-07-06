@@ -157,24 +157,14 @@
                         </div>
 
                         <div class="row">
-                            <div class="col">
+                            <div class="col-2">
                                 <div class="mb-3">
                                     <label for="cep" class="form-label">CEP</label>
                                     <input type="number" class="form-control" id="cep" name="cep" required
-                                           value="@if(old('cep')){{ old('cep') }}@else{{ auth()->user()->Candidato->cep }}@endif">
+                                           value="@if(old('cep')){{ old('cep') }}@else{{ auth()->user()->Candidato->cep }}@endif" onblur="pesquisacep()">
                                     <div class="invalid-feedback">Informe o CEP</div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <button class="btn btn-primary" style="margin-top: 30px;"
-                                            onclick="@CandidatoController"> Buscar CEP
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
                             <div class="col-10">
                                 <div class="mb-3">
                                     <label for="endereco" class="form-label">Endereço</label>
@@ -183,6 +173,8 @@
                                     <div class="invalid-feedback">Informe o endereço</div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-2">
                                 <div class="mb-3">
                                     <label for="numero" class="form-label">Número</label>
@@ -191,8 +183,6 @@
                                     <div class="invalid-feedback">Informe o número</div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col">
                                 <div class="mb-3">
                                     <label for="complemento" class="form-label">Complemento</label>
