@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Estado $Estado
  * @property integer $pais_id
  * @property Paises $Pais
- * @property string $cargo
  * @property string $funcao
  * @property string $salario
  * @property string $observacao

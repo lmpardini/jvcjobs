@@ -15,7 +15,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="tab-content" id="pills-tabContent" style="min-height: 346px;">
+                <div class="tab-content" id="pills-tabContent" style="min-height: 400px;">
                     <div class="tab-pane fade {{ !session()->has('register') ? ' show active' : '' }}" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                         <div class="text-center p-3"><h4>Login</h4></div>
                         <form action="{{ route('auth.do') }}" method="post" class="needs-validation" novalidate autocomplete="off">
