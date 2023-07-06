@@ -26,7 +26,7 @@ class CandidadoExperienciaProfissionalController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return back()->withErrors($validator->errors())->withInput($request->input());
+            return back()->withErrors($validator->errors())->withInput($request->input())->with('aba', 'experiencia');
         }
 
         try {
@@ -47,7 +47,7 @@ class CandidadoExperienciaProfissionalController extends Controller
 
             DB::commit();
 
-            return back()->with(['success' => 'Cadastro atualizado com sucesso!','aba' => 'experiencia']);
+            return back()->with(['success' => 'Experiencia Profissional cadastrada com sucesso!','aba' => 'experiencia']);
 
         } catch (\Exception $e){
             DB::rollBack();
@@ -72,7 +72,7 @@ class CandidadoExperienciaProfissionalController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return back()->withErrors($validator->errors())->withInput($request->input());
+            return back()->withErrors($validator->errors())->withInput($request->input())->with('aba', 'experiencia');
         }
 
         try {
@@ -97,7 +97,7 @@ class CandidadoExperienciaProfissionalController extends Controller
 
             DB::commit();
 
-            return back()->with(['success' => 'Cadastro atualizado com sucesso!','aba' => 'experiencia']);
+            return back()->with(['success' => 'Experiencia Profissional atualizada com sucesso!','aba' => 'experiencia']);
 
         } catch (\Exception $e){
             DB::rollBack();
@@ -105,17 +105,15 @@ class CandidadoExperienciaProfissionalController extends Controller
         }
     }
 
-    public function deletarExperiencia(Request $request, int $id)
+    public function deletarExperiencia(Request $request)
     {
 
-        dd($id);
-//        dd($request->all());
         $validator = Validator::make($request->all(), [
-            'id' => 'required|exists:candidado_experiencia_profissionals,id',
+            'experiencia_id' => 'required|exists:candidado_experiencia_profissionals,id',
         ]);
 
         if ($validator->fails()) {
-            return back()->withErrors($validator->errors())->withInput($request->input());
+            return back()->withErrors($validator->errors())->withInput($request->input())->with('aba', 'experiencia');
         }
 
         try {
@@ -124,7 +122,7 @@ class CandidadoExperienciaProfissionalController extends Controller
             /**
              * @var CandidadoExperienciaProfissional $experiencia
              */
-            $experiencia = CandidadoExperienciaProfissional::whereId($request->id)->first();
+            $experiencia = CandidadoExperienciaProfissional::whereId($request->experiencia_id)->first();
 
             $experiencia->delete();
 

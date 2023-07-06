@@ -106,21 +106,19 @@ function habilitaForm(id) {
     }
 }
 
-function submitForm(id, token) {
+function submitForm(experienciaId) {
 
+    var formDelete = document.getElementById('formDelete');
 
+    var inputExperienciaId = document.createElement('input');
+         inputExperienciaId.type = 'hidden';
+         inputExperienciaId.name = 'experiencia_id';
+         inputExperienciaId.value = experienciaId;
 
+    formDelete.appendChild(inputExperienciaId);
 
-
-
-
-     const inputDelete = document.getElementById('delete'+id);
-     var formDelete = document.getElementById('formDelete');
-
-
-     inputDelete.setAttribute('value', id)
+    document.body.appendChild(formDelete);
 
      console.log(formDelete)
      formDelete.submit();
 }
-

@@ -718,12 +718,11 @@
 
                 @foreach($experienciasProfissionais as $experiencia)
 
-                    <form action="{{ route('candidato-experiencia.delete', ['id' => $experiencia->id]) }}" method="POST" id="formDelete">
+                    <form action="{{ route('candidato-experiencia.delete') }}" method="POST" id="formDelete">
                         @csrf
-                        <input type="text" class="form-control" id="{{'delete'.$experiencia->id}}" name="experiencia_id" value="2" >
                         @method('DELETE')
-{{--                        <button class="btn btn-danger {{ 'button'.$experiencia->id }}" type="submit"  style="display: block">Excluir</button>--}}
                     </form>
+
                 <div class="card" style="margin-bottom: 10px">
                     <div class="card-body">
                         <form method="POST" action=" {{ route('candidato-experiencia.update') }}" >
@@ -735,9 +734,7 @@
 
                                 <button class="btn btn-success {{ 'button'.$experiencia->id }}" type="submit"  style="display: none">Salvar</button>
 
-                                <button  class="btn btn-danger {{ 'button'.$experiencia->id }}" type="button" onclick="submitForm({{ $experiencia->id  }})" style="display: block">Excluir</button>
-
-
+                                <button  class="btn btn-danger {{ 'button'.$experiencia->id }}" type="button" onclick="submitForm({{ $experiencia->id  }})" style="display: block; margin-right: 5px ">Excluir</button>
 
                                 <button class="btn btn-primary {{ 'button'.$experiencia->id }}" type="button"  style="display: block" onclick="habilitaForm({{ $experiencia->id }})">Editar</button>
                             </div>
@@ -922,14 +919,13 @@
 
                         </div>
 
-                        <button type="button" class="btn btn-danger" onclick="ocultarAddExperiencia('botao_add_experiencia','adicionar_experiencia')">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
-
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-danger" onclick="ocultarAddExperiencia('botao_add_experiencia','adicionar_experiencia')" style="margin-right: 5px">Cancelar</button>
+                            <button type="submit" class="btn btn-success">Salvar</button>
+                        </div>
                     </form>
                 </div>
-
             </div>
-
 
             <div class="tab-pane fade" id="pills-profile-academy" role="tabpanel" aria-labelledby="pills-profile-academy-tab">
                 <h2>Formação Academica...</h2>
