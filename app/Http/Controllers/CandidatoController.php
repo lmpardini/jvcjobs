@@ -28,7 +28,7 @@ class CandidatoController extends Controller
             'paises'                     => $dadosSelectForm[2]['paises'],
             'etnias'                     => $dadosSelectForm[3]['etnias'],
             'locais'                     => $dadosSelectForm[4]['locais'],
-            'experienciasProfissionais'  => auth()->user()->Candidato->CandidatoExperienciaProfissional,
+            'experienciasProfissionais'  => auth()->user()->Candidato->CandidatoExperienciaProfissional->sortByDesc('data_inicio'),
         ])->with('aba', 'dados');
     }
 
