@@ -519,8 +519,10 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="curso_transporte_coletivo"
                                                name="curso_transporte_coletivo"
-                                               value="{{ auth()->user()->Candidato->curso_transporte_coletivo }}"
-                                               onchange="exibeCamposCheckbox('curso_transporte_coletivo', 'campo_validade_coletivo')">
+                                               value="1"
+                                               {{ auth()->user()->Candidato->curso_transporte_coletivo ? 'checked' : '' }}
+                                               onchange="exibeCamposCheckbox('curso_transporte_coletivo', 'campo_validade_coletivo');
+                                               limparCampoaoClicar('curso_transporte_coletivo','validade_curso_transporte_coletivo')">
                                         <label class="form-check-label" for="curso_transporte_coletivo">Sim</label>
                                     </div>
                                 </div>
@@ -542,9 +544,10 @@
                                         Escolar?</label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="curso_transporte_escolar"
-                                               name="curso_transporte_escolar"
-                                               value="{{ auth()->user()->Candidato->curso_transporte_escolar }}"
-                                               onchange="exibeCamposCheckbox('curso_transporte_escolar', 'campo_validade_transporte_escolar')">
+                                               name="curso_transporte_escolar" value="1"
+                                               onchange="exibeCamposCheckbox('curso_transporte_escolar', 'campo_validade_transporte_escolar');
+                                               limparCampoaoClicar('curso_transporte_escolar','validade_curso_transporte_escolar')"
+                                            {{ auth()->user()->Candidato->curso_transporte_escolar ? 'checked' : ''}}>
                                         <label class="form-check-label" for="curso_transporte_escolar">Sim</label>
                                     </div>
                                 </div>
@@ -567,12 +570,19 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="trabalhou_empresa"
                                                name="trabalhou_empresa"
-                                               value="{{ auth()->user()->Candidato->trabalhou_empresa }}" onchange="exibirTrabalhouEmpresa(
+                                               {{ auth()->user()->Candidato->trabalhou_empresa ? 'checked' : '' }}
+                                               value="1" onchange="exibirTrabalhouEmpresa(
                                                    'trabalhou_empresa',
                                                    'campo_trabalhou_empresa_data_entrada',
                                                    'campo_trabalhou_empresa_data_saida',
                                                    'campo_trabalhou_empresa_setor',
                                                    'campo_trabalhou_empresa_local_trabalhou'
+                                               );limpar4CamposaoClicar(
+                                                   'trabalhou_empresa',
+                                                   'trabalhou_empresa_data_entrada',
+                                                   'trabalhou_empresa_data_saida',
+                                                   'trabalhou_empresa_setor',
+                                                   'trabalhou_empresa_local_id',
                                                )">
                                         <label class="form-check-label" for="trabalhou_empresa">Sim</label>
                                     </div>
@@ -629,11 +639,18 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="parente_funcionario"
                                                name="parente_funcionario"
-                                               value="{{ auth()->user()->Candidato->parente_funcionario }}" onchange="exibirParenteIndicacaoEmpresa(
+                                               value="1" {{ auth()->user()->Candidato->parente_funcionario ? 'checked' : '' }}
+                                               onchange="exibirParenteIndicacaoEmpresa(
                                                    'parente_funcionario',
                                                    'campo_nome_parente',
                                                    'campo_setor_parente',
                                                    'campo_parente_local',
+                                               ); limparCamposaoClicar(
+                                                   'parente_funcionario',
+                                                   'nome_parente',
+                                                   'setor_parente',
+                                                   'parente_funcionario_local_id'
+
                                                )">
                                         <label class="form-check-label" for="parente_funcionario">Sim</label>
                                     </div>
@@ -673,12 +690,17 @@
                                 <div class="mb-3">
                                     <label class="form-label" for="indicacao_colaborador">Indicação do Colaborador:</label><br>
                                     <input class="form-check-input" type="checkbox" id="indicacao_colaborador" name="indicacao_colaborador"
-                                           value="{{ auth()->user()->Candidato->indicacao_colaborador }}"
+                                           value="1" {{ auth()->user()->Candidato->indicacao_colaborador ? 'checked' :'' }}
                                            onchange="exibirParenteIndicacaoEmpresa(
                                                    'indicacao_colaborador',
                                                    'campo_nome_indicacao',
                                                    'campo_setor_indicacao',
-                                                   'campo_indicacao_local',
+                                                   'campo_indicacao_local'
+                                               ); limparCamposaoClicar(
+                                                   'indicacao_colaborador',
+                                                   'nome_colaborador',
+                                                   'setor_colaborador',
+                                                   'indicacao_colaborador_local_id'
                                                )">
                                     <label class="form-check-label" for="indicacao_colaborador">Sim</label>
                                 </div>
@@ -699,8 +721,8 @@
                             </div>
                             <div class="col">
                                 <div class="mb-3" id="campo_indicacao_local" style="display: none">
-                                    <label for="parente_funcionario_local_id" class="form-label">Local que o indicado trabalha</label>
-                                    <select name="parente_funcionario_local_id" id="parente_funcionario_local_id"
+                                    <label for="indicacao_colaborador_local_id" class="form-label">Local que o indicado trabalha</label>
+                                    <select name="indicacao_colaborador_local_id" id="indicacao_colaborador_local_id"
                                             class="form-select">
                                         <option selected disabled>Selecione o local</option>
                                         @foreach($locais as $value)
@@ -1116,6 +1138,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+
             exibeCamposCheckbox('curso_transporte_coletivo', 'campo_validade_coletivo');
             exibeCamposCheckbox('curso_transporte_escolar', 'campo_validade_transporte_escolar');
             exibirParenteIndicacaoEmpresa(
@@ -1123,6 +1146,20 @@
                 'campo_nome_parente',
                 'campo_setor_parente',
                 'campo_parente_local',
+            );
+            exibirTrabalhouEmpresa(
+                'trabalhou_empresa',
+                'campo_trabalhou_empresa_data_entrada',
+                'campo_trabalhou_empresa_data_saida',
+                'campo_trabalhou_empresa_setor',
+                'campo_trabalhou_empresa_local_trabalhou'
+            );
+
+            exibirParenteIndicacaoEmpresa(
+                'indicacao_colaborador',
+                'campo_nome_indicacao',
+                'campo_setor_indicacao',
+                'campo_indicacao_local'
             );
         });
     </script>

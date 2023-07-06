@@ -19,6 +19,16 @@ function exibeCamposCheckbox(checkboxId, dataFieldsId) {
     }
 }
 
+function limparCampoaoClicar(checkboxId, input1) {
+    const checkbox = document.getElementById(checkboxId);
+
+    if (!checkbox.checked) {
+        const inp1 = document.getElementById(input1);
+
+        inp1.value = ''
+    }
+}
+
 function exibirTrabalhouEmpresa(checkboxId, dataEntrada, dataSaida, setor, localTrabalhou) {
     const checkbox = document.getElementById(checkboxId);
     const dataEntradaEmpresa = document.getElementById(dataEntrada);
@@ -39,12 +49,27 @@ function exibirTrabalhouEmpresa(checkboxId, dataEntrada, dataSaida, setor, local
     }
 }
 
-function exibirParenteIndicacaoEmpresa(checkboxId, nomeParente, setorParente, localTrabalhoParente) {
+function limpar4CamposaoClicar(checkboxId, input1, input2, input3, input4) {
+    const checkbox = document.getElementById(checkboxId);
+
+    if (!checkbox.checked) {
+        const inp1 = document.getElementById(input1);
+        const inp2 = document.getElementById(input2);
+        const inp3 = document.getElementById(input3);
+        const inp4 = document.getElementById(input4);
+
+        inp1.value = ''
+        inp2.value = ''
+        inp3.value = ''
+        inp4.value = ''
+    }
+}
+
+function exibirParenteIndicacaoEmpresa(checkboxId, nomeParente, setorParente, localTrabalhoParente, ) {
     const checkbox = document.getElementById(checkboxId);
     const nomeParenteEmpresa = document.getElementById(nomeParente);
     const setorParenteEmpresa = document.getElementById(setorParente);
     const localTrabalhoEmpresa = document.getElementById(localTrabalhoParente);
-
 
     if (checkbox.checked) {
         nomeParenteEmpresa.style.display = 'block';
@@ -54,6 +79,20 @@ function exibirParenteIndicacaoEmpresa(checkboxId, nomeParente, setorParente, lo
         nomeParenteEmpresa.style.display = 'none';
         setorParenteEmpresa.style.display = 'none';
         localTrabalhoEmpresa.style.display = 'none';
+    }
+}
+
+function limparCamposaoClicar(checkboxId, input1, input2, input3){
+    const checkbox = document.getElementById(checkboxId);
+
+    if (!checkbox.checked) {
+        const inp1 = document.getElementById(input1);
+        const inp2 = document.getElementById(input2);
+        const inp3 = document.getElementById(input3);
+
+        inp1.value = ''
+        inp2.value = ''
+        inp3.value = ''
     }
 }
 
@@ -72,9 +111,7 @@ function ocultarAddExperiencia(botaoAdd, formAdd) {
 
     botao.style.display = 'block';
     form.style.display = 'none';
-
 }
-
 
 function habilitaForm(button,form, buttonAdd, id) {
 
