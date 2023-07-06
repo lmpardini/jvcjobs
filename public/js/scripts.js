@@ -76,14 +76,17 @@ function ocultarAddExperiencia(botaoAdd, formAdd) {
 }
 
 
-function habilitaForm(id) {
+function habilitaForm(button,form, buttonAdd, id) {
 
-    const buttonEditar = document.getElementById('buttonEditar'+id);
-    const buttonSalvar = document.getElementById('buttonSalvar'+id);
-    const buttonCancelar = document.getElementById('buttonCancelar'+id);
+    const btnAdd = document.getElementById(buttonAdd);
+    var inputs = document.getElementsByClassName(form+id);
+    var buttons = document.getElementsByClassName(button+id);
 
-    var inputs = document.getElementsByClassName('form'+id);
-    var buttons = document.getElementsByClassName('button'+id);
+    if (btnAdd.style.display === 'none') {
+        btnAdd.style.display = 'block';
+    } else {
+        btnAdd.style.display = 'none';
+    }
 
     for (var i = 0; i < buttons.length; i++) {
         var elemento = buttons[i];
@@ -106,9 +109,9 @@ function habilitaForm(id) {
     }
 }
 
-function submitForm(experienciaId) {
+function submitForm(form, experienciaId) {
 
-    var formDelete = document.getElementById('formDelete');
+    var formDelete = document.getElementById(form);
 
     var inputExperienciaId = document.createElement('input');
          inputExperienciaId.type = 'hidden';

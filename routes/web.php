@@ -57,4 +57,14 @@ Route::controller(\App\Http\Controllers\CandidadoExperienciaProfissionalControll
         Route::delete('/excluir/','deletarExperiencia')->name('delete');
     });
 
+Route::controller(\App\Http\Controllers\CandidatoFormacaoAcademicaController::class)
+    ->middleware('auth:sanctum')
+    ->prefix('candidato-formacao')
+    ->as('candidato-formacao.')
+    ->group(function () {
+        Route::post('/','novaFormacao')->name('create');
+        Route::put('/','editarFormacao')->name('update');
+        Route::delete('/excluir/','deletarFormacao')->name('delete');
+    });
+
 

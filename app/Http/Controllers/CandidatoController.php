@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Candidato;
 use App\Models\CandidaturaVaga;
+use App\Models\Escolaridade;
 use App\Models\Estado;
 use App\Models\Etnia;
 use App\Models\Genero;
@@ -28,7 +29,11 @@ class CandidatoController extends Controller
             'paises'                     => $dadosSelectForm[2]['paises'],
             'etnias'                     => $dadosSelectForm[3]['etnias'],
             'locais'                     => $dadosSelectForm[4]['locais'],
+            'escolaridades'              => $dadosSelectForm[5]['escolaridades'],
+            'modalidades'                => $dadosSelectForm[6]['modalidades'],
+            'statusFormacao'             => $dadosSelectForm[7]['statusFormacao'],
             'experienciasProfissionais'  => auth()->user()->Candidato->CandidatoExperienciaProfissional->sortByDesc('data_inicio'),
+            'formacaoAcademicas'         => auth()->user()->Candidato->CandidatoFormacaoAcademica->sortByDesc('data_inicio'),
         ])->with('aba', 'dados');
     }
 
@@ -42,6 +47,7 @@ class CandidatoController extends Controller
             "data_nascimento"                       => "required|date_format:Y-m-d",
             "genero_id"                             => "required|numeric",
             "etnia_id"                              => "required|numeric",
+            "escolaridade_id"                       => "required|numeric",
             "rg"                                    => "required|string",
             "rg_orgao_emissor"                      => "required|string",
             "cep"                                   => "required|numeric",
@@ -119,6 +125,15 @@ class CandidatoController extends Controller
 
             if (!$etnia){
                 return back()->withErrors(["Mensagem" => "Etnia informada não é valida"])->withInput($request->input());
+            }
+
+            /**
+             * @var Escolaridade $escolaridade
+             */
+            $escolaridade = Escolaridade::whereId($request->escolaridade_id)->first();
+
+            if (!$escolaridade){
+                return back()->withErrors(["Mensagem" => "Escolaridade informada não é valida"])->withInput($request->input());
             }
 
             /**
@@ -223,6 +238,7 @@ class CandidatoController extends Controller
             $candidato->indicacao_colaborador_local_id = isset($localIndicacaoFuncionario) ? $localIndicacaoFuncionario->id : null;
             $candidato->genero_id = $genero->id;
             $candidato->etnia_id = $etnia->id;
+            $candidato->escolaridade_id = $escolaridade->id;
             $candidato->estado_id = $estado->id;
             $candidato->pais_id = $pais->id;
             $candidato->ctps_estado_id = isset($estadoCTPS) ? $estadoCTPS->id : null;
