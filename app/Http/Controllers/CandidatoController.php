@@ -29,7 +29,7 @@ class CandidatoController extends Controller
             'etnias'                     => $dadosSelectForm[3]['etnias'],
             'locais'                     => $dadosSelectForm[4]['locais'],
             'experienciasProfissionais'  => auth()->user()->Candidato->CandidatoExperienciaProfissional,
-        ]);
+        ])->with('aba', 'dados');
     }
 
     public function editarDados(Request $request)

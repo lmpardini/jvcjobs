@@ -53,7 +53,8 @@ Route::controller(\App\Http\Controllers\CandidadoExperienciaProfissionalControll
     ->as('candidato-experiencia.')
     ->group(function () {
         Route::post('/','novaExperiencia')->name('create');
-        Route::put('/dados','editarDados')->name('dados-update');
+        Route::put('/','editarExperiencia')->name('update');
+        Route::delete('/excluir/{id}','deletarExperiencia')->name('delete');
     });
 
 

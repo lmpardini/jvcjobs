@@ -21,7 +21,6 @@ return new class extends Migration
             $table->foreign('estado_id')->references('id')->on('estados');
             $table->unsignedBigInteger('pais_id');
             $table->foreign('pais_id')->references('id')->on('paises');
-            $table->string('cargo');
             $table->string('funcao');
             $table->string('salario')->nullable();
             $table->date('data_inicio');
