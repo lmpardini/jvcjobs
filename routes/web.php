@@ -54,7 +54,7 @@ Route::controller(\App\Http\Controllers\CandidadoExperienciaProfissionalControll
     ->group(function () {
         Route::post('/','novaExperiencia')->name('create');
         Route::put('/','editarExperiencia')->name('update');
-        Route::delete('/excluir/{id}','deletarExperiencia')->name('delete');
+        Route::delete('/excluir/','deletarExperiencia')->name('delete');
     });
 
 
