@@ -11,7 +11,7 @@
             <div class="pb-2">
                 <ul class="nav nav-pills nav-justified mb-3" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link {{ session()->has('aba') && session()->get('aba') === 'experiencia' ? '' : 'active' }}" id="pills-home-tab" data-bs-toggle="pill"
+                        <button class="nav-link {{ session()->has('aba') && session()->get('aba') === 'experiencia'|| session()->has('aba') && session()->get('aba') === 'formacao' ? '' : 'active' }}" id="pills-home-tab" data-bs-toggle="pill"
                                 data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
                                 aria-selected="false">Dados Pessoais
                         </button>
@@ -23,7 +23,7 @@
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link  @if(auth()->user()->primeiro_acesso) disabled @endif" id="pills-profile-tab" data-bs-toggle="pill"
+                        <button class="nav-link {{ session()->has('aba') && session()->get('aba') === 'formacao' ? 'show active' : '' }}@if(auth()->user()->primeiro_acesso) disabled @endif" id="pills-profile-tab" data-bs-toggle="pill"
                                 data-bs-target="#pills-profile-academy" type="button" role="tab"
                                 aria-controls="pills-profile-academy" aria-selected="true">Formação Academica
                         </button>
@@ -32,7 +32,7 @@
             </div>
             <div class="tab-content" id="pills-tabContent">
 
-                <div class="tab-pane fade {{ session()->has('aba') && session()->get('aba') === 'experiencia' ? '' : 'show active' }}" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div class="tab-pane fade {{ session()->has('aba') && session()->get('aba') === 'experiencia' || session()->has('aba') && session()->get('aba') === 'formacao' ? '' : 'show active' }}" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                     <form method="POST" class="needs-validation" novalidate autocomplete="off">
                         @csrf
                         @method('PUT')
@@ -119,6 +119,19 @@
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">Selecione o estado</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3">
+                                    <label for="etnia_id" class="form-label">Escolaridade</label>
+                                    <select name="escolaridade_id" id="escolaridade_id" class="form-select">
+                                        <option selected disabled>Selecione a escolaridade</option>
+                                        @foreach($escolaridades as $value)
+                                            <option value="{{ $value->id }}"
+                                                    @if(auth()->user()->Candidato->Escolaridade && auth()->user()->Candidato->Escolaridade->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Selecione a escolaridade</div>
                                 </div>
                             </div>
                         </div>
@@ -717,7 +730,7 @@
 
                     @foreach($experienciasProfissionais as $experiencia)
 
-                        <form action="{{ route('candidato-experiencia.delete') }}" method="POST" id="formDelete">
+                        <form action="{{ route('candidato-experiencia.delete') }}" method="POST" id="formDeleteExperiencia">
                             @csrf
                             @method('DELETE')
                         </form>
@@ -729,13 +742,13 @@
                                     @method('PUT')
 
                                     <div class="d-flex justify-content-end">
-                                        <button class="btn btn-danger {{ 'button'.$experiencia->id }}" type="button"  style="display: none; margin-right: 5px " onclick="habilitaForm({{ $experiencia->id }})">Cancelar</button>
+                                        <button class="btn btn-danger {{ 'buttonExperiencia'.$experiencia->id }}" type="button"  style="display: none; margin-right: 5px " onclick="habilitaForm('buttonExperiencia', 'formExperiencia','botao_add_experiencia',  {{ $experiencia->id }})">Cancelar</button>
 
-                                        <button class="btn btn-success {{ 'button'.$experiencia->id }}" type="submit"  style="display: none">Salvar</button>
+                                        <button class="btn btn-success {{ 'buttonExperiencia'.$experiencia->id }}" type="submit"  style="display: none">Salvar</button>
 
-                                        <button  class="btn btn-danger {{ 'button'.$experiencia->id }}" type="button" onclick="submitForm({{ $experiencia->id  }})" style="display: block; margin-right: 5px ">Excluir</button>
+                                        <button  class="btn btn-danger {{ 'buttonExperiencia'.$experiencia->id }}" type="button" onclick="submitForm('formDeleteExperiencia', {{ $experiencia->id  }})" style="display: block; margin-right: 5px ">Excluir</button>
 
-                                        <button class="btn btn-primary {{ 'button'.$experiencia->id }}" type="button"  style="display: block" onclick="habilitaForm({{ $experiencia->id }})">Editar</button>
+                                        <button class="btn btn-primary {{ 'buttonExperiencia'.$experiencia->id }}" type="button"  style="display: block" onclick="habilitaForm('buttonExperiencia','formExperiencia', 'botao_add_experiencia', {{ $experiencia->id }})">Editar</button>
                                     </div>
 
                                     <div class="mb-3">
@@ -747,7 +760,7 @@
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="nome_empresa" class="form-label">Nome da Empresa</label>
-                                                <input type="text" class="form-control {{'form'.$experiencia->id }}" id="nome_empresa" name="nome_empresa" value="{{ $experiencia->nome_empresa }}" disabled>
+                                                <input type="text" class="form-control {{'formExperiencia'.$experiencia->id }}" id="nome_empresa" name="nome_empresa" value="{{ $experiencia->nome_empresa }}" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -756,13 +769,13 @@
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="cidade" class="form-label">Cidade</label>
-                                                <input type="text" class="form-control {{'form'.$experiencia->id }}" id="cidade" name="cidade" value="{{ $experiencia->cidade }}" disabled>
+                                                <input type="text" class="form-control {{'formExperiencia'.$experiencia->id }}" id="cidade" name="cidade" value="{{ $experiencia->cidade }}" disabled>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="estado_id" class="form-label">Estado</label>
-                                                <select name="estado_id" id="estado_id" class="form-select {{'form'.$experiencia->id }}" disabled>
+                                                <select name="estado_id" id="estado_id" class="form-select {{'formExperiencia'.$experiencia->id }}" disabled>
                                                     <option selected>Selecione o estado</option>
                                                     @foreach($estados as $value)
                                                         <option value="{{ $value->id }}" @selected($value->id === $experiencia->estado_id)> {{ $value->nome }}</option>
@@ -773,7 +786,7 @@
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="pais_id" class="form-label">País</label>
-                                                <select name="pais_id" id="pais_id" class="form-select {{'form'.$experiencia->id }}" disabled>
+                                                <select name="pais_id" id="pais_id" class="form-select {{'formExperiencia'.$experiencia->id }}" disabled>
                                                     <option selected>Selecione o país</option>
                                                     @foreach($paises as $value)
                                                         <option value="{{ $value->id }}" @selected($value->id === $experiencia->pais_id)>{{ $value->nome }}</option>
@@ -787,25 +800,25 @@
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="funcao" class="form-label">Função</label>
-                                                <input type="text" class="form-control {{'form'.$experiencia->id }}" id="funcao" name="funcao" value="{{ $experiencia->funcao }}" disabled>
+                                                <input type="text" class="form-control {{'formExperiencia'.$experiencia->id }}" id="funcao" name="funcao" value="{{ $experiencia->funcao }}" disabled>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="salario" class="form-label">Salário</label>
-                                                <input type="text" class="form-control {{'form'.$experiencia->id }}" id="salario" name="salario" value="{{ $experiencia->salario }}" disabled>
+                                                <input type="text" class="form-control {{'formExperiencia'.$experiencia->id }}" id="salario" name="salario" value="{{ $experiencia->salario }}" disabled>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="data_inicio" class="form-label">Data de Início</label>
-                                                <input type="date" class="form-control {{'form'.$experiencia->id }}" id="data_inicio" name="data_inicio" value="{{ $experiencia->data_inicio }}" disabled>
+                                                <input type="date" class="form-control {{'formExperiencia'.$experiencia->id }}" id="data_inicio" name="data_inicio" value="{{ $experiencia->data_inicio }}" disabled>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="data_fim" class="form-label">Data de Fim</label>
-                                                <input type="date" class="form-control {{'form'.$experiencia->id }}" id="data_fim" name="data_fim" value="{{ $experiencia->data_fim }}" disabled>
+                                                <input type="date" class="form-control {{'formExperiencia'.$experiencia->id }}" id="data_fim" name="data_fim" value="{{ $experiencia->data_fim }}" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -814,14 +827,10 @@
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="observacao" class="form-label">Observação</label>
-                                                <textarea class="form-control {{'form'.$experiencia->id }}" id="observacao" name="observacao" maxlength="300" rows="3" disabled>{{ $experiencia->observacao }}</textarea>
+                                                <textarea class="form-control {{'formExperiencia'.$experiencia->id }}" id="observacao" name="observacao" maxlength="300" rows="3" disabled>{{ $experiencia->observacao }}</textarea>
                                             </div>
                                         </div>
-
                                     </div>
-
-                                    {{--                            <button type="button" class="btn btn-danger" onclick="ocultarAddExperiencia('botao_add_experiencia','adicionar_experiencia')">Cancelar</button>--}}
-                                    {{--                            <button type="submit" class="btn btn-primary">Enviar</button>--}}
 
                                 </form>
                             </div>
@@ -926,8 +935,189 @@
                     </div>
                 </div>
 
-                <div class="tab-pane fade" id="pills-profile-academy" role="tabpanel" aria-labelledby="pills-profile-academy-tab">
+                <div class="tab-pane fade {{ session()->has('aba') && session()->get('aba') === 'formacao' ? 'show active' : '' }}" id="pills-profile-academy" role="tabpanel" aria-labelledby="pills-profile-academy-tab">
                     <h2>Formação Academica...</h2>
+
+                    @foreach($formacaoAcademicas as $formacao)
+
+                        <form action="{{ route('candidato-formacao.delete') }}" method="POST" id="formDeleteFormacao">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+
+                        <div class="card" style="margin-bottom: 10px">
+                            <div class="card-body">
+                                <form method="POST" action=" {{ route('candidato-formacao.update') }}" >
+                                    @csrf
+                                    @method('PUT')
+
+                                    <div class="d-flex justify-content-end">
+                                        <button class="btn btn-danger {{ 'buttonFormacao'.$formacao->id }}" type="button"  style="display: none; margin-right: 5px " onclick="habilitaForm('buttonFormacao', 'formFormacao', 'botao_add_formacao',  {{ $formacao->id }})">Cancelar</button>
+
+                                        <button class="btn btn-success {{ 'buttonFormacao'.$formacao->id }}" type="submit"  style="display: none">Salvar</button>
+
+                                        <button  class="btn btn-danger {{ 'buttonFormacao'.$formacao->id }}" type="button" onclick="submitForm({{ $formacao->id  }})" style="display: block; margin-right: 5px ">Excluir</button>
+
+                                        <button class="btn btn-primary {{ 'buttonFormacao'.$formacao->id }}" type="button"  style="display: block" onclick="habilitaForm('buttonFormacao', 'formFormacao', 'botao_add_formacao',  {{ $formacao->id }})">Editar</button>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <input type="hidden" class="form-control" id="candidato_id" name="candidato_id" value="{{ auth()->user()->Candidato->id }}">
+                                        <input type="hidden" class="form-control" id="formacao_id" name="formacao_id" value="{{  $formacao->id }}">
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="nome_instituicao" class="form-label">Instituição</label>
+                                                <input type="text" class="form-control {{'formFormacao'.$formacao->id }}" id="nome_instituicao" name="nome_instituicao" value="{{ $formacao->nome_instituicao }}" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="curso" class="form-label">Curso</label>
+                                                <input type="text" class="form-control {{'formFormacao'.$formacao->id }}" id="curso" name="curso" value="{{ $formacao->curso }}" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="modalidade_id" class="form-label">Modalidade Curso</label>
+                                                <select name="modalidade_id" id="modalidade_id" class="form-select {{'formFormacao'.$formacao->id }}" disabled>
+                                                    <option selected>Selecione o estado</option>
+                                                    @foreach($modalidades as $value)
+                                                        <option value="{{ $value->id }}" @selected($value->id === $formacao->modalidade_id)> {{ $value->nome }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="status_id" class="form-label">Status</label>
+                                                <select name="status_id" id="status_id" class="form-select {{'formFormacao'.$formacao->id }}" disabled>
+                                                    <option selected>Selecione o país</option>
+                                                    @foreach($statusFormacao as $value)
+                                                        <option value="{{ $value->id }}" @selected($value->id === $formacao->status_id)>{{ $value->nome }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="data_inicio" class="form-label">Data de Início</label>
+                                                <input type="date" class="form-control {{'formFormacao'.$formacao->id }}" id="data_inicio" name="data_inicio" value="{{ $formacao->data_inicio }}" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="data_conclusao" class="form-label">Data de Conclusão</label>
+                                                <input type="date" class="form-control {{'formFormacao'.$formacao->id }}" id="data_conclusao" name="data_conclusao" value="{{ $formacao->data_conclusao }}" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="observacao" class="form-label">Observação</label>
+                                                <textarea class="form-control {{'formFormacao'.$formacao->id }}" id="observacao" name="observacao" maxlength="300" rows="3" disabled>{{ $formacao->observacao }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-primary" style="display: block" id="botao_add_formacao" onclick="exibirAddExperiencia('botao_add_formacao','adicionar_formacao')">Nova Formação Academica </button>
+                    </div>
+
+                    <div id="adicionar_formacao" style="display: none">
+                        <form method="POST" action=" {{ route('candidato-formacao.create') }}">
+                            @csrf
+                            @method('POST')
+                            <div class="mb-3">
+                                <input type="hidden" class="form-control" id="candidato_id" name="candidato_id" value="{{ auth()->user()->Candidato->id }}">
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="nome_instituicao" class="form-label">Instituição</label>
+                                        <input type="text" class="form-control" id="nome_instituicao" name="nome_instituicao">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="curso" class="form-label">Curso</label>
+                                        <input type="text" class="form-control" id="curso" name="curso">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="modalidade_id" class="form-label">Modalidade Curso</label>
+                                        <select name="modalidade_id" id="modalidade_id" class="form-select">
+                                            <option selected>Selecione o estado</option>
+                                            @foreach($modalidades as $value)
+                                                <option value="{{ $value->id }}"> {{ $value->nome }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="status_id" class="form-label">Status</label>
+                                        <select name="status_id" id="status_id" class="form-select">
+                                            <option selected>Selecione o país</option>
+                                            @foreach($statusFormacao as $value)
+                                                <option value="{{ $value->id }}">{{ $value->nome }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="data_inicio" class="form-label">Data de Início</label>
+                                        <input type="date" class="form-control" id="data_inicio" name="data_inicio" >
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="data_conclusao" class="form-label">Data de Conclusão</label>
+                                        <input type="date" class="form-control" id="data_conclusao" name="data_conclusao" >
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3">
+                                        <label for="observacao" class="form-label">Observação</label>
+                                        <textarea class="form-control" id="observacao" name="observacao" maxlength="300" rows="3"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-danger" onclick="ocultarAddExperiencia('botao_add_formacao','adicionar_formacao')" style="margin-right: 5px">Cancelar</button>
+                                <button type="submit" class="btn btn-success">Salvar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
                 </div>
             </div>
@@ -945,6 +1135,5 @@
                 'campo_parente_local',
             );
         });
-
     </script>
 @endsection

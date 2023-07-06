@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\FormacaoAcademicaModalidade;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,7 +20,10 @@ class DatabaseSeeder extends Seeder
             EstadoSeeder::class,
             PaisesSeeder::class,
             EtniaSeeder::class,
-            GeneroSeeder::class
+            GeneroSeeder::class,
+            EscolaridadeSeeder::class,
+            FormacaoAcademicaModalidadeSeeder::class,
+            FormacaoAcademicaStatusSeeder::class
         ]);
     }
 }

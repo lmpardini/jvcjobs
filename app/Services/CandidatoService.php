@@ -2,8 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\Escolaridade;
 use App\Models\Estado;
 use App\Models\Etnia;
+use App\Models\FormacaoAcademicaModalidade;
+use App\Models\FormacaoAcademicaStatus;
 use App\Models\Genero;
 use App\Models\Local;
 use App\Models\Paises;
@@ -21,6 +24,9 @@ class CandidatoService
             ['paises' => Paises::get()],
             ['etnias' => Etnia::get()],
             ['locais' => Local::get()],
+            ['escolaridades' => Escolaridade::get()],
+            ['modalidades' => FormacaoAcademicaModalidade::get()],
+            ['statusFormacao' => FormacaoAcademicaStatus::get()],
         ]);
     }
 

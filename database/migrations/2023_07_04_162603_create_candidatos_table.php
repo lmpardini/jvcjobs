@@ -21,6 +21,10 @@ return new class extends Migration
             $table->string('rg_orgao_emissor')->nullable();
             $table->unsignedBigInteger('genero_id')->nullable();
             $table->foreign('genero_id')->references('id')->on('generos');
+            $table->unsignedBigInteger('etnia_id')->nullable();
+            $table->foreign('etnia_id')->references('id')->on('etnias');
+            $table->unsignedBigInteger('escolaridade_id')->nullable();
+            $table->foreign('escolaridade_id')->references('id')->on('escolaridades');
             $table->date('data_nascimento')->nullable();
             $table->bigInteger('cep')->nullable();
             $table->string('endereco')->nullable();
@@ -62,8 +66,6 @@ return new class extends Migration
             $table->unsignedBigInteger('tit_eleitor_estado_id')->nullable();
             $table->foreign('tit_eleitor_estado_id')->references('id')->on('estados');
             $table->string('reservista')->nullable();
-            $table->unsignedBigInteger('etnia_id')->nullable();
-            $table->foreign('etnia_id')->references('id')->on('etnias');
             $table->string('observacao')->nullable();
             $table->boolean('curso_transporte_coletivo')->default(false);
             $table->date('validade_curso_transporte_coletivo')->nullable();

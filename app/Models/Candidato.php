@@ -63,6 +63,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $reservista
  * @property integer $etnia_id
  * @property Etnia $Etnia
+ * @property integer $escolaridade_id
+ * @property Escolaridade $Escolaridade
  * @property string $observacao
  * @property boolean $curso_transporte_coletivo
  * @property Carbon $validade_curso_transporte_coletivo
@@ -84,6 +86,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $setor_colaborador
  * @property integer $indicacao_colaborador_local_id
  * @property Local $LocalTrabalhoIndicacao
+ * @property CandidadoExperienciaProfissional[] $CandidadoExperienciaProfissional
+ * @property CandidatoFormacaoAcademica[] $CandidatoFormacaoAcademica
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property Carbon $deleted_at
@@ -106,6 +110,11 @@ class Candidato extends Model
     public function CandidatoExperienciaProfissional()
     {
         return $this->hasMany(CandidadoExperienciaProfissional::class, 'candidato_id', 'id');
+    }
+
+    public function CandidatoFormacaoAcademica()
+    {
+        return $this->hasMany(CandidatoFormacaoAcademica::class, 'candidato_id', 'id');
     }
 
     public function Estado()
@@ -161,5 +170,10 @@ class Candidato extends Model
     public function LocalTrabalhoIndicacao()
     {
         return $this->hasOne(Local::class, 'id', 'indicacao_colaborador_local_id');
+    }
+
+    public function Escolaridade()
+    {
+        return $this->hasOne(Escolaridade::class, 'id', 'escolaridade_id');
     }
 }
