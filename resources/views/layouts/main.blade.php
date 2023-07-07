@@ -80,12 +80,14 @@
         </nav>
     </div>
 </header>
-<body class="content">
+<body>
+<div class="container" style="min-height: 400px;">
     @yield('content')
+</div>
 </body>
-    <footer class="mt-auto bg-light text-center border-top" id="rodape">
+    <footer class="mt-auto border-top" id="rodape">
         <!-- Copyright -->
-        <div class="text-center bg-light p-3">
+        <div class="text-center p-3">
             <p>© {{ \Carbon\Carbon::now()->format('Y') }} JVCJobs  - Todos os direitos reservados.</p>
 
             <p>Desenvolvido por <a class="text-dark" href="https://www.jvcsolutions.com.br">JVCSolutions</a></p>
