@@ -33,483 +33,340 @@
             <div class="tab-content" id="pills-tabContent">
 
                 <div class="tab-pane fade {{ session()->has('aba') && session()->get('aba') === 'experiencia' || session()->has('aba') && session()->get('aba') === 'formacao' ? '' : 'show active' }}" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <form method="POST" class="needs-validation" novalidate autocomplete="off">
+                    <form class="row g-4" method="POST" class="needs-validation" novalidate autocomplete="off">
                         @csrf
                         @method('PUT')
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Nome</label>
-                                    <input type="text" class="form-control" id="name" name="name" required
-                                           value="@if(old('name')){{ old('name') }}@else{{ auth()->user()->name }}@endif">
-                                    <div class="invalid-feedback">Informe o seu nome</div>
-                                </div>
-                            </div>
-
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="last_name" class="form-label">Sobrenome</label>
-                                    <input type="text" class="form-control" id="last_name" name="last_name" required
-                                           value="@if(old('last_name')){{ old('last_name') }}@else{{ auth()->user()->last_name }}@endif">
-                                    <div class="invalid-feedback">Informe o seu sobrenome</div>
-                                </div>
-                            </div>
+                        <div class="col-md-4">
+                            <label for="name" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="name" name="name" required
+                                   value="@if(old('name')){{ old('name') }}@else{{ auth()->user()->name }}@endif">
+                            <div class="invalid-feedback">Informe o seu nome</div>
                         </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="cpf" class="form-label">CPF</label>
-                                    <input type="text" class="form-control" id="cpf" name="cpf" required
-                                           value="@if(old('cpf')){{ old('cpf') }}@else{{ auth()->user()->cpf }} @endif" disabled>
-                                    <div class="invalid-feedback">Informe o seu CPF</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">E-mail</label>
-                                    <input type="email" class="form-control" id="email" name="email" required
-                                           value="@if(old('email')){{ old('email') }}@else{{  auth()->user()->email }} @endif">
-                                    <div class="invalid-feedback">Informe o seu e-mail</div>
-                                </div>
-                            </div>
+                        <div class="col-md-4">
+                            <label for="last_name" class="form-label">Sobrenome</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" required
+                                   value="@if(old('last_name')){{ old('last_name') }}@else{{ auth()->user()->last_name }}@endif">
+                            <div class="invalid-feedback">Informe o seu sobrenome</div>
                         </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="nome_social" class="form-label">Nome Social</label>
-                                    <input type="text" class="form-control" id="nome_social" name="nome_social"
-                                           value="@if(old('nome_social')){{ old('nome_social') }}@else{{ auth()->user()->Candidato->nome_social }}@endif">
-                                    <div class="invalid-feedback">Informe o nome social</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="data_nascimento" class="form-label">Data de Nascimento</label>
-                                    <input type="date" class="form-control" id="data_nascimento" name="data_nascimento"
-                                           required value="@if(old('data_nascimento')){{ old('data_nascimento') }}@else{{auth()->user()->Candidato->data_nascimento}}@endif">
-                                    <div class="invalid-feedback">Informe a data de nascimento</div>
-                                </div>
-                            </div>
+                        <div class="col-md-4">
+                            <label for="nome_social" class="form-label">Nome Social</label>
+                            <input type="text" class="form-control" id="nome_social" name="nome_social"
+                                   value="@if(old('nome_social')){{ old('nome_social') }}@else{{ auth()->user()->Candidato->nome_social }}@endif">
+                            <div class="invalid-feedback">Informe o nome social</div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="genero_id" class="form-label">Genero</label>
-                                    <select name="genero_id" id="genero_id" class="form-select" required>
-                                        <option selected disabled>Selecione o genero</option>
-                                        @foreach($genero as $value)
-                                            <option value="{{ $value->id }}"
-                                                    @if(auth()->user()->Candidato->Genero && auth()->user()->Candidato->Genero->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">Informe o genero</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="etnia_id" class="form-label">Etnia</label>
-                                    <select name="etnia_id" id="etnia_id" class="form-select"
-                                            aria-label="Selecione a etnia">
-                                        <option selected disabled>Selecione a Etnia</option>
-                                        @foreach($etnias as $value)
-                                            <option value="{{ $value->id }}"
-                                                    @if(auth()->user()->Candidato->Etnia && auth()->user()->Candidato->Etnia->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">Selecione o estado</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="etnia_id" class="form-label">Escolaridade</label>
-                                    <select name="escolaridade_id" id="escolaridade_id" class="form-select">
-                                        <option selected disabled>Selecione a escolaridade</option>
-                                        @foreach($escolaridades as $value)
-                                            <option value="{{ $value->id }}"
-                                                    @if(auth()->user()->Candidato->Escolaridade && auth()->user()->Candidato->Escolaridade->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">Selecione a escolaridade</div>
-                                </div>
-                            </div>
+                        <div class="col-md-4">
+                            <label for="cpf" class="form-label">CPF</label>
+                            <input type="text" class="form-control" id="cpf" name="cpf" required
+                                   value="@if(old('cpf')){{ old('cpf') }}@else{{ auth()->user()->cpf }} @endif" disabled>
                         </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="rg" class="form-label">RG</label>
-                                    <input type="text" class="form-control" id="rg" name="rg" required
-                                           value="@if(old('rg')){{ old('rg') }}@else{{ auth()->user()->Candidato->rg }}@endif">
-                                    <div class="invalid-feedback">Informe o RG</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="rg_orgao_emissor" class="form-label">Orgao Emissor</label>
-                                    <input type="text" class="form-control" id="rg_orgao_emissor"
-                                           name="rg_orgao_emissor" required
-                                           value="@if(old('rg_orgao_emissor')){{ old('rg_orgao_emissor') }}@else{{ auth()->user()->Candidato->rg_orgao_emissor }}@endif">
-                                    <div class="invalid-feedback">Informe o RG</div>
-                                </div>
-                            </div>
+                        <div class="col-md-4">
+                            <label for="rg" class="form-label">RG</label>
+                            <input type="text" class="form-control" id="rg" name="rg" required
+                                   value="@if(old('rg')){{ old('rg') }}@else{{ auth()->user()->Candidato->rg }}@endif">
+                            <div class="invalid-feedback">Informe o RG</div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-2">
-                                <div class="mb-3">
-                                    <label for="cep" class="form-label">CEP</label>
-                                    <input type="number" class="form-control" id="cep" name="cep" required
-                                           value="@if(old('cep')){{ old('cep') }}@else{{ auth()->user()->Candidato->cep }}@endif" onblur="pesquisacep()">
-                                    <div class="invalid-feedback">Informe o CEP</div>
-                                </div>
-                            </div>
-                            <div class="col-10">
-                                <div class="mb-3">
-                                    <label for="endereco" class="form-label">Endereço</label>
-                                    <input type="text" class="form-control" id="endereco" name="endereco" required
-                                           value="@if(old('endereco')){{ old('endereco') }}@else{{ auth()->user()->Candidato->endereco }}@endif">
-                                    <div class="invalid-feedback">Informe o endereço</div>
-                                </div>
-                            </div>
+                        <div class="col-md-4">
+                            <label for="rg_orgao_emissor" class="form-label">Orgão Emissor</label>
+                            <input type="text" class="form-control" id="rg_orgao_emissor"
+                                   name="rg_orgao_emissor" required
+                                   value="@if(old('rg_orgao_emissor')){{ old('rg_orgao_emissor') }}@else{{ auth()->user()->Candidato->rg_orgao_emissor }}@endif">
+                            <div class="invalid-feedback">Informe o RG</div>
                         </div>
-                        <div class="row">
-                            <div class="col-2">
-                                <div class="mb-3">
-                                    <label for="numero" class="form-label">Número</label>
-                                    <input type="text" class="form-control" id="numero" name="numero" required
-                                           value="@if(old('numero')){{ old('numero') }}@else{{ auth()->user()->Candidato->numero }}@endif">
-                                    <div class="invalid-feedback">Informe o número</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="complemento" class="form-label">Complemento</label>
-                                    <input type="text" class="form-control" id="complemento" name="complemento"
-                                           value="@if(old('complemento')){{ old('complemento') }}@else{{ auth()->user()->Candidato->complemento }}@endif">
-                                </div>
-
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="bairro" class="form-label">Bairro</label>
-                                    <input type="text" class="form-control" id="bairro" name="bairro" required
-                                           value="@if(old('bairro')){{ old('bairro') }}@else{{ auth()->user()->Candidato->bairro }}@endif">
-                                    <div class="invalid-feedback">Informe o bairro</div>
-                                </div>
-                            </div>
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="email" name="email" required
+                                   value="@if(old('email')){{ old('email') }}@else{{  auth()->user()->email }} @endif">
+                            <div class="invalid-feedback">Informe o seu e-mail</div>
                         </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="cidade" class="form-label">Cidade</label>
-                                    <input type="text" class="form-control" id="cidade" name="cidade" required
-                                           value="@if(old('cidade')){{ old('cidade') }}@else{{ auth()->user()->Candidato->cidade }}@endif">
-                                    <div class="invalid-feedback">Informe a cidade</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="estado_id" class="form-label">Estado</label>
-                                    <select name="estado_id" id="estado_id" class="form-select" required>
-                                        <option selected disabled>Selecione o estado</option>
-                                        @foreach($estados as $value)
-                                            <option value="{{ $value->id }}"
-                                                    @if(auth()->user()->Candidato->Estado && auth()->user()->Candidato->Estado->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">Selecione o estado</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="pais_id" class="form-label">País</label>
-                                    <select name="pais_id" id="pais_id" class="form-select" required>
-                                        <option selected disabled>Selecione o país</option>
-                                        @foreach($paises as $value)
-                                            <option value="{{ $value->id }}"
-                                                    @if(auth()->user()->Candidato->Pais && auth()->user()->Candidato->Pais->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">Selecione o país</div>
-                                </div>
-                            </div>
+                        <div class="col-md-6">
+                            <label for="data_nascimento" class="form-label">Data de Nascimento</label>
+                            <input type="date" class="form-control" id="data_nascimento" name="data_nascimento"
+                                   required value="@if(old('data_nascimento')){{ old('data_nascimento') }}@else{{auth()->user()->Candidato->data_nascimento}}@endif">
+                            <div class="invalid-feedback">Informe a data de nascimento</div>
                         </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="telefone" class="form-label">Telefone</label>
-                                    <input type="text" class="form-control" id="telefone" name="telefone" required
-                                           value="@if(old('telefone')){{ old('telefone') }}@else{{ auth()->user()->Candidato->telefone }}@endif">
-                                    <div class="invalid-feedback">Informe o telefone</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="celular" class="form-label">Celular</label>
-                                    <input type="text" class="form-control" id="celular" name="celular" required
-                                           value="@if(old('celular')){{ old('celular') }}@else{{ auth()->user()->Candidato->celular }}@endif">
-                                    <div class="invalid-feedback">Informe o celular</div>
-                                </div>
-                            </div>
+                        <div class="col-md-4">
+                            <label for="cep" class="form-label">CEP</label>
+                            <input type="number" class="form-control" id="cep" name="cep" required
+                                   value="@if(old('cep')){{ old('cep') }}@else{{ auth()->user()->Candidato->cep }}@endif" onblur="pesquisacep()">
+                            <div class="invalid-feedback">Informe o CEP</div>
                         </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="nome_pai" class="form-label">Nome do Pai</label>
-                                    <input type="text" class="form-control" id="nome_pai" name="nome_pai"
-                                           value="@if(old('nome_pai')){{ old('nome_pai') }}@else{{ auth()->user()->Candidato->nome_pai }}@endif">
-                                    <div class="invalid-feedback">Informe o nome do pai</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="nome_mae" class="form-label">Nome da Mãe</label>
-                                    <input type="text" class="form-control" id="nome_mae" name="nome_mae"
-                                           value="@if(old('nome_mae')){{ old('nome_mae') }}@else{{ auth()->user()->Candidato->nome_mae }}@endif">
-                                    <div class="invalid-feedback">Informe o nome da mãe</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="qtde_dependentes" class="form-label">Quantidade de Dependentes</label>
-                                    <input type="number" class="form-control" id="qtde_dependentes"
-                                           name="qtde_dependentes"
-                                           value="@if(old('qtde_dependentes')){{ old('qtde_dependentes') }}@else{{ auth()->user()->Candidato->qtde_dependentes }}@endif">
-                                    <div class="invalid-feedback">Informe a quantidade de dependentes</div>
-                                </div>
-                            </div>
+                        <div class="col-md-8">
+                            <label for="endereco" class="form-label">Endereço</label>
+                            <input type="text" class="form-control" id="endereco" name="endereco" required
+                                   value="@if(old('endereco')){{ old('endereco') }}@else{{ auth()->user()->Candidato->endereco }}@endif">
+                            <div class="invalid-feedback">Informe o endereço</div>
                         </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="pis" class="form-label">PIS</label>
-                                    <input type="number" class="form-control" id="pis" name="pis"
-                                           value="@if(old('pis')){{ old('pis') }}@else{{ auth()->user()->Candidato->pis }}@endif">
-                                    <div class="invalid-feedback">Informe o PIS</div>
-                                </div>
-
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="pis_orgao_emissor" class="form-label">Órgão Emissor do PIS</label>
-                                    <input type="text" class="form-control" id="pis_orgao_emissor"
-                                           name="pis_orgao_emissor"
-                                           value="@if(old('pis_orgao_emissor')){{ old('pis_orgao_emissor') }}@else{{ auth()->user()->Candidato->pis_orgao_emissor }}@endif">
-                                    <div class="invalid-feedback">Informe o órgão emissor do PIS</div>
-                                </div>
-
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="pis_estado_id" class="form-label">Estado de Emissão do PIS</label>
-                                    <select name="pis_estado_id" id="pis_estado_id" class="form-select">
-                                        <option selected disabled>Selecione o estado de emissão do PIS</option>
-                                        @foreach($estados as $value)
-                                            <option value="{{ $value->id }}"
-                                                    @if(auth()->user()->Candidato->EstadoPis && auth()->user()->Candidato->EstadoPis->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">Selecione o estado de emissão do PIS</div>
-                                </div>
-
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="pis_data_emissao" class="form-label">Data de Emissão do PIS</label>
-                                    <input type="date" class="form-control" id="pis_data_emissao"
-                                           name="pis_data_emissao"
-                                           value="@if(old('pis_data_emissao')){{ old('pis_data_emissao') }}@else{{  auth()->user()->Candidato->pis_data_emissao }}@endif">
-                                    <div class="invalid-feedback">Informe a data de emissão do PIS</div>
-                                </div>
-                            </div>
+                        <div class="col-md-4">
+                            <label for="numero" class="form-label">Número</label>
+                            <input type="text" class="form-control" id="numero" name="numero" required
+                                   value="@if(old('numero')){{ old('numero') }}@else{{ auth()->user()->Candidato->numero }}@endif">
+                            <div class="invalid-feedback">Informe o número</div>
                         </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="pis_complemento" class="form-label">Complemento do PIS</label>
-                                    <input type="text" class="form-control" id="pis_complemento" name="pis_complemento"
-                                           value="@if(old('pis_complemento')){{ old('pis_complemento') }}@else{{  auth()->user()->Candidato->pis_complemento }}@endif">
-                                </div>
-                            </div>
+                        <div class="col-md-4">
+                            <label for="complemento" class="form-label">Complemento</label>
+                            <input type="text" class="form-control" id="complemento" name="complemento"
+                                   value="@if(old('complemento')){{ old('complemento') }}@else{{ auth()->user()->Candidato->complemento }}@endif">
                         </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="ctps" class="form-label">CTPS</label>
-                                    <input type="text" class="form-control" id="ctps" name="ctps"
-                                           value="@if(old('ctps')){{ old('ctps') }}@else{{  auth()->user()->Candidato->ctps }}@endif">
-                                    <div class="invalid-feedback">Informe a CTPS</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="ctps_numero_serie" class="form-label">Número/Série da CTPS</label>
-                                    <input type="text" class="form-control" id="ctps_numero_serie"
-                                           name="ctps_numero_serie"
-                                           value="@if(old('ctps_numero_serie')){{ old('ctps_numero_serie') }}@else{{  auth()->user()->Candidato->ctps_numero_serie }}@endif">
-                                    <div class="invalid-feedback">Informe o número/série da CTPS</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="ctps_estado_id" class="form-label">Estado de Emissão da CTPS</label>
-                                    <select name="ctps_estado_id" id="ctps_estado_id" class="form-select">
-                                        <option selected disabled>Selecione o estado de emissão da CTPS</option>
-                                        @foreach($estados as $value)
-                                            <option value="{{ $value->id }}"
-                                                    @if(auth()->user()->Candidato->EstadoCTPS && auth()->user()->Candidato->EstadoCTPS->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">Selecione o estado de emissão da CTPS</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="ctps_data_emissao" class="form-label">Data de Emissão da CTPS</label>
-                                    <input type="date" class="form-control" id="ctps_data_emissao"
-                                           name="ctps_data_emissao"
-                                           value="@if(old('ctps_data_emissao')){{ old('ctps_data_emissao') }}@else{{ auth()->user()->Candidato->ctps_data_emissao }}@endif">
-                                    <div class="invalid-feedback">Informe a data de emissão da CTPS</div>
-                                </div>
-                            </div>
+                        <div class="col-md-4">
+                            <label for="bairro" class="form-label">Bairro</label>
+                            <input type="text" class="form-control" id="bairro" name="bairro" required
+                                   value="@if(old('bairro')){{ old('bairro') }}@else{{ auth()->user()->Candidato->bairro }}@endif">
+                            <div class="invalid-feedback">Informe o bairro</div>
                         </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="cnh" class="form-label">CNH</label>
-                                    <input type="number" class="form-control" id="cnh" name="cnh"
-                                           value="@if(old('cnh')){{ old('cnh') }}@else{{  auth()->user()->Candidato->cnh }}@endif">
-                                    <div class="invalid-feedback">Informe o numero da CNH</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="cnh_data_emissao" class="form-label">Data de Emissão da CNH</label>
-                                    <input type="date" class="form-control" id="cnh_data_emissao"
-                                           name="cnh_data_emissao"
-                                           value="@if(old('cnh_data_emissao')){{ old('cnh_data_emissao') }}@else{{  auth()->user()->Candidato->cnh_data_emissao }}@endif">
-                                    <div class="invalid-feedback">Informe a data de emissão do CNH</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="cnh_estado_id" class="form-label">Estado de Emissão da CNH</label>
-                                    <select name="cnh_estado_id" id="cnh_estado_id" class="form-select">
-                                        <option selected disabled>Selecione o estado de emissão da CNH</option>
-                                        @foreach($estados as $value)
-                                            <option value="{{ $value->id }}"
-                                                    @if(auth()->user()->Candidato->EstadoCNH && auth()->user()->Candidato->EstadoCNH->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">Selecione o estado de emissão da CNH</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="cnh_orgao_emissor" class="form-label">Orgão Emissor CNH</label>
-                                    <input type="text" class="form-control" id="cnh_orgao_emissor"
-                                           name="cnh_orgao_emissor"
-                                           value="@if(old('cnh_orgao_emissor')){{ old('cnh_orgao_emissor') }}@else{{  auth()->user()->Candidato->cnh_orgao_emissor }}@endif">
-                                    <div class="invalid-feedback">Informe o Orgão Emissor da CNH</div>
-                                </div>
-                            </div>
+                        <div class="col-md-4">
+                            <label for="cidade" class="form-label">Cidade</label>
+                            <input type="text" class="form-control" id="cidade" name="cidade" required
+                                   value="@if(old('cidade')){{ old('cidade') }}@else{{ auth()->user()->Candidato->cidade }}@endif">
+                            <div class="invalid-feedback">Informe a cidade</div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="cnh_validade" class="form-label">Data de validade da CNH</label>
-                                    <input type="date" class="form-control" id="cnh_validade" name="cnh_validade"
-                                           value="@if(old('cnh_validade')){{ old('cnh_validade') }}@else{{  auth()->user()->Candidato->cnh_validade }}@endif">
-                                    <div class="invalid-feedback">Informe a data de validade do CNH</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="cnh_categoria" class="form-label">Categoria CNH</label>
-                                    <select class="form-select" name="cnh_categoria" id="cnh_categoria">
-                                        <option selected disabled>Selecione uma categoria</option>
-                                        <option value="A" @selected(auth()->user()->Candidato->cnh_categoria === "A")>Categoria A</option>
-                                        <option value="B" @selected(auth()->user()->Candidato->cnh_categoria === "B")>Categoria B</option>
-                                        <option value="C" @selected(auth()->user()->Candidato->cnh_categoria === "C")>Categoria C</option>
-                                        <option value="D" @selected(auth()->user()->Candidato->cnh_categoria === "D")>Categoria D</option>
-                                        <option value="E" @selected(auth()->user()->Candidato->cnh_categoria === "E")>Categoria E</option>
-                                        <option value="AB" @selected(auth()->user()->Candidato->cnh_categoria === "AB")>Categoria AB</option>
-                                        <option value="AC" @selected(auth()->user()->Candidato->cnh_categoria === "AC")>Categoria AC</option>
-                                        <option value="AD" @selected(auth()->user()->Candidato->cnh_categoria === "AD")>Categoria AD</option>
-                                        <option value="AE" @selected(auth()->user()->Candidato->cnh_categoria === "AE")>Categoria AE</option>
-                                    </select>
-                                    <div class="invalid-feedback">Informe a categoria da CNH</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="cnh_complemento" class="form-label">Complemento CNH</label>
-                                    <input type="text" class="form-control" id="cnh_complemento" name="cnh_complemento"
-                                           value="@if(old('cnh_complemento')){{ old('cnh_complemento') }}@else{{  auth()->user()->Candidato->cnh_complemento }}@endif">
-                                    <div class="invalid-feedback">Informe o complemento da CNH</div>
-                                </div>
-                            </div>
+                        <div class="col-md-4">
+                            <label for="estado_id" class="form-label">Estado</label>
+                            <select name="estado_id" id="estado_id" class="form-select" required>
+                                <option selected disabled>Selecione o estado</option>
+                                @foreach($estados as $value)
+                                    <option value="{{ $value->id }}"
+                                            @if(auth()->user()->Candidato->Estado && auth()->user()->Candidato->Estado->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback">Selecione o estado</div>
                         </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="tit_eleitor" class="form-label">Título de Eleitor</label>
-                                    <input type="number" class="form-control" id="tit_eleitor" name="tit_eleitor"
-                                           value="@if(old('tit_eleitor')){{ old('tit_eleitor') }}@else{{ auth()->user()->Candidato->tit_eleitor }}@endif">
-                                    <div class="invalid-feedback">Informe o título de eleitor</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="tit_eleitor_zona" class="form-label">Zona Eleitoral</label>
-                                    <input type="number" class="form-control" id="tit_eleitor_zona"
-                                           name="tit_eleitor_zona"
-                                           value="@if(old('tit_eleitor_zona')){{ old('tit_eleitor_zona') }}@else{{ auth()->user()->Candidato->tit_eleitor_zona }}@endif">
-                                    <div class="invalid-feedback">Informe a zona eleitoral</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="tit_eleitor_sessao" class="form-label">Seção Eleitoral</label>
-                                    <input type="number" class="form-control" id="tit_eleitor_sessao"
-                                           name="tit_eleitor_sessao"
-                                           value="@if(old('tit_eleitor_sessao')){{ old('tit_eleitor_sessao') }}@else{{ auth()->user()->Candidato->tit_eleitor_sessao }}@endif">
-                                    <div class="invalid-feedback">Informe a seção eleitoral</div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="tit_eleitor_estado_id" class="form-label">Estado de Emissão do
-                                        Titulo</label>
-                                    <select name="tit_eleitor_estado_id" id="tit_eleitor_estado_id" class="form-select">
-                                        <option selected disabled>Selecione o estado de emissão do Titulo</option>
-                                        @foreach($estados as $value)
-                                            <option value="{{ $value->id }}"
-                                                    @if(auth()->user()->Candidato->EstadoTituloEleitor && auth()->user()->Candidato->EstadoTituloEleitor->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
-                                        @endforeach
-                                    </select>
-                                    <div class="invalid-feedback">Selecione o estado de emissão do Titulo</div>
-                                </div>
-                            </div>
+                        <div class="col-md-4">
+                            <label for="pais_id" class="form-label">País</label>
+                            <select name="pais_id" id="pais_id" class="form-select" required>
+                                <option selected disabled>Selecione o país</option>
+                                @foreach($paises as $value)
+                                    <option value="{{ $value->id }}"
+                                            @if(auth()->user()->Candidato->Pais && auth()->user()->Candidato->Pais->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback">Selecione o país</div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="reservista" class="form-label">Reservista</label>
-                                    <input type="text" class="form-control" id="reservista" name="reservista"
-                                           value="@if(old('reservista')){{ old('reservista') }}@else{{ auth()->user()->Candidato->reservista }}@endif">
-                                </div>
-                            </div>
+                        <div class="col-md-6">
+                            <label for="telefone" class="form-label">Telefone</label>
+                            <input type="text" class="form-control" id="telefone" name="telefone" required
+                                   value="@if(old('telefone')){{ old('telefone') }}@else{{ auth()->user()->Candidato->telefone }}@endif">
+                            <div class="invalid-feedback">Informe o telefone</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="celular" class="form-label">Celular</label>
+                            <input type="text" class="form-control" id="celular" name="celular" required
+                                   value="@if(old('celular')){{ old('celular') }}@else{{ auth()->user()->Candidato->celular }}@endif">
+                            <div class="invalid-feedback">Informe o celular</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="genero_id" class="form-label">Genero</label>
+                            <select name="genero_id" id="genero_id" class="form-select" required>
+                                <option selected disabled>Selecione o genero</option>
+                                @foreach($genero as $value)
+                                    <option value="{{ $value->id }}"
+                                            @if(auth()->user()->Candidato->Genero && auth()->user()->Candidato->Genero->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback">Informe o genero</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="etnia_id" class="form-label">Etnia</label>
+                            <select name="etnia_id" id="etnia_id" class="form-select"
+                                    aria-label="Selecione a etnia">
+                                <option selected disabled>Selecione a Etnia</option>
+                                @foreach($etnias as $value)
+                                    <option value="{{ $value->id }}"
+                                            @if(auth()->user()->Candidato->Etnia && auth()->user()->Candidato->Etnia->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="etnia_id" class="form-label">Escolaridade</label>
+                            <select name="escolaridade_id" id="escolaridade_id" class="form-select">
+                                <option selected disabled>Selecione a escolaridade</option>
+                                @foreach($escolaridades as $value)
+                                    <option value="{{ $value->id }}"
+                                            @if(auth()->user()->Candidato->Escolaridade && auth()->user()->Candidato->Escolaridade->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback">Selecione a escolaridade</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="nome_pai" class="form-label">Nome do Pai</label>
+                            <input type="text" class="form-control" id="nome_pai" name="nome_pai"
+                                   value="@if(old('nome_pai')){{ old('nome_pai') }}@else{{ auth()->user()->Candidato->nome_pai }}@endif">
+                            <div class="invalid-feedback">Informe o nome do pai</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="nome_mae" class="form-label">Nome da Mãe</label>
+                            <input type="text" class="form-control" id="nome_mae" name="nome_mae"
+                                   value="@if(old('nome_mae')){{ old('nome_mae') }}@else{{ auth()->user()->Candidato->nome_mae }}@endif">
+                            <div class="invalid-feedback">Informe o nome da mãe</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="qtde_dependentes" class="form-label">Quantidade de Dependentes</label>
+                            <input type="number" class="form-control" id="qtde_dependentes"
+                                   name="qtde_dependentes"
+                                   value="@if(old('qtde_dependentes')){{ old('qtde_dependentes') }}@else{{ auth()->user()->Candidato->qtde_dependentes }}@endif">
+                            <div class="invalid-feedback">Informe a quantidade de dependentes</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="pis" class="form-label">PIS</label>
+                            <input type="number" class="form-control" id="pis" name="pis"
+                                   value="@if(old('pis')){{ old('pis') }}@else{{ auth()->user()->Candidato->pis }}@endif">
+                            <div class="invalid-feedback">Informe o PIS</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="pis_orgao_emissor" class="form-label">Órgão Emissor do PIS</label>
+                            <input type="text" class="form-control" id="pis_orgao_emissor"
+                                   name="pis_orgao_emissor"
+                                   value="@if(old('pis_orgao_emissor')){{ old('pis_orgao_emissor') }}@else{{ auth()->user()->Candidato->pis_orgao_emissor }}@endif">
+                            <div class="invalid-feedback">Informe o órgão emissor do PIS</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="pis_estado_id" class="form-label">Estado de Emissão do PIS</label>
+                            <select name="pis_estado_id" id="pis_estado_id" class="form-select">
+                                <option selected disabled>Selecione o estado de emissão do PIS</option>
+                                @foreach($estados as $value)
+                                    <option value="{{ $value->id }}"
+                                            @if(auth()->user()->Candidato->EstadoPis && auth()->user()->Candidato->EstadoPis->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback">Selecione o estado de emissão do PIS</div>
+                        </div>
+                        <div class="col-md-5">
+                            <label for="pis_data_emissao" class="form-label">Data de Emissão do PIS</label>
+                            <input type="date" class="form-control" id="pis_data_emissao"
+                                   name="pis_data_emissao"
+                                   value="@if(old('pis_data_emissao')){{ old('pis_data_emissao') }}@else{{  auth()->user()->Candidato->pis_data_emissao }}@endif">
+                            <div class="invalid-feedback">Informe a data de emissão do PIS</div>
+                        </div>
+                        <div class="col-md-5">
+                            <label for="pis_complemento" class="form-label">Complemento do PIS</label>
+                            <input type="text" class="form-control" id="pis_complemento" name="pis_complemento"
+                                   value="@if(old('pis_complemento')){{ old('pis_complemento') }}@else{{  auth()->user()->Candidato->pis_complemento }}@endif">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="ctps" class="form-label">CTPS</label>
+                            <input type="text" class="form-control" id="ctps" name="ctps"
+                                   value="@if(old('ctps')){{ old('ctps') }}@else{{  auth()->user()->Candidato->ctps }}@endif">
+                            <div class="invalid-feedback">Informe a CTPS</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="ctps_numero_serie" class="form-label">Número/Série da CTPS</label>
+                            <input type="text" class="form-control" id="ctps_numero_serie"
+                                   name="ctps_numero_serie"
+                                   value="@if(old('ctps_numero_serie')){{ old('ctps_numero_serie') }}@else{{  auth()->user()->Candidato->ctps_numero_serie }}@endif">
+                            <div class="invalid-feedback">Informe o número/série da CTPS</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="ctps_estado_id" class="form-label">Estado de Emissão da CTPS</label>
+                            <select name="ctps_estado_id" id="ctps_estado_id" class="form-select">
+                                <option selected disabled>Selecione o estado de emissão da CTPS</option>
+                                @foreach($estados as $value)
+                                    <option value="{{ $value->id }}"
+                                            @if(auth()->user()->Candidato->EstadoCTPS && auth()->user()->Candidato->EstadoCTPS->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback">Selecione o estado de emissão da CTPS</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="ctps_data_emissao" class="form-label">Data de Emissão da CTPS</label>
+                            <input type="date" class="form-control" id="ctps_data_emissao"
+                                   name="ctps_data_emissao"
+                                   value="@if(old('ctps_data_emissao')){{ old('ctps_data_emissao') }}@else{{ auth()->user()->Candidato->ctps_data_emissao }}@endif">
+                            <div class="invalid-feedback">Informe a data de emissão da CTPS</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="cnh" class="form-label">CNH</label>
+                            <input type="number" class="form-control" id="cnh" name="cnh"
+                                   value="@if(old('cnh')){{ old('cnh') }}@else{{  auth()->user()->Candidato->cnh }}@endif">
+                            <div class="invalid-feedback">Informe o numero da CNH</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="cnh_data_emissao" class="form-label">Data de Emissão da CNH</label>
+                            <input type="date" class="form-control" id="cnh_data_emissao"
+                                   name="cnh_data_emissao"
+                                   value="@if(old('cnh_data_emissao')){{ old('cnh_data_emissao') }}@else{{  auth()->user()->Candidato->cnh_data_emissao }}@endif">
+                            <div class="invalid-feedback">Informe a data de emissão do CNH</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="cnh_estado_id" class="form-label">Estado de Emissão da CNH</label>
+                            <select name="cnh_estado_id" id="cnh_estado_id" class="form-select">
+                                <option selected disabled>Selecione o estado de emissão da CNH</option>
+                                @foreach($estados as $value)
+                                    <option value="{{ $value->id }}"
+                                            @if(auth()->user()->Candidato->EstadoCNH && auth()->user()->Candidato->EstadoCNH->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback">Selecione o estado de emissão da CNH</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="cnh_orgao_emissor" class="form-label">Orgão Emissor CNH</label>
+                            <input type="text" class="form-control" id="cnh_orgao_emissor"
+                                   name="cnh_orgao_emissor"
+                                   value="@if(old('cnh_orgao_emissor')){{ old('cnh_orgao_emissor') }}@else{{  auth()->user()->Candidato->cnh_orgao_emissor }}@endif">
+                            <div class="invalid-feedback">Informe o Orgão Emissor da CNH</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="cnh_validade" class="form-label">Data de validade da CNH</label>
+                            <input type="date" class="form-control" id="cnh_validade" name="cnh_validade"
+                                   value="@if(old('cnh_validade')){{ old('cnh_validade') }}@else{{  auth()->user()->Candidato->cnh_validade }}@endif">
+                            <div class="invalid-feedback">Informe a data de validade do CNH</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="cnh_categoria" class="form-label">Categoria CNH</label>
+                            <select class="form-select" name="cnh_categoria" id="cnh_categoria">
+                                <option selected disabled>Selecione uma categoria</option>
+                                <option value="A" @selected(auth()->user()->Candidato->cnh_categoria === "A")>Categoria A</option>
+                                <option value="B" @selected(auth()->user()->Candidato->cnh_categoria === "B")>Categoria B</option>
+                                <option value="C" @selected(auth()->user()->Candidato->cnh_categoria === "C")>Categoria C</option>
+                                <option value="D" @selected(auth()->user()->Candidato->cnh_categoria === "D")>Categoria D</option>
+                                <option value="E" @selected(auth()->user()->Candidato->cnh_categoria === "E")>Categoria E</option>
+                                <option value="AB" @selected(auth()->user()->Candidato->cnh_categoria === "AB")>Categoria AB</option>
+                                <option value="AC" @selected(auth()->user()->Candidato->cnh_categoria === "AC")>Categoria AC</option>
+                                <option value="AD" @selected(auth()->user()->Candidato->cnh_categoria === "AD")>Categoria AD</option>
+                                <option value="AE" @selected(auth()->user()->Candidato->cnh_categoria === "AE")>Categoria AE</option>
+                            </select>
+                            <div class="invalid-feedback">Informe a categoria da CNH</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="cnh_complemento" class="form-label">Complemento CNH</label>
+                            <input type="text" class="form-control" id="cnh_complemento" name="cnh_complemento"
+                                   value="@if(old('cnh_complemento')){{ old('cnh_complemento') }}@else{{  auth()->user()->Candidato->cnh_complemento }}@endif">
+                            <div class="invalid-feedback">Informe o complemento da CNH</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="tit_eleitor" class="form-label">Título de Eleitor</label>
+                            <input type="number" class="form-control" id="tit_eleitor" name="tit_eleitor"
+                                   value="@if(old('tit_eleitor')){{ old('tit_eleitor') }}@else{{ auth()->user()->Candidato->tit_eleitor }}@endif">
+                            <div class="invalid-feedback">Informe o título de eleitor</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="tit_eleitor_zona" class="form-label">Zona Eleitoral</label>
+                            <input type="number" class="form-control" id="tit_eleitor_zona"
+                                   name="tit_eleitor_zona"
+                                   value="@if(old('tit_eleitor_zona')){{ old('tit_eleitor_zona') }}@else{{ auth()->user()->Candidato->tit_eleitor_zona }}@endif">
+                            <div class="invalid-feedback">Informe a zona eleitoral</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="tit_eleitor_sessao" class="form-label">Seção Eleitoral</label>
+                            <input type="number" class="form-control" id="tit_eleitor_sessao"
+                                   name="tit_eleitor_sessao"
+                                   value="@if(old('tit_eleitor_sessao')){{ old('tit_eleitor_sessao') }}@else{{ auth()->user()->Candidato->tit_eleitor_sessao }}@endif">
+                            <div class="invalid-feedback">Informe a seção eleitoral</div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="tit_eleitor_estado_id" class="form-label">Estado de Emissão do
+                                Titulo</label>
+                            <select name="tit_eleitor_estado_id" id="tit_eleitor_estado_id" class="form-select">
+                                <option selected disabled>Selecione o estado de emissão do Titulo</option>
+                                @foreach($estados as $value)
+                                    <option value="{{ $value->id }}"
+                                            @if(auth()->user()->Candidato->EstadoTituloEleitor && auth()->user()->Candidato->EstadoTituloEleitor->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback">Selecione o estado de emissão do Titulo</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="reservista" class="form-label">Reservista</label>
+                            <input type="text" class="form-control" id="reservista" name="reservista"
+                                   value="@if(old('reservista')){{ old('reservista') }}@else{{ auth()->user()->Candidato->reservista }}@endif">
                         </div>
                         <div class="row">
                             <div class="col">
@@ -1135,7 +992,6 @@
             </div>
         </div>
     </main>
-
     <script>
         document.addEventListener("DOMContentLoaded", function () {
 

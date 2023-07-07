@@ -27,7 +27,7 @@ class AuthController extends Controller
 
         $validator = Validator::make($request->all(), [
             'cpf'      => 'required|numeric|cpf',
-            'password' => 'required|min:8'
+            'password' => 'required'
         ]);
 
         if ($validator->fails()) {

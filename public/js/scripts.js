@@ -1,3 +1,4 @@
+/*Fixar Rodapé
 let doc = $(document).height();
 let win = $(window).height();
 const footer = document.getElementById("rodape");
@@ -7,7 +8,7 @@ if (doc > win) {
 } else {
     footer.classList.add("fixed-bottom");
 }
-
+*/
 function exibeCamposCheckbox(checkboxId, dataFieldsId) {
     const checkbox = document.getElementById(checkboxId);
     const dataFields = document.getElementById(dataFieldsId);
