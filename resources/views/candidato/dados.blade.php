@@ -596,7 +596,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-12 mb-5 text-end">
+                        <div class="col-md-12 mb-5">
                             <button type="submit" class="btn btn-primary w-25">Salvar</button>
                         </div>
 
