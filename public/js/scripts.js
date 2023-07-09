@@ -1,14 +1,30 @@
-/*Fixar Rodapé
-let doc = $(document).height();
-let win = $(window).height();
-const footer = document.getElementById("rodape");
+//Mascara do Form
+$("#cpf").mask("000.000.000-00");
+$("#cpf_login").mask("000.000.000-00");
+$("#celular").mask("(00) 00000-0000");
+$("#telefone").mask("(00) 0000-0000");
+$("#cep").mask("00000-000");
 
-if (doc > win) {
-    footer.classList.remove("fixed-bottom");
-} else {
-    footer.classList.add("fixed-bottom");
-}
-*/
+// Estilizar validação do formulario
+(() => {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+        }, false)
+    })
+})()
+
 function exibeCamposCheckbox(checkboxId, dataFieldsId) {
     const checkbox = document.getElementById(checkboxId);
     const dataFields = document.getElementById(dataFieldsId);
@@ -230,21 +246,5 @@ function pesquisacep() {
     }
 }
 
-function formatCpf(cpf) {
-    cpf = cpf.replace(/\D/g, '');
-    cpf = cpf.replace(/^(\d{3})(\d)/, '$1.$2');
-    cpf = cpf.replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3');
-    cpf = cpf.replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
-    return cpf;
-}
 
-// Seleciona todos os elementos com o mesmo ID
-var cpfInputs = document.querySelectorAll('#cpf');
-
-// Adiciona o evento de escuta a cada campo de CPF
-cpfInputs.forEach(function(input) {
-    input.addEventListener('input', function() {
-        this.value = formatCpf(this.value);
-    });
-});
 

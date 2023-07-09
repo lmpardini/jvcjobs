@@ -33,7 +33,7 @@
             <div class="tab-content" id="pills-tabContent">
 
                 <div class="tab-pane fade {{ session()->has('aba') && session()->get('aba') === 'experiencia' || session()->has('aba') && session()->get('aba') === 'formacao' ? '' : 'show active' }}" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                    <form class="row g-4" method="POST" class="needs-validation" novalidate autocomplete="off">
+                    <form class="row g-4 needs-validation" method="POST" novalidate autocomplete="off">
                         @csrf
                         @method('PUT')
                         <div class="col-md-4">
@@ -56,8 +56,25 @@
                         </div>
                         <div class="col-md-4">
                             <label for="cpf" class="form-label">CPF</label>
-                            <input type="text" class="form-control" id="cpf" name="cpf" required
+                            <input type="text" class="form-control" id="cpf" name="cpf" required pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
                                    value="{{ auth()->user()->cpf }}" disabled>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="data_nascimento" class="form-label">Data de Nascimento</label>
+                            <input type="date" class="form-control" id="data_nascimento" name="data_nascimento"
+                                   required value="@if(old('data_nascimento')){{ old('data_nascimento') }}@else{{auth()->user()->Candidato->data_nascimento}}@endif">
+                            <div class="invalid-feedback">Informe a data de nascimento</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="genero_id" class="form-label">Genero</label>
+                            <select name="genero_id" id="genero_id" class="form-select" required>
+                                <option value="" selected disabled>Selecione o genero</option>
+                                @foreach($genero as $value)
+                                    <option value="{{ $value->id }}"
+                                            @if(auth()->user()->Candidato->Genero && auth()->user()->Candidato->Genero->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback">Informe o genero</div>
                         </div>
                         <div class="col-md-4">
                             <label for="rg" class="form-label">RG</label>
@@ -70,22 +87,16 @@
                             <input type="text" class="form-control" id="rg_orgao_emissor"
                                    name="rg_orgao_emissor" required
                                    value="@if(old('rg_orgao_emissor')){{ old('rg_orgao_emissor') }}@else{{ auth()->user()->Candidato->rg_orgao_emissor }}@endif">
-                            <div class="invalid-feedback">Informe o RG</div>
+                            <div class="invalid-feedback">Informe o Orgão Emissor</div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="reservista" class="form-label">Reservista</label>
                             <input type="text" class="form-control" id="reservista" name="reservista"
                                    value="@if(old('reservista')){{ old('reservista') }}@else{{ auth()->user()->Candidato->reservista }}@endif">
                         </div>
-                        <div class="col-md-6">
-                            <label for="data_nascimento" class="form-label">Data de Nascimento</label>
-                            <input type="date" class="form-control" id="data_nascimento" name="data_nascimento"
-                                   required value="@if(old('data_nascimento')){{ old('data_nascimento') }}@else{{auth()->user()->Candidato->data_nascimento}}@endif">
-                            <div class="invalid-feedback">Informe a data de nascimento</div>
-                        </div>
                         <div class="col-md-4">
                             <label for="cep" class="form-label">CEP</label>
-                            <input type="number" class="form-control" id="cep" name="cep" required
+                            <input type="text" class="form-control" id="cep" name="cep" required
                                    value="@if(old('cep')){{ old('cep') }}@else{{ auth()->user()->Candidato->cep }}@endif" onblur="pesquisacep()">
                             <div class="invalid-feedback">Informe o CEP</div>
                         </div>
@@ -121,7 +132,7 @@
                         <div class="col-md-4">
                             <label for="estado_id" class="form-label">Estado</label>
                             <select name="estado_id" id="estado_id" class="form-select" required>
-                                <option selected disabled>Selecione o estado</option>
+                                <option value="" selected disabled>Selecione o estado</option>
                                 @foreach($estados as $value)
                                     <option value="{{ $value->id }}"
                                             @if(auth()->user()->Candidato->Estado && auth()->user()->Candidato->Estado->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
@@ -132,7 +143,7 @@
                         <div class="col-md-4">
                             <label for="pais_id" class="form-label">País</label>
                             <select name="pais_id" id="pais_id" class="form-select" required>
-                                <option selected disabled>Selecione o país</option>
+                                <option value="" selected disabled>Selecione o país</option>
                                 @foreach($paises as $value)
                                     <option value="{{ $value->id }}"
                                             @if(auth()->user()->Candidato->Pais && auth()->user()->Candidato->Pais->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
@@ -159,15 +170,23 @@
                             <div class="invalid-feedback">Informe o telefone</div>
                         </div>
                         <div class="col-md-4">
-                            <label for="genero_id" class="form-label">Genero</label>
-                            <select name="genero_id" id="genero_id" class="form-select" required>
-                                <option selected disabled>Selecione o genero</option>
-                                @foreach($genero as $value)
-                                    <option value="{{ $value->id }}"
-                                            @if(auth()->user()->Candidato->Genero && auth()->user()->Candidato->Genero->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
-                                @endforeach
-                            </select>
-                            <div class="invalid-feedback">Informe o genero</div>
+                            <label for="nome_pai" class="form-label">Nome do Pai</label>
+                            <input type="text" class="form-control" id="nome_pai" name="nome_pai"
+                                   value="@if(old('nome_pai')){{ old('nome_pai') }}@else{{ auth()->user()->Candidato->nome_pai }}@endif">
+                            <div class="invalid-feedback">Informe o nome do pai</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="nome_mae" class="form-label">Nome da Mãe</label>
+                            <input type="text" class="form-control" id="nome_mae" name="nome_mae"
+                                   value="@if(old('nome_mae')){{ old('nome_mae') }}@else{{ auth()->user()->Candidato->nome_mae }}@endif">
+                            <div class="invalid-feedback">Informe o nome da mãe</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="qtde_dependentes" class="form-label">Quantidade de Dependentes</label>
+                            <input type="number" class="form-control" id="qtde_dependentes"
+                                   name="qtde_dependentes"
+                                   value="@if(old('qtde_dependentes')){{ old('qtde_dependentes') }}@else{{ auth()->user()->Candidato->qtde_dependentes }}@endif">
+                            <div class="invalid-feedback">Informe a quantidade de dependentes</div>
                         </div>
                         <div class="col-md-4">
                             <label for="etnia_id" class="form-label">Etnia</label>
@@ -191,26 +210,7 @@
                             </select>
                             <div class="invalid-feedback">Selecione a escolaridade</div>
                         </div>
-                        <div class="col-md-4">
-                            <label for="nome_pai" class="form-label">Nome do Pai</label>
-                            <input type="text" class="form-control" id="nome_pai" name="nome_pai"
-                                   value="@if(old('nome_pai')){{ old('nome_pai') }}@else{{ auth()->user()->Candidato->nome_pai }}@endif">
-                            <div class="invalid-feedback">Informe o nome do pai</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="nome_mae" class="form-label">Nome da Mãe</label>
-                            <input type="text" class="form-control" id="nome_mae" name="nome_mae"
-                                   value="@if(old('nome_mae')){{ old('nome_mae') }}@else{{ auth()->user()->Candidato->nome_mae }}@endif">
-                            <div class="invalid-feedback">Informe o nome da mãe</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="qtde_dependentes" class="form-label">Quantidade de Dependentes</label>
-                            <input type="number" class="form-control" id="qtde_dependentes"
-                                   name="qtde_dependentes"
-                                   value="@if(old('qtde_dependentes')){{ old('qtde_dependentes') }}@else{{ auth()->user()->Candidato->qtde_dependentes }}@endif">
-                            <div class="invalid-feedback">Informe a quantidade de dependentes</div>
-                        </div>
-                        <div class="col-12">
+                        <div class="col-12 pt-3">
                             <h5>DOCUMENTAÇÃO</h5>
                             <hr class="hr" />
                         </div>
@@ -404,19 +404,17 @@
                                        name="curso_transporte_coletivo"
                                        value="1"
                                        {{ auth()->user()->Candidato->curso_transporte_coletivo ? 'checked' : '' }}
-                                       onchange="exibeCamposCheckbox('curso_transporte_coletivo', 'campo_validade_coletivo');
+                                       onchange="exibeCamposCheckbox('curso_transporte_coletivo', 'transporte_coletivo');
                                        limparCampoaoClicar('curso_transporte_coletivo','validade_curso_transporte_coletivo')">
                                 <label class="form-check-label" for="curso_transporte_coletivo">Sim</label>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div id="campo_validade_coletivo" style="display: none">
-                                <label for="validade_curso_transporte_coletivo" class="form-label">Validade do Curso
-                                    de Transporte Coletivo</label>
-                                <input type="date" class="form-control" id="validade_curso_transporte_coletivo"
-                                       name="validade_curso_transporte_coletivo"
-                                       value="@if(old('validade_curso_transporte_coletivo')){{ old('validade_curso_transporte_coletivo') }}@else{{ auth()->user()->Candidato->validade_curso_transporte_coletivo }}@endif">
-                            </div>
+                        <div class="col-md-3" id="transporte_coletivo" style="display: none">
+                            <label for="validade_curso_transporte_coletivo" class="form-label">Validade do Curso
+                                de Transporte Coletivo</label>
+                            <input type="date" class="form-control" id="validade_curso_transporte_coletivo"
+                                   name="validade_curso_transporte_coletivo"
+                                   value="@if(old('validade_curso_transporte_coletivo')){{ old('validade_curso_transporte_coletivo') }}@else{{ auth()->user()->Candidato->validade_curso_transporte_coletivo }}@endif">
                         </div>
                         <div class="col-md-12">
                             <label for="curso_transporte_escolar" class="form-label">Possui Curso de Transporte
@@ -424,20 +422,18 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="curso_transporte_escolar"
                                        name="curso_transporte_escolar" value="1"
-                                       onchange="exibeCamposCheckbox('curso_transporte_escolar', 'campo_validade_transporte_escolar');
+                                       onchange="exibeCamposCheckbox('curso_transporte_escolar', 'transporte_escolar');
                                        limparCampoaoClicar('curso_transporte_escolar','validade_curso_transporte_escolar')"
                                     {{ auth()->user()->Candidato->curso_transporte_escolar ? 'checked' : ''}}>
                                 <label class="form-check-label" for="curso_transporte_escolar">Sim</label>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div id="campo_validade_transporte_escolar" style="display: none">
-                                <label for="validade_curso_transporte_escolar" class="form-label">Validade do Curso
-                                    de Transporte Escolar</label>
-                                <input type="date" class="form-control" id="validade_curso_transporte_escolar"
-                                       name="validade_curso_transporte_escolar"
-                                       value="@if(old('validade_curso_transporte_escolar')){{ old('validade_curso_transporte_escolar') }}@else{{ auth()->user()->Candidato->validade_curso_transporte_escolar }}@endif">
-                            </div>
+                        <div class="col-md-3" id="transporte_escolar" style="display: none">
+                            <label for="validade_curso_transporte_escolar" class="form-label">Validade do Curso
+                                de Transporte Escolar</label>
+                            <input type="date" class="form-control" id="validade_curso_transporte_escolar"
+                                   name="validade_curso_transporte_escolar"
+                                   value="@if(old('validade_curso_transporte_escolar')){{ old('validade_curso_transporte_escolar') }}@else{{ auth()->user()->Candidato->validade_curso_transporte_escolar }}@endif">
                         </div>
                         <div class="col-md-12">
                             <label for="trabalhou_empresa" class="form-label">Já Trabalhou na Empresa?</label>
@@ -461,44 +457,36 @@
                                 <label class="form-check-label" for="trabalhou_empresa">Sim</label>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div id="campo_trabalhou_empresa_data_entrada" style="display: none">
-                                <label for="trabalhou_empresa_data_entrada" class="form-label">Data de
-                                    Entrada</label>
-                                <input type="date" class="form-control" id="trabalhou_empresa_data_entrada"
-                                       name="trabalhou_empresa_data_entrada"
-                                       value="@if(old('trabalhou_empresa_data_entrada')){{ old('trabalhou_empresa_data_entrada') }}@else{{ auth()->user()->Candidato->trabalhou_empresa_data_entrada }}@endif">
-                            </div>
+                        <div class="col-md-3" id="campo_trabalhou_empresa_data_entrada" style="display: none">
+                            <label for="trabalhou_empresa_data_entrada" class="form-label">Data de
+                                Entrada</label>
+                            <input type="date" class="form-control" id="trabalhou_empresa_data_entrada"
+                                   name="trabalhou_empresa_data_entrada"
+                                   value="@if(old('trabalhou_empresa_data_entrada')){{ old('trabalhou_empresa_data_entrada') }}@else{{ auth()->user()->Candidato->trabalhou_empresa_data_entrada }}@endif">
                         </div>
-                        <div class="col-md-3">
-                                <div id="campo_trabalhou_empresa_data_saida" style="display: none">
-                                    <label for="trabalhou_empresa_data_saida" class="form-label">Data de Saida</label>
-                                    <input type="date" class="form-control" id="trabalhou_empresa_data_saida"
-                                           name="trabalhou_empresa_data_saida"
-                                           value="@if(old('trabalhou_empresa_data_saida')){{ old('trabalhou_empresa_data_saida') }}@else{{ auth()->user()->Candidato->trabalhou_empresa_data_saida }}@endif">
-                                </div>
+                        <div class="col-md-3" id="campo_trabalhou_empresa_data_saida" style="display: none">
+                            <label for="trabalhou_empresa_data_saida" class="form-label">Data de Saida</label>
+                            <input type="date" class="form-control" id="trabalhou_empresa_data_saida"
+                                   name="trabalhou_empresa_data_saida"
+                                   value="@if(old('trabalhou_empresa_data_saida')){{ old('trabalhou_empresa_data_saida') }}@else{{ auth()->user()->Candidato->trabalhou_empresa_data_saida }}@endif">
                         </div>
-                        <div class="col-md-3">
-                            <div id="campo_trabalhou_empresa_setor" style="display: none">
-                                <label for="trabalhou_empresa_setor" class="form-label">Setor que trabalhou</label>
-                                <input type="text" class="form-control" id="trabalhou_empresa_setor"
-                                       name="trabalhou_empresa_setor"
-                                       value="@if(old('trabalhou_empresa_setor')){{ old('trabalhou_empresa_setor') }}@else{{ auth()->user()->Candidato->trabalhou_empresa_setor }}@endif">
-                            </div>
+                        <div class="col-md-3" id="campo_trabalhou_empresa_setor" style="display: none">
+                            <label for="trabalhou_empresa_setor" class="form-label">Setor que trabalhou</label>
+                            <input type="text" class="form-control" id="trabalhou_empresa_setor"
+                                   name="trabalhou_empresa_setor"
+                                   value="@if(old('trabalhou_empresa_setor')){{ old('trabalhou_empresa_setor') }}@else{{ auth()->user()->Candidato->trabalhou_empresa_setor }}@endif">
                         </div>
-                        <div class="col-md-3">
-                            <div id="campo_trabalhou_empresa_local_trabalhou" style="display: none">
-                                <label for="trabalhou_empresa_data_saida" class="form-label">Local que
-                                    trabalhou</label>
-                                <select name="trabalhou_empresa_local_id" id="trabalhou_empresa_local_id"
-                                        class="form-select">
-                                    <option selected disabled>Selecione o local que trabalhou</option>
-                                    @foreach($locais as $value)
-                                        <option value="{{ $value->id }}"
-                                                @if(auth()->user()->Candidato->LocalTrabalhou && auth()->user()->Candidato->LocalTrabalhou->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                        <div class="col-md-3" id="campo_trabalhou_empresa_local_trabalhou" style="display: none">
+                            <label for="trabalhou_empresa_data_saida" class="form-label">Local que
+                                trabalhou</label>
+                            <select name="trabalhou_empresa_local_id" id="trabalhou_empresa_local_id"
+                                    class="form-select">
+                                <option selected disabled>Selecione o local que trabalhou</option>
+                                @foreach($locais as $value)
+                                    <option value="{{ $value->id }}"
+                                            @if(auth()->user()->Candidato->LocalTrabalhou && auth()->user()->Candidato->LocalTrabalhou->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-md-12">
                             <label for="parente_funcionario" class="form-label">Tem algum parente que trabalha
@@ -522,33 +510,27 @@
                                 <label class="form-check-label" for="parente_funcionario">Sim</label>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div id="campo_nome_parente" style="display: none">
-                                <label for="nome_parente" class="form-label">Nome do Parente</label>
-                                <input type="text" class="form-control" id="nome_parente" name="nome_parente"
-                                       value="@if(old('nome_parente')){{ old('nome_parente') }}@else{{ auth()->user()->Candidato->nome_parente }}@endif">
-                            </div>
+                        <div class="col-md-3" id="campo_nome_parente" style="display: none">
+                            <label for="nome_parente" class="form-label">Nome do Parente</label>
+                            <input type="text" class="form-control" id="nome_parente" name="nome_parente"
+                                   value="@if(old('nome_parente')){{ old('nome_parente') }}@else{{ auth()->user()->Candidato->nome_parente }}@endif">
                         </div>
-                        <div class="col-md-3">
-                            <div id="campo_setor_parente" style="display: none">
-                                <label for="setor_parente" class="form-label">Setor</label>
-                                <input type="text" class="form-control" id="setor_parente" name="setor_parente"
-                                       value="@if(old('setor_parente')){{ old('setor_parente') }}@else{{ auth()->user()->Candidato->setor_parente }}@endif">
-                            </div>
+                        <div class="col-md-3" id="campo_setor_parente" style="display: none">
+                            <label for="setor_parente" class="form-label">Setor</label>
+                            <input type="text" class="form-control" id="setor_parente" name="setor_parente"
+                                   value="@if(old('setor_parente')){{ old('setor_parente') }}@else{{ auth()->user()->Candidato->setor_parente }}@endif">
                         </div>
-                        <div class="col-md-3">
-                            <div id="campo_parente_local" style="display: none">
-                                <label for="parente_funcionario_local_id" class="form-label">Local que
-                                    trabalhou</label>
-                                <select name="parente_funcionario_local_id" id="parente_funcionario_local_id"
-                                        class="form-select">
-                                    <option selected disabled>Selecione o local que trabalhou</option>
-                                    @foreach($locais as $value)
-                                        <option value="{{ $value->id }}"
-                                                @if(auth()->user()->Candidato->LocalTrabalhoParente && auth()->user()->Candidato->LocalTrabalhoParente->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                        <div class="col-md-3" id="campo_parente_local" style="display: none">
+                            <label for="parente_funcionario_local_id" class="form-label">Local que
+                                trabalhou</label>
+                            <select name="parente_funcionario_local_id" id="parente_funcionario_local_id"
+                                    class="form-select">
+                                <option selected disabled>Selecione o local que trabalhou</option>
+                                @foreach($locais as $value)
+                                    <option value="{{ $value->id }}"
+                                            @if(auth()->user()->Candidato->LocalTrabalhoParente && auth()->user()->Candidato->LocalTrabalhoParente->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-md-12">
                             <label for="indicacao_colaborador" class="form-label" >Indicação do Colaborador:</label>
@@ -569,32 +551,26 @@
                                 <label class="form-check-label" for="indicacao_colaborador">Sim</label>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div id="campo_nome_indicacao" style="display: none">
-                                <label class="form-label" for="nome_colaborador">Nome do Colaborador:</label><br>
-                                <input class="form-control" type="text" id="nome_colaborador" name="nome_colaborador"
-                                       value="@if(old('nome_colaborador')){{ old('nome_colaborador') }}@else{{ auth()->user()->Candidato->nome_colaborador }}@endif">
-                            </div>
+                        <div class="col-md-3" id="campo_nome_indicacao" style="display: none">
+                            <label class="form-label" for="nome_colaborador">Nome do Colaborador:</label><br>
+                            <input class="form-control" type="text" id="nome_colaborador" name="nome_colaborador"
+                                   value="@if(old('nome_colaborador')){{ old('nome_colaborador') }}@else{{ auth()->user()->Candidato->nome_colaborador }}@endif">
                         </div>
-                        <div class="col-md-3">
-                            <div id="campo_setor_indicacao" style="display: none">
-                                <label class="form-label" for="setor_colaborador">Setor do Colaborador:</label><br>
-                                <input class="form-control" type="text" id="setor_colaborador" name="setor_colaborador"
-                                       value="@if(old('setor_colaborador')){{ old('setor_colaborador') }}@else{{ auth()->user()->Candidato->setor_colaborador }}@endif">
-                            </div>
+                        <div class="col-md-3" id="campo_setor_indicacao" style="display: none">
+                            <label class="form-label" for="setor_colaborador">Setor do Colaborador:</label><br>
+                            <input class="form-control" type="text" id="setor_colaborador" name="setor_colaborador"
+                                   value="@if(old('setor_colaborador')){{ old('setor_colaborador') }}@else{{ auth()->user()->Candidato->setor_colaborador }}@endif">
                         </div>
-                        <div class="col-md-3">
-                            <div id="campo_indicacao_local" style="display: none">
-                                <label for="indicacao_colaborador_local_id" class="form-label">Local que o indicado trabalha</label>
-                                <select name="indicacao_colaborador_local_id" id="indicacao_colaborador_local_id"
-                                        class="form-select">
-                                    <option selected disabled>Selecione o local</option>
-                                    @foreach($locais as $value)
-                                        <option value="{{ $value->id }}"
-                                                @if(auth()->user()->Candidato->LocalTrabalhoIndicacao && auth()->user()->Candidato->LocalTrabalhoIndicacao->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                        <div class="col-md-3" id="campo_indicacao_local" style="display: none">
+                            <label for="indicacao_colaborador_local_id" class="form-label">Local que o indicado trabalha</label>
+                            <select name="indicacao_colaborador_local_id" id="indicacao_colaborador_local_id"
+                                    class="form-select">
+                                <option selected disabled>Selecione o local</option>
+                                @foreach($locais as $value)
+                                    <option value="{{ $value->id }}"
+                                            @if(auth()->user()->Candidato->LocalTrabalhoIndicacao && auth()->user()->Candidato->LocalTrabalhoIndicacao->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-md-12 mb-5">
                             <button type="submit" class="btn btn-primary w-25">Salvar</button>
@@ -1003,11 +979,8 @@
     <script>
         document.addEventListener("DOMContentLoaded", function () {
 
-            inputCpf = document.getElementById('cpf');
-            inputCpf.value = formatCpf(inputCpf.value)
-
-            exibeCamposCheckbox('curso_transporte_coletivo', 'campo_validade_coletivo');
-            exibeCamposCheckbox('curso_transporte_escolar', 'campo_validade_transporte_escolar');
+            exibeCamposCheckbox('curso_transporte_coletivo', 'transporte_coletivo');
+            exibeCamposCheckbox('curso_transporte_escolar', 'transporte_escolar');
             exibirParenteIndicacaoEmpresa(
                 'parente_funcionario',
                 'campo_nome_parente',

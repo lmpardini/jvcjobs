@@ -22,7 +22,7 @@
                             @csrf
                             <div class="mb-3">
                                 <label for="cpf" class="form-label">CPF</label>
-                                <input type="text" class="form-control" id="cpf" name="cpf" required value="{{ session()->getOldInput('cpf') }}">
+                                <input type="text" class="form-control" id="cpf_login" name="cpf" required value="{{ session()->getOldInput('cpf') }}">
                                 <div class="invalid-feedback">Informe o seu CPF</div>
                             </div>
                             <div class="mb-3">
