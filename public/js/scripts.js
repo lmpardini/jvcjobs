@@ -230,3 +230,21 @@ function pesquisacep() {
     }
 }
 
+function formatCpf(cpf) {
+    cpf = cpf.replace(/\D/g, '');
+    cpf = cpf.replace(/^(\d{3})(\d)/, '$1.$2');
+    cpf = cpf.replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3');
+    cpf = cpf.replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+    return cpf;
+}
+
+// Seleciona todos os elementos com o mesmo ID
+var cpfInputs = document.querySelectorAll('#cpf');
+
+// Adiciona o evento de escuta a cada campo de CPF
+cpfInputs.forEach(function(input) {
+    input.addEventListener('input', function() {
+        this.value = formatCpf(this.value);
+    });
+});
+
