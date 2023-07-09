@@ -52,11 +52,20 @@
                             <a class="nav-link {{ Request::is('vagas') ? ' active' : '' }}" href="{{ route('vagas.listar') }}">Vagas</a>
                         </li>
 
-                        @if(auth()->user())
+                        @auth
                             <li class="nav-item dropdown">
                                 <button class="btn btn-secondary dropdown-toggle w-100 text-start" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
                                     Olá, {{ auth()->user()->name }}
                                 </button>
+
+                                @if(auth()->user()->PerfilUsuario->slug === 'colaborador')
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                        <li><a href="{{ route('administrativo.home') }}" class="dropdown-item {{ Request::is('administrativo') ? ' active' : '' }}" type="button">Painel Administrativo</a></li>
+                                        <li><button class="dropdown-item" type="button">Alterar Senha</button></li>
+                                        <li><a href=" {{ route('auth.logout') }}" class="dropdown-item" type="button" >Sair</a></li>
+                                    </ul>
+
+                                @endif
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                     <li><a href="{{ route('candidato.dados') }}" class="dropdown-item {{ Request::is('candidato/dados') ? ' active' : '' }}" type="button">Meus Dados</a></li>
                                     <li><a href="{{ route('candidato.minhas-vagas') }}" class="dropdown-item {{ Request::is('candidato/vagas') ? ' active' : '' }}" type="button">Minhas Vagas</a></li>
@@ -64,16 +73,15 @@
                                     <li><a href=" {{ route('auth.logout') }}" class="dropdown-item" type="button" >Sair</a></li>
                                 </ul>
                             </li>
+                        @endauth
 
-                        @else
+                        @guest
                             <li class="nav-item">
                                 <a class="navbar-item" href={{ route('auth.login') }}>
                                     <i class="material-icons" style="font-size: 3em;">account_circle</i>
                                 </a>
                             </li>
-
-                        @endif
-
+                        @endguest
                     </ul>
                 </div>
             </div>

@@ -23,6 +23,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @property boolean $ativo
  * @property boolean $primeiro_acesso
  * @property Candidato $Candidato
+ * @property integer $perfil_usuario_id
+ * @property PerfilUsuario $PerfilUsuario
  * @property string $remember_token
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -65,5 +67,10 @@ class User extends Authenticatable
     public function Candidato()
     {
         return $this->hasOne(Candidato::class, 'user_id', 'id');
+    }
+
+    public function PerfilUsuario()
+    {
+        return $this->hasOne(PerfilUsuario::class, 'id', 'perfil_usuario_id');
     }
 }

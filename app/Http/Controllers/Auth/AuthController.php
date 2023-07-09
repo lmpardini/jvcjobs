@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Candidato;
+use App\Models\PerfilUsuario;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,6 +45,10 @@ class AuthController extends Controller
 
             Session::regenerateToken();
 
+            if (auth()->user()->PerfilUsuario->slug === 'colaborador'){
+                return redirect()->route('administrativo.home');
+            }
+
             return redirect()->route('vagas.listar');
         }
 
@@ -78,12 +83,19 @@ class AuthController extends Controller
             return back()->withInput(['cpf' => $request->cpf])->withErrors(["Usuário já possui cadastro"]);
         }
 
+        $perfilUsuario = PerfilUsuario::whereSlug('candidato')->first();
+
+        if (!$perfilUsuario) {
+            return back()->withInput(['cpf' => $request->cpf])->withErrors(["Perfil candidato invalido"]);
+        }
+
         $usuario = new User();
         $usuario->name = $request->nome;
         $usuario->last_name = $request->sobrenome;
         $usuario->cpf = Str::remove(['.', '-'], $request->cpf);
         $usuario->email = $request->email;
         $usuario->password = Hash::make($request->password_confirmation);
+        $usuario->perfil_usuario_id =$perfilUsuario->id;
         $usuario->save();
 
         $candidato = new Candidato();

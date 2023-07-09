@@ -67,4 +67,27 @@ Route::controller(\App\Http\Controllers\CandidatoFormacaoAcademicaController::cl
         Route::delete('/excluir/','deletarFormacao')->name('delete');
     });
 
+Route::controller(\App\Http\Controllers\CandidatoFormacaoAcademicaController::class)
+    ->prefix('candidato-formacao')
+    ->as('candidato-formacao.')
+    ->group(function () {
+        Route::post('/','novaFormacao')->name('create');
+        Route::put('/','editarFormacao')->name('update');
+        Route::delete('/excluir/','deletarFormacao')->name('delete');
+    });
+
+/**
+ * Rotas Administrativas
+ */
+
+Route::middleware(['auth:sanctum', 'admin'])
+    ->prefix('/administrativo')
+    ->as('administrativo.')
+    ->group(function (){
+        Route::controller(\App\Http\Controllers\Administrativo\AdministrativoHomeController::class)
+            ->group(function () {
+                Route::get('/', 'home')->name('home');
+            });
+    });
+
 
