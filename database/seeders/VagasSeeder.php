@@ -72,6 +72,94 @@ class VagasSeeder extends Seeder
                 'numero_candidatos' => 7,
                 'destaque' => false
             ],
+            [
+                'nome' => 'Auxiliar de Trafego',
+                'local' => 'Itatiba',
+                'descricao' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                'requisitos' => 'Este é os requisitos para a vaga listado abaixo bla bla bla bla',
+                'numero_candidatos' => 1,
+                'destaque' => false
+            ],
+            [
+                'nome' => 'Auxiliar de Limpeza',
+                'local' => 'Caraguatatuba',
+                'descricao' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                'requisitos' => 'Este é os requisitos para a vaga listado abaixo bla bla bla bla',
+                'numero_candidatos' => 1,
+                'destaque' => false
+            ],
+            [
+                'nome' => 'Auxiliar de Limpeza',
+                'local' => 'Ilhabela',
+                'descricao' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                'requisitos' => 'Este é os requisitos para a vaga listado abaixo bla bla bla bla',
+                'numero_candidatos' => 1,
+                'destaque' => false
+            ],
+            [
+                'nome' => 'Tecnico de Segurança do Trabalho',
+                'local' => 'Itatiba',
+                'descricao' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                'requisitos' => 'Este é os requisitos para a vaga listado abaixo bla bla bla bla',
+                'numero_candidatos' => 1,
+                'destaque' => false
+            ],
+            [
+                'nome' => 'Eletricista',
+                'local' => 'Serra Negra',
+                'descricao' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                'requisitos' => 'Este é os requisitos para a vaga listado abaixo bla bla bla bla',
+                'numero_candidatos' => 1,
+                'destaque' => false
+            ],
+            [
+                'nome' => 'Controlador de Pneus',
+                'local' => 'Itatiba',
+                'descricao' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                'requisitos' => 'Este é os requisitos para a vaga listado abaixo bla bla bla bla',
+                'numero_candidatos' => 1,
+                'destaque' => true
+            ],
+            [
+                'nome' => 'Assistente de Trafego',
+                'local' => 'Amparo',
+                'descricao' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                'requisitos' => 'Este é os requisitos para a vaga listado abaixo bla bla bla bla',
+                'numero_candidatos' => 1,
+                'destaque' => false
+            ],
+            [
+                'nome' => 'Motorista de Onibus Escolar e Urbano',
+                'local' => 'Amparo',
+                'descricao' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                'requisitos' => 'Este é os requisitos para a vaga listado abaixo bla bla bla bla',
+                'numero_candidatos' => 1,
+                'destaque' => true
+            ],
+            [
+                'nome' => 'Funileiro',
+                'local' => 'Amparo',
+                'descricao' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                'requisitos' => 'Este é os requisitos para a vaga listado abaixo bla bla bla bla',
+                'numero_candidatos' => 1,
+                'destaque' => false
+            ],
+            [
+                'nome' => 'Funileiro',
+                'local' => 'Itatiba',
+                'descricao' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                'requisitos' => 'Este é os requisitos para a vaga listado abaixo bla bla bla bla',
+                'numero_candidatos' => 1,
+                'destaque' => false
+            ],
+            [
+                'nome' => 'Auxiliar de Mecânico',
+                'local' => 'Caraguatatuba',
+                'descricao' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+                'requisitos' => 'Este é os requisitos para a vaga listado abaixo bla bla bla bla',
+                'numero_candidatos' => 1,
+                'destaque' => true
+            ],
         ];
 
         foreach($vagas as $item) {
