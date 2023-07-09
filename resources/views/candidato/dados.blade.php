@@ -73,10 +73,9 @@
                             <div class="invalid-feedback">Informe o RG</div>
                         </div>
                         <div class="col-md-6">
-                            <label for="email" class="form-label">E-mail</label>
-                            <input type="email" class="form-control" id="email" name="email" required
-                                   value="@if(old('email')){{ old('email') }}@else{{  auth()->user()->email }} @endif">
-                            <div class="invalid-feedback">Informe o seu e-mail</div>
+                            <label for="reservista" class="form-label">Reservista</label>
+                            <input type="text" class="form-control" id="reservista" name="reservista"
+                                   value="@if(old('reservista')){{ old('reservista') }}@else{{ auth()->user()->Candidato->reservista }}@endif">
                         </div>
                         <div class="col-md-6">
                             <label for="data_nascimento" class="form-label">Data de Nascimento</label>
@@ -141,17 +140,23 @@
                             </select>
                             <div class="invalid-feedback">Selecione o país</div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="telefone" class="form-label">Telefone</label>
-                            <input type="text" class="form-control" id="telefone" name="telefone" required
-                                   value="@if(old('telefone')){{ old('telefone') }}@else{{ auth()->user()->Candidato->telefone }}@endif">
-                            <div class="invalid-feedback">Informe o telefone</div>
+                        <div class="col-md-4">
+                            <label for="email" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="email" name="email" required
+                                   value="@if(old('email')){{ old('email') }}@else{{  auth()->user()->email }} @endif">
+                            <div class="invalid-feedback">Informe o seu e-mail</div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label for="celular" class="form-label">Celular</label>
                             <input type="text" class="form-control" id="celular" name="celular" required
                                    value="@if(old('celular')){{ old('celular') }}@else{{ auth()->user()->Candidato->celular }}@endif">
                             <div class="invalid-feedback">Informe o celular</div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="telefone" class="form-label">Telefone</label>
+                            <input type="text" class="form-control" id="telefone" name="telefone" required
+                                   value="@if(old('telefone')){{ old('telefone') }}@else{{ auth()->user()->Candidato->telefone }}@endif">
+                            <div class="invalid-feedback">Informe o telefone</div>
                         </div>
                         <div class="col-md-4">
                             <label for="genero_id" class="form-label">Genero</label>
@@ -205,393 +210,396 @@
                                    value="@if(old('qtde_dependentes')){{ old('qtde_dependentes') }}@else{{ auth()->user()->Candidato->qtde_dependentes }}@endif">
                             <div class="invalid-feedback">Informe a quantidade de dependentes</div>
                         </div>
-                        <div class="col-md-4">
-                            <label for="pis" class="form-label">PIS</label>
-                            <input type="number" class="form-control" id="pis" name="pis"
-                                   value="@if(old('pis')){{ old('pis') }}@else{{ auth()->user()->Candidato->pis }}@endif">
-                            <div class="invalid-feedback">Informe o PIS</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="pis_orgao_emissor" class="form-label">Órgão Emissor do PIS</label>
-                            <input type="text" class="form-control" id="pis_orgao_emissor"
-                                   name="pis_orgao_emissor"
-                                   value="@if(old('pis_orgao_emissor')){{ old('pis_orgao_emissor') }}@else{{ auth()->user()->Candidato->pis_orgao_emissor }}@endif">
-                            <div class="invalid-feedback">Informe o órgão emissor do PIS</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="pis_estado_id" class="form-label">Estado de Emissão do PIS</label>
-                            <select name="pis_estado_id" id="pis_estado_id" class="form-select">
-                                <option selected disabled>Selecione o estado de emissão do PIS</option>
-                                @foreach($estados as $value)
-                                    <option value="{{ $value->id }}"
-                                            @if(auth()->user()->Candidato->EstadoPis && auth()->user()->Candidato->EstadoPis->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
-                                @endforeach
-                            </select>
-                            <div class="invalid-feedback">Selecione o estado de emissão do PIS</div>
-                        </div>
-                        <div class="col-md-5">
-                            <label for="pis_data_emissao" class="form-label">Data de Emissão do PIS</label>
-                            <input type="date" class="form-control" id="pis_data_emissao"
-                                   name="pis_data_emissao"
-                                   value="@if(old('pis_data_emissao')){{ old('pis_data_emissao') }}@else{{  auth()->user()->Candidato->pis_data_emissao }}@endif">
-                            <div class="invalid-feedback">Informe a data de emissão do PIS</div>
-                        </div>
-                        <div class="col-md-5">
-                            <label for="pis_complemento" class="form-label">Complemento do PIS</label>
-                            <input type="text" class="form-control" id="pis_complemento" name="pis_complemento"
-                                   value="@if(old('pis_complemento')){{ old('pis_complemento') }}@else{{  auth()->user()->Candidato->pis_complemento }}@endif">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="ctps" class="form-label">CTPS</label>
-                            <input type="text" class="form-control" id="ctps" name="ctps"
-                                   value="@if(old('ctps')){{ old('ctps') }}@else{{  auth()->user()->Candidato->ctps }}@endif">
-                            <div class="invalid-feedback">Informe a CTPS</div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="ctps_numero_serie" class="form-label">Número/Série da CTPS</label>
-                            <input type="text" class="form-control" id="ctps_numero_serie"
-                                   name="ctps_numero_serie"
-                                   value="@if(old('ctps_numero_serie')){{ old('ctps_numero_serie') }}@else{{  auth()->user()->Candidato->ctps_numero_serie }}@endif">
-                            <div class="invalid-feedback">Informe o número/série da CTPS</div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="ctps_estado_id" class="form-label">Estado de Emissão da CTPS</label>
-                            <select name="ctps_estado_id" id="ctps_estado_id" class="form-select">
-                                <option selected disabled>Selecione o estado de emissão da CTPS</option>
-                                @foreach($estados as $value)
-                                    <option value="{{ $value->id }}"
-                                            @if(auth()->user()->Candidato->EstadoCTPS && auth()->user()->Candidato->EstadoCTPS->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
-                                @endforeach
-                            </select>
-                            <div class="invalid-feedback">Selecione o estado de emissão da CTPS</div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="ctps_data_emissao" class="form-label">Data de Emissão da CTPS</label>
-                            <input type="date" class="form-control" id="ctps_data_emissao"
-                                   name="ctps_data_emissao"
-                                   value="@if(old('ctps_data_emissao')){{ old('ctps_data_emissao') }}@else{{ auth()->user()->Candidato->ctps_data_emissao }}@endif">
-                            <div class="invalid-feedback">Informe a data de emissão da CTPS</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="cnh" class="form-label">CNH</label>
-                            <input type="number" class="form-control" id="cnh" name="cnh"
-                                   value="@if(old('cnh')){{ old('cnh') }}@else{{  auth()->user()->Candidato->cnh }}@endif">
-                            <div class="invalid-feedback">Informe o numero da CNH</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="cnh_data_emissao" class="form-label">Data de Emissão da CNH</label>
-                            <input type="date" class="form-control" id="cnh_data_emissao"
-                                   name="cnh_data_emissao"
-                                   value="@if(old('cnh_data_emissao')){{ old('cnh_data_emissao') }}@else{{  auth()->user()->Candidato->cnh_data_emissao }}@endif">
-                            <div class="invalid-feedback">Informe a data de emissão do CNH</div>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="cnh_estado_id" class="form-label">Estado de Emissão da CNH</label>
-                            <select name="cnh_estado_id" id="cnh_estado_id" class="form-select">
-                                <option selected disabled>Selecione o estado de emissão da CNH</option>
-                                @foreach($estados as $value)
-                                    <option value="{{ $value->id }}"
-                                            @if(auth()->user()->Candidato->EstadoCNH && auth()->user()->Candidato->EstadoCNH->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
-                                @endforeach
-                            </select>
-                            <div class="invalid-feedback">Selecione o estado de emissão da CNH</div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="cnh_orgao_emissor" class="form-label">Orgão Emissor CNH</label>
-                            <input type="text" class="form-control" id="cnh_orgao_emissor"
-                                   name="cnh_orgao_emissor"
-                                   value="@if(old('cnh_orgao_emissor')){{ old('cnh_orgao_emissor') }}@else{{  auth()->user()->Candidato->cnh_orgao_emissor }}@endif">
-                            <div class="invalid-feedback">Informe o Orgão Emissor da CNH</div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="cnh_validade" class="form-label">Data de validade da CNH</label>
-                            <input type="date" class="form-control" id="cnh_validade" name="cnh_validade"
-                                   value="@if(old('cnh_validade')){{ old('cnh_validade') }}@else{{  auth()->user()->Candidato->cnh_validade }}@endif">
-                            <div class="invalid-feedback">Informe a data de validade do CNH</div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="cnh_categoria" class="form-label">Categoria CNH</label>
-                            <select class="form-select" name="cnh_categoria" id="cnh_categoria">
-                                <option selected disabled>Selecione uma categoria</option>
-                                <option value="A" @selected(auth()->user()->Candidato->cnh_categoria === "A")>Categoria A</option>
-                                <option value="B" @selected(auth()->user()->Candidato->cnh_categoria === "B")>Categoria B</option>
-                                <option value="C" @selected(auth()->user()->Candidato->cnh_categoria === "C")>Categoria C</option>
-                                <option value="D" @selected(auth()->user()->Candidato->cnh_categoria === "D")>Categoria D</option>
-                                <option value="E" @selected(auth()->user()->Candidato->cnh_categoria === "E")>Categoria E</option>
-                                <option value="AB" @selected(auth()->user()->Candidato->cnh_categoria === "AB")>Categoria AB</option>
-                                <option value="AC" @selected(auth()->user()->Candidato->cnh_categoria === "AC")>Categoria AC</option>
-                                <option value="AD" @selected(auth()->user()->Candidato->cnh_categoria === "AD")>Categoria AD</option>
-                                <option value="AE" @selected(auth()->user()->Candidato->cnh_categoria === "AE")>Categoria AE</option>
-                            </select>
-                            <div class="invalid-feedback">Informe a categoria da CNH</div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="cnh_complemento" class="form-label">Complemento CNH</label>
-                            <input type="text" class="form-control" id="cnh_complemento" name="cnh_complemento"
-                                   value="@if(old('cnh_complemento')){{ old('cnh_complemento') }}@else{{  auth()->user()->Candidato->cnh_complemento }}@endif">
-                            <div class="invalid-feedback">Informe o complemento da CNH</div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="tit_eleitor" class="form-label">Título de Eleitor</label>
-                            <input type="number" class="form-control" id="tit_eleitor" name="tit_eleitor"
-                                   value="@if(old('tit_eleitor')){{ old('tit_eleitor') }}@else{{ auth()->user()->Candidato->tit_eleitor }}@endif">
-                            <div class="invalid-feedback">Informe o título de eleitor</div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="tit_eleitor_zona" class="form-label">Zona Eleitoral</label>
-                            <input type="number" class="form-control" id="tit_eleitor_zona"
-                                   name="tit_eleitor_zona"
-                                   value="@if(old('tit_eleitor_zona')){{ old('tit_eleitor_zona') }}@else{{ auth()->user()->Candidato->tit_eleitor_zona }}@endif">
-                            <div class="invalid-feedback">Informe a zona eleitoral</div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="tit_eleitor_sessao" class="form-label">Seção Eleitoral</label>
-                            <input type="number" class="form-control" id="tit_eleitor_sessao"
-                                   name="tit_eleitor_sessao"
-                                   value="@if(old('tit_eleitor_sessao')){{ old('tit_eleitor_sessao') }}@else{{ auth()->user()->Candidato->tit_eleitor_sessao }}@endif">
-                            <div class="invalid-feedback">Informe a seção eleitoral</div>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="tit_eleitor_estado_id" class="form-label">Estado de Emissão do
-                                Titulo</label>
-                            <select name="tit_eleitor_estado_id" id="tit_eleitor_estado_id" class="form-select">
-                                <option selected disabled>Selecione o estado de emissão do Titulo</option>
-                                @foreach($estados as $value)
-                                    <option value="{{ $value->id }}"
-                                            @if(auth()->user()->Candidato->EstadoTituloEleitor && auth()->user()->Candidato->EstadoTituloEleitor->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
-                                @endforeach
-                            </select>
-                            <div class="invalid-feedback">Selecione o estado de emissão do Titulo</div>
+                        <div class="col-12">
+                            <h5>DOCUMENTAÇÃO</h5>
+                            <hr class="hr" />
                         </div>
                         <div class="col-md-6">
-                            <label for="reservista" class="form-label">Reservista</label>
-                            <input type="text" class="form-control" id="reservista" name="reservista"
-                                   value="@if(old('reservista')){{ old('reservista') }}@else{{ auth()->user()->Candidato->reservista }}@endif">
-                        </div>
-                        <div class="row">
-                            <div class="col">
+                            <fieldset>
+                                <legend class="bg-vagas text-center">PIS</legend>
                                 <div class="mb-3">
-                                    <label for="curso_transporte_coletivo" class="form-label">Possui Curso de Transporte
-                                        Coletivo?</label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="curso_transporte_coletivo"
-                                               name="curso_transporte_coletivo"
-                                               value="1"
-                                               {{ auth()->user()->Candidato->curso_transporte_coletivo ? 'checked' : '' }}
-                                               onchange="exibeCamposCheckbox('curso_transporte_coletivo', 'campo_validade_coletivo');
-                                               limparCampoaoClicar('curso_transporte_coletivo','validade_curso_transporte_coletivo')">
-                                        <label class="form-check-label" for="curso_transporte_coletivo">Sim</label>
-                                    </div>
+                                    <label for="pis" class="form-label">Número do PIS</label>
+                                    <input type="number" class="form-control" id="pis" name="pis"
+                                           value="@if(old('pis')){{ old('pis') }}@else{{ auth()->user()->Candidato->pis }}@endif">
+                                    <div class="invalid-feedback">Informe o PIS</div>
                                 </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3" id="campo_validade_coletivo" style="display: none">
-                                    <label for="validade_curso_transporte_coletivo" class="form-label">Validade do Curso
-                                        de Transporte Coletivo</label>
-                                    <input type="date" class="form-control" id="validade_curso_transporte_coletivo"
-                                           name="validade_curso_transporte_coletivo"
-                                           value="@if(old('validade_curso_transporte_coletivo')){{ old('validade_curso_transporte_coletivo') }}@else{{ auth()->user()->Candidato->validade_curso_transporte_coletivo }}@endif">
+                                <div class="mb-3">
+                                    <label for="pis_orgao_emissor" class="form-label">Órgão Emissor do PIS</label>
+                                    <input type="text" class="form-control" id="pis_orgao_emissor"
+                                           name="pis_orgao_emissor"
+                                           value="@if(old('pis_orgao_emissor')){{ old('pis_orgao_emissor') }}@else{{ auth()->user()->Candidato->pis_orgao_emissor }}@endif">
+                                    <div class="invalid-feedback">Informe o órgão emissor do PIS</div>
                                 </div>
+                                <div class="mb-3">
+                                    <label for="pis_estado_id" class="form-label">Estado de Emissão do PIS</label>
+                                    <select name="pis_estado_id" id="pis_estado_id" class="form-select">
+                                        <option selected disabled>Selecione o estado de emissão do PIS</option>
+                                        @foreach($estados as $value)
+                                            <option value="{{ $value->id }}"
+                                                    @if(auth()->user()->Candidato->EstadoPis && auth()->user()->Candidato->EstadoPis->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Selecione o estado de emissão do PIS</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pis_data_emissao" class="form-label">Data de Emissão do PIS</label>
+                                    <input type="date" class="form-control" id="pis_data_emissao"
+                                           name="pis_data_emissao"
+                                           value="@if(old('pis_data_emissao')){{ old('pis_data_emissao') }}@else{{  auth()->user()->Candidato->pis_data_emissao }}@endif">
+                                    <div class="invalid-feedback">Informe a data de emissão do PIS</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pis_complemento" class="form-label">Complemento do PIS</label>
+                                    <input type="text" class="form-control" id="pis_complemento" name="pis_complemento"
+                                           value="@if(old('pis_complemento')){{ old('pis_complemento') }}@else{{  auth()->user()->Candidato->pis_complemento }}@endif">
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-6">
+                            <fieldset>
+                                <legend class="bg-vagas text-center">Carteira de Trabalho</legend>
+                                <div class="mb-3">
+                                    <label for="ctps" class="form-label">Número da CTPS</label>
+                                    <input type="text" class="form-control" id="ctps" name="ctps"
+                                           value="@if(old('ctps')){{ old('ctps') }}@else{{  auth()->user()->Candidato->ctps }}@endif">
+                                    <div class="invalid-feedback">Informe a CTPS</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ctps_numero_serie" class="form-label">Número/Série da CTPS</label>
+                                    <input type="text" class="form-control" id="ctps_numero_serie"
+                                           name="ctps_numero_serie"
+                                           value="@if(old('ctps_numero_serie')){{ old('ctps_numero_serie') }}@else{{  auth()->user()->Candidato->ctps_numero_serie }}@endif">
+                                    <div class="invalid-feedback">Informe o número/série da CTPS</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ctps_estado_id" class="form-label">Estado de Emissão da CTPS</label>
+                                    <select name="ctps_estado_id" id="ctps_estado_id" class="form-select">
+                                        <option selected disabled>Selecione o estado de emissão da CTPS</option>
+                                        @foreach($estados as $value)
+                                            <option value="{{ $value->id }}"
+                                                    @if(auth()->user()->Candidato->EstadoCTPS && auth()->user()->Candidato->EstadoCTPS->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Selecione o estado de emissão da CTPS</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ctps_data_emissao" class="form-label">Data de Emissão da CTPS</label>
+                                    <input type="date" class="form-control" id="ctps_data_emissao"
+                                           name="ctps_data_emissao"
+                                           value="@if(old('ctps_data_emissao')){{ old('ctps_data_emissao') }}@else{{ auth()->user()->Candidato->ctps_data_emissao }}@endif">
+                                    <div class="invalid-feedback">Informe a data de emissão da CTPS</div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-6">
+                            <fieldset>
+                                <legend class="bg-vagas text-center">CNH</legend>
+                                <div class="mb-3">
+                                    <label for="cnh" class="form-label">CNH</label>
+                                    <input type="number" class="form-control" id="cnh" name="cnh"
+                                           value="@if(old('cnh')){{ old('cnh') }}@else{{  auth()->user()->Candidato->cnh }}@endif">
+                                    <div class="invalid-feedback">Informe o numero da CNH</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cnh_data_emissao" class="form-label">Data de Emissão da CNH</label>
+                                    <input type="date" class="form-control" id="cnh_data_emissao"
+                                           name="cnh_data_emissao"
+                                           value="@if(old('cnh_data_emissao')){{ old('cnh_data_emissao') }}@else{{  auth()->user()->Candidato->cnh_data_emissao }}@endif">
+                                    <div class="invalid-feedback">Informe a data de emissão do CNH</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cnh_estado_id" class="form-label">Estado de Emissão da CNH</label>
+                                    <select name="cnh_estado_id" id="cnh_estado_id" class="form-select">
+                                        <option selected disabled>Selecione o estado de emissão da CNH</option>
+                                        @foreach($estados as $value)
+                                            <option value="{{ $value->id }}"
+                                                    @if(auth()->user()->Candidato->EstadoCNH && auth()->user()->Candidato->EstadoCNH->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Selecione o estado de emissão da CNH</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cnh_orgao_emissor" class="form-label">Orgão Emissor CNH</label>
+                                    <input type="text" class="form-control" id="cnh_orgao_emissor"
+                                           name="cnh_orgao_emissor"
+                                           value="@if(old('cnh_orgao_emissor')){{ old('cnh_orgao_emissor') }}@else{{  auth()->user()->Candidato->cnh_orgao_emissor }}@endif">
+                                    <div class="invalid-feedback">Informe o Orgão Emissor da CNH</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cnh_validade" class="form-label">Data de validade da CNH</label>
+                                    <input type="date" class="form-control" id="cnh_validade" name="cnh_validade"
+                                           value="@if(old('cnh_validade')){{ old('cnh_validade') }}@else{{  auth()->user()->Candidato->cnh_validade }}@endif">
+                                    <div class="invalid-feedback">Informe a data de validade do CNH</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cnh_categoria" class="form-label">Categoria CNH</label>
+                                    <select class="form-select" name="cnh_categoria" id="cnh_categoria">
+                                        <option selected disabled>Selecione uma categoria</option>
+                                        <option value="A" @selected(auth()->user()->Candidato->cnh_categoria === "A")>Categoria A</option>
+                                        <option value="B" @selected(auth()->user()->Candidato->cnh_categoria === "B")>Categoria B</option>
+                                        <option value="C" @selected(auth()->user()->Candidato->cnh_categoria === "C")>Categoria C</option>
+                                        <option value="D" @selected(auth()->user()->Candidato->cnh_categoria === "D")>Categoria D</option>
+                                        <option value="E" @selected(auth()->user()->Candidato->cnh_categoria === "E")>Categoria E</option>
+                                        <option value="AB" @selected(auth()->user()->Candidato->cnh_categoria === "AB")>Categoria AB</option>
+                                        <option value="AC" @selected(auth()->user()->Candidato->cnh_categoria === "AC")>Categoria AC</option>
+                                        <option value="AD" @selected(auth()->user()->Candidato->cnh_categoria === "AD")>Categoria AD</option>
+                                        <option value="AE" @selected(auth()->user()->Candidato->cnh_categoria === "AE")>Categoria AE</option>
+                                    </select>
+                                    <div class="invalid-feedback">Informe a categoria da CNH</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cnh_complemento" class="form-label">Complemento CNH</label>
+                                    <input type="text" class="form-control" id="cnh_complemento" name="cnh_complemento"
+                                           value="@if(old('cnh_complemento')){{ old('cnh_complemento') }}@else{{  auth()->user()->Candidato->cnh_complemento }}@endif">
+                                    <div class="invalid-feedback">Informe o complemento da CNH</div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-6">
+                            <fieldset>
+                                <legend class="bg-vagas text-center">Titulo de Eleitor</legend>
+                                <div class="mb-3">
+                                    <label for="tit_eleitor" class="form-label">Número do Título de Eleitor</label>
+                                    <input type="number" class="form-control" id="tit_eleitor" name="tit_eleitor"
+                                           value="@if(old('tit_eleitor')){{ old('tit_eleitor') }}@else{{ auth()->user()->Candidato->tit_eleitor }}@endif">
+                                    <div class="invalid-feedback">Informe o título de eleitor</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tit_eleitor_zona" class="form-label">Zona Eleitoral</label>
+                                    <input type="number" class="form-control" id="tit_eleitor_zona"
+                                           name="tit_eleitor_zona"
+                                           value="@if(old('tit_eleitor_zona')){{ old('tit_eleitor_zona') }}@else{{ auth()->user()->Candidato->tit_eleitor_zona }}@endif">
+                                    <div class="invalid-feedback">Informe a zona eleitoral</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tit_eleitor_sessao" class="form-label">Seção Eleitoral</label>
+                                    <input type="number" class="form-control" id="tit_eleitor_sessao"
+                                           name="tit_eleitor_sessao"
+                                           value="@if(old('tit_eleitor_sessao')){{ old('tit_eleitor_sessao') }}@else{{ auth()->user()->Candidato->tit_eleitor_sessao }}@endif">
+                                    <div class="invalid-feedback">Informe a seção eleitoral</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tit_eleitor_estado_id" class="form-label">Estado de Emissão do
+                                        Titulo</label>
+                                    <select name="tit_eleitor_estado_id" id="tit_eleitor_estado_id" class="form-select">
+                                        <option selected disabled>Selecione o estado de emissão do Titulo</option>
+                                        @foreach($estados as $value)
+                                            <option value="{{ $value->id }}"
+                                                    @if(auth()->user()->Candidato->EstadoTituloEleitor && auth()->user()->Candidato->EstadoTituloEleitor->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">Selecione o estado de emissão do Titulo</div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-12">
+                            <h5>INFORMAÇÕES COMPLEMENTARES</h5>
+                            <hr class="hr" />
+                        </div>
+                        <div class="col-md-12">
+                            <label for="curso_transporte_coletivo" class="form-label">Possui Curso de Transporte
+                                Coletivo?</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="curso_transporte_coletivo"
+                                       name="curso_transporte_coletivo"
+                                       value="1"
+                                       {{ auth()->user()->Candidato->curso_transporte_coletivo ? 'checked' : '' }}
+                                       onchange="exibeCamposCheckbox('curso_transporte_coletivo', 'campo_validade_coletivo');
+                                       limparCampoaoClicar('curso_transporte_coletivo','validade_curso_transporte_coletivo')">
+                                <label class="form-check-label" for="curso_transporte_coletivo">Sim</label>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="curso_transporte_escolar" class="form-label">Possui Curso de Transporte
-                                        Escolar?</label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="curso_transporte_escolar"
-                                               name="curso_transporte_escolar" value="1"
-                                               onchange="exibeCamposCheckbox('curso_transporte_escolar', 'campo_validade_transporte_escolar');
-                                               limparCampoaoClicar('curso_transporte_escolar','validade_curso_transporte_escolar')"
-                                            {{ auth()->user()->Candidato->curso_transporte_escolar ? 'checked' : ''}}>
-                                        <label class="form-check-label" for="curso_transporte_escolar">Sim</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3" id="campo_validade_transporte_escolar" style="display: none">
-                                    <label for="validade_curso_transporte_escolar" class="form-label">Validade do Curso
-                                        de Transporte Escolar</label>
-                                    <input type="date" class="form-control" id="validade_curso_transporte_escolar"
-                                           name="validade_curso_transporte_escolar"
-                                           value="@if(old('validade_curso_transporte_escolar')){{ old('validade_curso_transporte_escolar') }}@else{{ auth()->user()->Candidato->validade_curso_transporte_escolar }}@endif">
-                                </div>
+                        <div class="col-md-3">
+                            <div id="campo_validade_coletivo" style="display: none">
+                                <label for="validade_curso_transporte_coletivo" class="form-label">Validade do Curso
+                                    de Transporte Coletivo</label>
+                                <input type="date" class="form-control" id="validade_curso_transporte_coletivo"
+                                       name="validade_curso_transporte_coletivo"
+                                       value="@if(old('validade_curso_transporte_coletivo')){{ old('validade_curso_transporte_coletivo') }}@else{{ auth()->user()->Candidato->validade_curso_transporte_coletivo }}@endif">
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="trabalhou_empresa" class="form-label">Já Trabalhou na Empresa?</label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="trabalhou_empresa"
-                                               name="trabalhou_empresa"
-                                               {{ auth()->user()->Candidato->trabalhou_empresa ? 'checked' : '' }}
-                                               value="1" onchange="exibirTrabalhouEmpresa(
-                                                   'trabalhou_empresa',
-                                                   'campo_trabalhou_empresa_data_entrada',
-                                                   'campo_trabalhou_empresa_data_saida',
-                                                   'campo_trabalhou_empresa_setor',
-                                                   'campo_trabalhou_empresa_local_trabalhou'
-                                               );limpar4CamposaoClicar(
-                                                   'trabalhou_empresa',
-                                                   'trabalhou_empresa_data_entrada',
-                                                   'trabalhou_empresa_data_saida',
-                                                   'trabalhou_empresa_setor',
-                                                   'trabalhou_empresa_local_id',
-                                               )">
-                                        <label class="form-check-label" for="trabalhou_empresa">Sim</label>
-                                    </div>
-                                </div>
+                        <div class="col-md-12">
+                            <label for="curso_transporte_escolar" class="form-label">Possui Curso de Transporte
+                                Escolar?</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="curso_transporte_escolar"
+                                       name="curso_transporte_escolar" value="1"
+                                       onchange="exibeCamposCheckbox('curso_transporte_escolar', 'campo_validade_transporte_escolar');
+                                       limparCampoaoClicar('curso_transporte_escolar','validade_curso_transporte_escolar')"
+                                    {{ auth()->user()->Candidato->curso_transporte_escolar ? 'checked' : ''}}>
+                                <label class="form-check-label" for="curso_transporte_escolar">Sim</label>
                             </div>
-                            <div class="col">
-                                <div class="mb-3" id="campo_trabalhou_empresa_data_entrada" style="display: none">
-                                    <label for="trabalhou_empresa_data_entrada" class="form-label">Data de
-                                        Entrada</label>
-                                    <input type="date" class="form-control" id="trabalhou_empresa_data_entrada"
-                                           name="trabalhou_empresa_data_entrada"
-                                           value="@if(old('trabalhou_empresa_data_entrada')){{ old('trabalhou_empresa_data_entrada') }}@else{{ auth()->user()->Candidato->trabalhou_empresa_data_entrada }}@endif">
-                                </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div id="campo_validade_transporte_escolar" style="display: none">
+                                <label for="validade_curso_transporte_escolar" class="form-label">Validade do Curso
+                                    de Transporte Escolar</label>
+                                <input type="date" class="form-control" id="validade_curso_transporte_escolar"
+                                       name="validade_curso_transporte_escolar"
+                                       value="@if(old('validade_curso_transporte_escolar')){{ old('validade_curso_transporte_escolar') }}@else{{ auth()->user()->Candidato->validade_curso_transporte_escolar }}@endif">
                             </div>
-                            <div class="col">
-                                <div class="mb-3" id="campo_trabalhou_empresa_data_saida" style="display: none">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="trabalhou_empresa" class="form-label">Já Trabalhou na Empresa?</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="trabalhou_empresa"
+                                       name="trabalhou_empresa"
+                                       {{ auth()->user()->Candidato->trabalhou_empresa ? 'checked' : '' }}
+                                       value="1" onchange="exibirTrabalhouEmpresa(
+                                           'trabalhou_empresa',
+                                           'campo_trabalhou_empresa_data_entrada',
+                                           'campo_trabalhou_empresa_data_saida',
+                                           'campo_trabalhou_empresa_setor',
+                                           'campo_trabalhou_empresa_local_trabalhou'
+                                       );limpar4CamposaoClicar(
+                                           'trabalhou_empresa',
+                                           'trabalhou_empresa_data_entrada',
+                                           'trabalhou_empresa_data_saida',
+                                           'trabalhou_empresa_setor',
+                                           'trabalhou_empresa_local_id',
+                                       )">
+                                <label class="form-check-label" for="trabalhou_empresa">Sim</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div id="campo_trabalhou_empresa_data_entrada" style="display: none">
+                                <label for="trabalhou_empresa_data_entrada" class="form-label">Data de
+                                    Entrada</label>
+                                <input type="date" class="form-control" id="trabalhou_empresa_data_entrada"
+                                       name="trabalhou_empresa_data_entrada"
+                                       value="@if(old('trabalhou_empresa_data_entrada')){{ old('trabalhou_empresa_data_entrada') }}@else{{ auth()->user()->Candidato->trabalhou_empresa_data_entrada }}@endif">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                                <div id="campo_trabalhou_empresa_data_saida" style="display: none">
                                     <label for="trabalhou_empresa_data_saida" class="form-label">Data de Saida</label>
                                     <input type="date" class="form-control" id="trabalhou_empresa_data_saida"
                                            name="trabalhou_empresa_data_saida"
                                            value="@if(old('trabalhou_empresa_data_saida')){{ old('trabalhou_empresa_data_saida') }}@else{{ auth()->user()->Candidato->trabalhou_empresa_data_saida }}@endif">
                                 </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div id="campo_trabalhou_empresa_setor" style="display: none">
+                                <label for="trabalhou_empresa_setor" class="form-label">Setor que trabalhou</label>
+                                <input type="text" class="form-control" id="trabalhou_empresa_setor"
+                                       name="trabalhou_empresa_setor"
+                                       value="@if(old('trabalhou_empresa_setor')){{ old('trabalhou_empresa_setor') }}@else{{ auth()->user()->Candidato->trabalhou_empresa_setor }}@endif">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3" id="campo_trabalhou_empresa_setor" style="display: none">
-                                    <label for="trabalhou_empresa_setor" class="form-label">Setor que trabalhou</label>
-                                    <input type="text" class="form-control" id="trabalhou_empresa_setor"
-                                           name="trabalhou_empresa_setor"
-                                           value="@if(old('trabalhou_empresa_setor')){{ old('trabalhou_empresa_setor') }}@else{{ auth()->user()->Candidato->trabalhou_empresa_setor }}@endif">
-                                </div>
+                        <div class="col-md-3">
+                            <div id="campo_trabalhou_empresa_local_trabalhou" style="display: none">
+                                <label for="trabalhou_empresa_data_saida" class="form-label">Local que
+                                    trabalhou</label>
+                                <select name="trabalhou_empresa_local_id" id="trabalhou_empresa_local_id"
+                                        class="form-select">
+                                    <option selected disabled>Selecione o local que trabalhou</option>
+                                    @foreach($locais as $value)
+                                        <option value="{{ $value->id }}"
+                                                @if(auth()->user()->Candidato->LocalTrabalhou && auth()->user()->Candidato->LocalTrabalhou->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <div class="col">
-                                <div class="mb-3" id="campo_trabalhou_empresa_local_trabalhou" style="display: none">
-                                    <label for="trabalhou_empresa_data_saida" class="form-label">Local que
-                                        trabalhou</label>
-                                    <select name="trabalhou_empresa_local_id" id="trabalhou_empresa_local_id"
-                                            class="form-select">
-                                        <option selected disabled>Selecione o local que trabalhou</option>
-                                        @foreach($locais as $value)
-                                            <option value="{{ $value->id }}"
-                                                    @if(auth()->user()->Candidato->LocalTrabalhou && auth()->user()->Candidato->LocalTrabalhou->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="parente_funcionario" class="form-label">Tem algum parente que trabalha
+                                na empresa?</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="parente_funcionario"
+                                       name="parente_funcionario"
+                                       value="1" {{ auth()->user()->Candidato->parente_funcionario ? 'checked' : '' }}
+                                       onchange="exibirParenteIndicacaoEmpresa(
+                                           'parente_funcionario',
+                                           'campo_nome_parente',
+                                           'campo_setor_parente',
+                                           'campo_parente_local',
+                                       ); limparCamposaoClicar(
+                                           'parente_funcionario',
+                                           'nome_parente',
+                                           'setor_parente',
+                                           'parente_funcionario_local_id'
+
+                                       )">
+                                <label class="form-check-label" for="parente_funcionario">Sim</label>
                             </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div id="campo_nome_parente" style="display: none">
+                                <label for="nome_parente" class="form-label">Nome do Parente</label>
+                                <input type="text" class="form-control" id="nome_parente" name="nome_parente"
+                                       value="@if(old('nome_parente')){{ old('nome_parente') }}@else{{ auth()->user()->Candidato->nome_parente }}@endif">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div id="campo_setor_parente" style="display: none">
+                                <label for="setor_parente" class="form-label">Setor</label>
+                                <input type="text" class="form-control" id="setor_parente" name="setor_parente"
+                                       value="@if(old('setor_parente')){{ old('setor_parente') }}@else{{ auth()->user()->Candidato->setor_parente }}@endif">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div id="campo_parente_local" style="display: none">
+                                <label for="parente_funcionario_local_id" class="form-label">Local que
+                                    trabalhou</label>
+                                <select name="parente_funcionario_local_id" id="parente_funcionario_local_id"
+                                        class="form-select">
+                                    <option selected disabled>Selecione o local que trabalhou</option>
+                                    @foreach($locais as $value)
+                                        <option value="{{ $value->id }}"
+                                                @if(auth()->user()->Candidato->LocalTrabalhoParente && auth()->user()->Candidato->LocalTrabalhoParente->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="indicacao_colaborador" class="form-label" >Indicação do Colaborador:</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="indicacao_colaborador" name="indicacao_colaborador"
+                                         value="1" {{ auth()->user()->Candidato->indicacao_colaborador ? 'checked' :'' }}
+                                         onchange="exibirParenteIndicacaoEmpresa(
+                                               'indicacao_colaborador',
+                                               'campo_nome_indicacao',
+                                               'campo_setor_indicacao',
+                                               'campo_indicacao_local'
+                                           ); limparCamposaoClicar(
+                                               'indicacao_colaborador',
+                                               'nome_colaborador',
+                                               'setor_colaborador',
+                                               'indicacao_colaborador_local_id'
+                                           )">
+                                <label class="form-check-label" for="indicacao_colaborador">Sim</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div id="campo_nome_indicacao" style="display: none">
+                                <label class="form-label" for="nome_colaborador">Nome do Colaborador:</label><br>
+                                <input class="form-control" type="text" id="nome_colaborador" name="nome_colaborador"
+                                       value="@if(old('nome_colaborador')){{ old('nome_colaborador') }}@else{{ auth()->user()->Candidato->nome_colaborador }}@endif">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div id="campo_setor_indicacao" style="display: none">
+                                <label class="form-label" for="setor_colaborador">Setor do Colaborador:</label><br>
+                                <input class="form-control" type="text" id="setor_colaborador" name="setor_colaborador"
+                                       value="@if(old('setor_colaborador')){{ old('setor_colaborador') }}@else{{ auth()->user()->Candidato->setor_colaborador }}@endif">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div id="campo_indicacao_local" style="display: none">
+                                <label for="indicacao_colaborador_local_id" class="form-label">Local que o indicado trabalha</label>
+                                <select name="indicacao_colaborador_local_id" id="indicacao_colaborador_local_id"
+                                        class="form-select">
+                                    <option selected disabled>Selecione o local</option>
+                                    @foreach($locais as $value)
+                                        <option value="{{ $value->id }}"
+                                                @if(auth()->user()->Candidato->LocalTrabalhoIndicacao && auth()->user()->Candidato->LocalTrabalhoIndicacao->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-5 text-end">
+                            <button type="submit" class="btn btn-primary w-25">Salvar</button>
                         </div>
 
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label for="parente_funcionario" class="form-label">Tem algum parente que trabalha
-                                        na empresa?</label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="parente_funcionario"
-                                               name="parente_funcionario"
-                                               value="1" {{ auth()->user()->Candidato->parente_funcionario ? 'checked' : '' }}
-                                               onchange="exibirParenteIndicacaoEmpresa(
-                                                   'parente_funcionario',
-                                                   'campo_nome_parente',
-                                                   'campo_setor_parente',
-                                                   'campo_parente_local',
-                                               ); limparCamposaoClicar(
-                                                   'parente_funcionario',
-                                                   'nome_parente',
-                                                   'setor_parente',
-                                                   'parente_funcionario_local_id'
-
-                                               )">
-                                        <label class="form-check-label" for="parente_funcionario">Sim</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3" id="campo_nome_parente" style="display: none">
-                                    <label for="nome_parente" class="form-label">Nome do Parente</label>
-                                    <input type="text" class="form-control" id="nome_parente" name="nome_parente"
-                                           value="@if(old('nome_parente')){{ old('nome_parente') }}@else{{ auth()->user()->Candidato->nome_parente }}@endif">
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3" id="campo_setor_parente" style="display: none">
-                                    <label for="setor_parente" class="form-label">Setor</label>
-                                    <input type="text" class="form-control" id="setor_parente" name="setor_parente"
-                                           value="@if(old('setor_parente')){{ old('setor_parente') }}@else{{ auth()->user()->Candidato->setor_parente }}@endif">
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3" id="campo_parente_local" style="display: none">
-                                    <label for="parente_funcionario_local_id" class="form-label">Local que
-                                        trabalhou</label>
-                                    <select name="parente_funcionario_local_id" id="parente_funcionario_local_id"
-                                            class="form-select">
-                                        <option selected disabled>Selecione o local que trabalhou</option>
-                                        @foreach($locais as $value)
-                                            <option value="{{ $value->id }}"
-                                                    @if(auth()->user()->Candidato->LocalTrabalhoParente && auth()->user()->Candidato->LocalTrabalhoParente->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-3">
-                                    <label class="form-label" for="indicacao_colaborador">Indicação do Colaborador:</label><br>
-                                    <input class="form-check-input" type="checkbox" id="indicacao_colaborador" name="indicacao_colaborador"
-                                           value="1" {{ auth()->user()->Candidato->indicacao_colaborador ? 'checked' :'' }}
-                                           onchange="exibirParenteIndicacaoEmpresa(
-                                                   'indicacao_colaborador',
-                                                   'campo_nome_indicacao',
-                                                   'campo_setor_indicacao',
-                                                   'campo_indicacao_local'
-                                               ); limparCamposaoClicar(
-                                                   'indicacao_colaborador',
-                                                   'nome_colaborador',
-                                                   'setor_colaborador',
-                                                   'indicacao_colaborador_local_id'
-                                               )">
-                                    <label class="form-check-label" for="indicacao_colaborador">Sim</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3" id="campo_nome_indicacao" style="display: none">
-                                    <label class="form-label" for="nome_colaborador">Nome do Colaborador:</label><br>
-                                    <input class="form-control" type="text" id="nome_colaborador" name="nome_colaborador"
-                                           value="@if(old('nome_colaborador')){{ old('nome_colaborador') }}@else{{ auth()->user()->Candidato->nome_colaborador }}@endif">
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3" id="campo_setor_indicacao" style="display: none">
-                                    <label class="form-label" for="setor_colaborador">Setor do Colaborador:</label><br>
-                                    <input class="form-control" type="text" id="setor_colaborador" name="setor_colaborador"
-                                           value="@if(old('setor_colaborador')){{ old('setor_colaborador') }}@else{{ auth()->user()->Candidato->setor_colaborador }}@endif">
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="mb-3" id="campo_indicacao_local" style="display: none">
-                                    <label for="indicacao_colaborador_local_id" class="form-label">Local que o indicado trabalha</label>
-                                    <select name="indicacao_colaborador_local_id" id="indicacao_colaborador_local_id"
-                                            class="form-select">
-                                        <option selected disabled>Selecione o local</option>
-                                        @foreach($locais as $value)
-                                            <option value="{{ $value->id }}"
-                                                    @if(auth()->user()->Candidato->LocalTrabalhoIndicacao && auth()->user()->Candidato->LocalTrabalhoIndicacao->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Salvar</button>
                     </form>
                 </div>
 
