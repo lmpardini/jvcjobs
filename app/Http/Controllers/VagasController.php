@@ -58,7 +58,7 @@ class VagasController extends Controller
 
         $inscritoVaga = false;
 
-        if (auth()->user()) {
+        if (auth()->user() && auth()->user()->PerfilUsuario->slug === 'candidato') {
             $vagasInscritas = collect(auth()->user()->Candidato->Vagas);
 
             if ($vagasInscritas->contains('id', $vaga->id)) {
