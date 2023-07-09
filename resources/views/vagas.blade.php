@@ -36,7 +36,12 @@
                         @endcomponent
                     @endforeach
                 </div>
+                <div class="d-flex justify-content-center" style="margin-top: 10px">
+                    {{ $vagas->links() }}
+                </div>
             </div>
+
+
         </div>
     </div>
 </main>

@@ -11,11 +11,11 @@ class HomeController extends Controller
     {
         $vagasDestaque = Vagas::where('destaque', true)->whereHas('StatusVaga', function ($query) {
             $query->where('slug', 'em_processo');
-        })->with('LocalVaga')->get();
+        })->with('LocalVaga')->limit(6)->orderByDesc('created_at')->get();
 
         $outrasVagas = Vagas::where('destaque', false)->whereHas('StatusVaga', function ($query) {
             $query->where('slug', 'em_processo');
-        })->with('LocalVaga')->get();
+        })->with('LocalVaga')->limit(9)->orderByDesc('created_at')->get();
 
         /**
          * TODO Implementar Logica de componente para quando não houver vagas cadastradas

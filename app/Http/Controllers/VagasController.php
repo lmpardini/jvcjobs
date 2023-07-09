@@ -14,6 +14,11 @@ class VagasController extends Controller
         $cidades =  [];
         $cargos  =  [];
 
+        $selectFiltro->map(function ($item) use (&$cargos, &$cidades) {
+            $cidades[] = $item->LocalVaga->nome;
+            $cargos[] = $item->nome;
+        });
+
         $vagas = Vagas::whereHas('StatusVaga', function ($query) {
             $query->where('slug', 'em_processo');
         })->when($request->cidade && $request->cidade !== 'todos', function ($query) use ($request) {
@@ -22,12 +27,9 @@ class VagasController extends Controller
             });
         })->when($request->cargo && $request->cargo !== 'todos', function ($query) use ($request) {
             $query->where('nome', $request->cargo);
-        })->with('LocalVaga')->get()->sortByDesc('destaque');
+        })->with('LocalVaga')->orderByDesc('destaque')->paginate(10);
 
-        $selectFiltro->map(function ($item) use (&$cargos, &$cidades) {
-           $cidades[] = $item->LocalVaga->nome;
-           $cargos[] = $item->nome;
-        });
+
 
         $cidades = collect($cidades)->unique()->values();
         $cargos = collect($cargos)->unique()->values();
@@ -56,7 +58,7 @@ class VagasController extends Controller
 
         $inscritoVaga = false;
 
-        if (auth()->user()) {
+        if (auth()->user() && auth()->user()->PerfilUsuario->slug === 'candidato') {
             $vagasInscritas = collect(auth()->user()->Candidato->Vagas);
 
             if ($vagasInscritas->contains('id', $vaga->id)) {
