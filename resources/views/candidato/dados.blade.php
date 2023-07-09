@@ -57,7 +57,7 @@
                         <div class="col-md-4">
                             <label for="cpf" class="form-label">CPF</label>
                             <input type="text" class="form-control" id="cpf" name="cpf" required
-                                   value="@if(old('cpf')){{ old('cpf') }}@else{{ auth()->user()->cpf }} @endif" disabled>
+                                   value="{{ auth()->user()->cpf }}" disabled>
                         </div>
                         <div class="col-md-4">
                             <label for="rg" class="form-label">RG</label>
@@ -994,6 +994,9 @@
     </main>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+
+            inputCpf = document.getElementById('cpf');
+            inputCpf.value = formatCpf(inputCpf.value)
 
             exibeCamposCheckbox('curso_transporte_coletivo', 'campo_validade_coletivo');
             exibeCamposCheckbox('curso_transporte_escolar', 'campo_validade_transporte_escolar');

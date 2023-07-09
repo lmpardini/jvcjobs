@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 
 class AuthController extends Controller
@@ -26,7 +27,7 @@ class AuthController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'cpf'      => 'required|numeric|cpf',
+            'cpf'      => 'required|cpf|formato_cpf',
             'password' => 'required'
         ]);
 
@@ -34,9 +35,8 @@ class AuthController extends Controller
             return back()->withInput(['cpf' => $request->cpf])->withErrors($validator->errors());
         }
 
-
         $credenciais = [
-            'cpf' => $request->cpf,
+            'cpf' => Str::remove(['.', '-'], $request->cpf,),
             'password' => $request->password
         ];
 
@@ -56,7 +56,7 @@ class AuthController extends Controller
             'nome'                  => 'required|string|min:3|max:45',
             'sobrenome'             => 'required|string|min:1|max:45',
             'email'                 => 'required|email|unique:users,email',
-            'cpf'                   => 'required|numeric|cpf|unique:users,cpf',
+            'cpf'                   => 'required|formato_cpf|cpf|unique:users,cpf',
             'password_confirmation' => ['required', 'string', Password::min(8)->letters()->numbers()->symbols()],
         ]);
 
@@ -70,7 +70,7 @@ class AuthController extends Controller
         }
 
         $credenciais = [
-            'cpf' => $request->cpf,
+            'cpf' => Str::remove(['.', '-'], $request->cpf),
             'password' => $request->password
         ];
 
@@ -81,7 +81,7 @@ class AuthController extends Controller
         $usuario = new User();
         $usuario->name = $request->nome;
         $usuario->last_name = $request->sobrenome;
-        $usuario->cpf = $request->cpf;
+        $usuario->cpf = Str::remove(['.', '-'], $request->cpf);
         $usuario->email = $request->email;
         $usuario->password = Hash::make($request->password_confirmation);
         $usuario->save();
