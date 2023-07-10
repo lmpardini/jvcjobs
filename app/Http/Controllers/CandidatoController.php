@@ -16,6 +16,7 @@ use App\Services\CandidatoService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class CandidatoController extends Controller
 {
@@ -45,21 +46,21 @@ class CandidatoController extends Controller
             "email"                                 => "required|email",
             "nome_social"                           => "nullable|string",
             "data_nascimento"                       => "required|date_format:Y-m-d",
-            "genero_id"                             => "required|numeric",
-            "etnia_id"                              => "required|numeric",
-            "escolaridade_id"                       => "required|numeric",
+            "genero_slug"                           => "required|string|exists:generos,slug",
+            "etnia_slug"                            => "required|string|exists:etnias,slug",
+            "escolaridade_slug"                     => "required|string|exists:escolaridades,slug",
             "rg"                                    => "required|string",
             "rg_orgao_emissor"                      => "required|string",
-            "cep"                                   => "required|numeric",
+            "cep"                                   => "required|formato_cep",
             "endereco"                              => "required|string",
             "numero"                                => "required|string",
             "complemento"                           => "nullable|string",
             "bairro"                                => "required|string",
             "cidade"                                => "required|string",
-            "estado_id"                             => "required|numeric",
-            "pais_id"                               => "required|numeric",
-            "telefone"                              => "nullable|numeric",
-            "celular"                               => "required|numeric",
+            "estado_abreviacao"                     => "required|string|exists:estados,abreviacao",
+            "pais_slug"                             => "required|string|exists:paises,slug",
+            "telefone"                              => "nullable|telefone_com_ddd",
+            "celular"                               => "required|celular_com_ddd",
             "nome_pai"                              => "nullable|string",
             "nome_mae"                              => "nullable|string",
             "qtde_dependentes"                      => "nullable|numeric",
@@ -67,13 +68,14 @@ class CandidatoController extends Controller
             "pis_orgao_emissor"                     => "nullable|string",
             "pis_data_emissao"                      => "nullable|date_format:Y-m-d",
             "pis_complemento"                       => "nullable|string",
+            "pis_estado_slug"                       => "nullable|string|exists:estados,slug",
             "ctps"                                  => "nullable|string",
             "ctps_numero_serie"                     => "nullable|string",
-            "ctps_estado_id"                        => "nullable|numeric",
+            "ctps_estado_slug"                        => "nullable|string|exists:estados,slug",
             "ctps_data_emissao"                     => "nullable|date_format:Y-m-d",
             "cnh"                                   => "nullable|numeric",
             "cnh_data_emissao"                      => "nullable|date_format:Y-m-d",
-            "cnh_estado_id"                         => "nullable|numeric",
+            "cnh_estado_slug"                         => "nullable|string|exists:estados,slug",
             "cnh_orgao_emissor"                     => "nullable|string",
             "cnh_validade"                          => "nullable|date_format:Y-m-d",
             "cnh_categoria"                         => "nullable|string",
@@ -81,12 +83,12 @@ class CandidatoController extends Controller
             "tit_eleitor"                           => "nullable|numeric",
             "tit_eleitor_zona"                      => "nullable|numeric",
             "tit_eleitor_sessao"                    => "nullable|numeric",
-            "tit_eleitor_estado_id"                 => "nullable|numeric",
+            "tit_eleitor_estado_slug"                 => "nullable|string|exists:estados,slug",
             "reservista"                            => "nullable|string",
             "curso_transporte_coletivo"             => "nullable|boolean",
-            "validade_curso_transporte_coletivo"    => "required_if:curso_transporte_coletivo,true|date_format:Y-m-d",
+            "validade_curso_transporte_coletivo"    => "nullable|required_if:curso_transporte_coletivo,true|date_format:Y-m-d",
             "curso_transporte_escolar"              => "nullable|boolean",
-            "validade_curso_transporte_escolar"     => "required_if:curso_transporte_escolar,true|date_format:Y-m-d",
+            "validade_curso_transporte_escolar"     => "nullable|required_if:curso_transporte_escolar,true|date_format:Y-m-d",
             "trabalhou_empresa"                     => "nullable|boolean",
             "trabalhou_empresa_data_entrada"        => "nullable|required_if:trabalhou_empresa,true|date_format:Y-m-d",
             "trabalhou_empresa_data_saida"          => "nullable|required_if:trabalhou_empresa,true|date_format:Y-m-d",
@@ -112,7 +114,7 @@ class CandidatoController extends Controller
             /**
              * @var Genero $genero
              */
-            $genero = Genero::whereId($request->genero_id)->first();
+            $genero = Genero::whereSlug($request->genero_slug)->first();
 
             if (!$genero){
                 return back()->withErrors(["Mensagem" => "Genero informado não é valido"])->withInput($request->input());
@@ -121,7 +123,7 @@ class CandidatoController extends Controller
             /**
              * @var Etnia $etnia
              */
-            $etnia = Etnia::whereId($request->etnia_id)->first();
+            $etnia = Etnia::whereSlug($request->etnia_slug)->first();
 
             if (!$etnia){
                 return back()->withErrors(["Mensagem" => "Etnia informada não é valida"])->withInput($request->input());
@@ -130,7 +132,7 @@ class CandidatoController extends Controller
             /**
              * @var Escolaridade $escolaridade
              */
-            $escolaridade = Escolaridade::whereId($request->escolaridade_id)->first();
+            $escolaridade = Escolaridade::whereSlug($request->escolaridade_slug)->first();
 
             if (!$escolaridade){
                 return back()->withErrors(["Mensagem" => "Escolaridade informada não é valida"])->withInput($request->input());
@@ -139,7 +141,7 @@ class CandidatoController extends Controller
             /**
              * @var Paises $pais
              */
-            $pais = Paises::whereId($request->pais_id)->first();
+            $pais = Paises::whereSlug($request->pais_slug)->first();
 
             if (!$pais){
                 return back()->withErrors(["Mensagem" => "Pais informado não é valido"])->withInput($request->input());
@@ -151,18 +153,18 @@ class CandidatoController extends Controller
              * @var Estado $estadoCNH
              * @var Estado $estadoTituloEleitor
              */
-            $estado = CandidatoService::buscaEstado($request->estado_id);
+            $estado = Estado::where('abreviacao', $request->estado_abreviacao)->first();
 
-            if (isset($request->ctps_estado_id) && $request->ctps_estado_id !== null) {
-                $estadoCTPS = CandidatoService::buscaEstado($request->ctps_estado_id);
+            if (isset($request->ctps_estado_slug) && $request->ctps_estado_slug !== null) {
+                $estadoCTPS = CandidatoService::buscaEstado($request->ctps_estado_slug);
             }
 
-            if (isset($request->cnh_estado_id) && $request->cnh_estado_id !== null) {
-                $estadoCNH = CandidatoService::buscaEstado($request->cnh_estado_id);
+            if (isset($request->cnh_estado_slug) && $request->cnh_estado_slug !== null) {
+                $estadoCNH = CandidatoService::buscaEstado($request->cnh_estado_slug);
             }
 
-            if (isset($request->tit_eleitor_estado_id) && $request->tit_eleitor_estado_id !== null) {
-                $estadoTituloEleitor = CandidatoService::buscaEstado($request->tit_eleitor_estado_id);
+            if (isset($request->tit_eleitor_estado_slug) && $request->tit_eleitor_estado_slug !== null) {
+                $estadoTituloEleitor = CandidatoService::buscaEstado($request->tit_eleitor_estado_slug);
             }
 
             /**
@@ -191,14 +193,14 @@ class CandidatoController extends Controller
             $candidato->data_nascimento = $request->data_nascimento;
             $candidato->rg = $request->rg;
             $candidato->rg_orgao_emissor = $request->rg_orgao_emissor;
-            $candidato->cep = $request->cep;
+            $candidato->cep = Str::remove('-', $request->cep);
             $candidato->endereco = $request->endereco;
             $candidato->numero = $request->numero;
             $candidato->complemento = $request->complemento;
             $candidato->bairro = $request->bairro;
             $candidato->cidade = $request->cidade;
-            $candidato->telefone = $request->telefone;
-            $candidato->celular = $request->celular;
+            $candidato->telefone = Str::remove(['-', '(', ')', ' '], $request->telefone);
+            $candidato->celular = Str::remove(['-', '(', ')', ' '], $request->celular);
             $candidato->nome_pai = $request->nome_pai;
             $candidato->nome_mae = $request->nome_mae;
             $candidato->qtde_dependentes = $request->qtde_dependentes;

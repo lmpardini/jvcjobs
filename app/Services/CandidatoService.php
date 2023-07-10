@@ -10,6 +10,7 @@ use App\Models\FormacaoAcademicaStatus;
 use App\Models\Genero;
 use App\Models\Local;
 use App\Models\Paises;
+use Illuminate\Http\RedirectResponse;
 
 class CandidatoService
 {
@@ -31,14 +32,14 @@ class CandidatoService
     }
 
     /**
-     * @param int $estado_id
-     * @return \Illuminate\Http\RedirectResponse
+     * @param string $slug
+     * @return RedirectResponse
      */
-    public static function buscaEstado(int $estado_id)
+    public static function buscaEstado(string $slug)
     {
-        $estado = Estado::whereId($estado_id)->first();
+        $estado = Estado::whereSlug($slug)->first();
 
-        if (!$estado_id){
+        if (!$estado){
             return back()->withErrors(["Mensagem" => "Estado informado não é valido"]);
         }
 

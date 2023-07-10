@@ -4,6 +4,7 @@ $("#cpf_login").mask("000.000.000-00");
 $("#celular").mask("(00) 00000-0000");
 $("#telefone").mask("(00) 0000-0000");
 $("#cep").mask("00000-000");
+$("#salario").mask('000.000.000.000.000,00', {reverse: true});
 
 // Estilizar validação do formulario
 (() => {
@@ -18,10 +19,16 @@ $("#cep").mask("00000-000");
             if (!form.checkValidity()) {
                 event.preventDefault()
                 event.stopPropagation()
+
+                toastr.error("Verifique os campos obrigatórios");
+                document.documentElement.scrollTop = 0;
             }
+
+
 
             form.classList.add('was-validated')
         }, false)
+
     })
 })()
 
@@ -163,14 +170,14 @@ function habilitaForm(button,form, buttonAdd, id) {
     }
 }
 
-function submitForm(form, experienciaId) {
+function submitForm(form, seletor, id) {
 
     var formDelete = document.getElementById(form);
 
     var inputExperienciaId = document.createElement('input');
          inputExperienciaId.type = 'hidden';
-         inputExperienciaId.name = 'experiencia_id';
-         inputExperienciaId.value = experienciaId;
+         inputExperienciaId.name = seletor+'_id';
+         inputExperienciaId.value = id;
 
     formDelete.appendChild(inputExperienciaId);
 
@@ -184,8 +191,8 @@ function limpaFormularioCep() {
     document.getElementById('endereco').value=("");
     document.getElementById('bairro').value=("");
     document.getElementById('cidade').value=("");
-
-
+    document.getElementById('estado_abreviacao').value=("");
+    document.getElementById('pais_id').value=("");
 }
 
 function meu_callback(conteudo) {
@@ -194,13 +201,13 @@ function meu_callback(conteudo) {
         document.getElementById('endereco').value=(conteudo.logradouro);
         document.getElementById('bairro').value=(conteudo.bairro);
         document.getElementById('cidade').value=(conteudo.localidade);
-
-
+        document.getElementById('estado_abreviacao').value=(conteudo.uf);
+        document.getElementById('pais_slug').value=('brasil');
     } //end if.
     else {
         //CEP não Encontrado.
         limpaFormularioCep();
-        alert("CEP não encontrado.");
+        toastr.error("CEP não encontrado")
     }
 }
 
@@ -245,6 +252,23 @@ function pesquisacep() {
         limpaFormularioCep();
     }
 }
+
+
+function deleteExp(form, seletor,  id) {
+
+    $('#deleteModal').modal('show');
+
+    $('#deleteButtonModal').click(function() {
+
+        submitForm(form, seletor, id);
+
+        $('#deleteModal').modal('hide');
+
+    });
+
+}
+
+
 
 
 
