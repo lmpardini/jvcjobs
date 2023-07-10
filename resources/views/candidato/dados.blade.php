@@ -66,12 +66,12 @@
                             <div class="invalid-feedback">Informe a data de nascimento</div>
                         </div>
                         <div class="col-md-4">
-                            <label for="genero_id" class="form-label">Genero</label>
-                            <select name="genero_id" id="genero_id" class="form-select" required>
+                            <label for="genero_slug" class="form-label">Genero</label>
+                            <select name="genero_slug" id="genero_slug" class="form-select" required>
                                 <option value="" selected disabled>Selecione o genero</option>
                                 @foreach($genero as $value)
-                                    <option value="{{ $value->id }}"
-                                            @if(auth()->user()->Candidato->Genero && auth()->user()->Candidato->Genero->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                    <option value="{{ $value->slug }}"
+                                            @if(auth()->user()->Candidato->Genero && auth()->user()->Candidato->Genero->slug === $value->slug || old('genero_slug') === $value->slug) selected @endif>{{ $value->nome }}</option>
                                 @endforeach
                             </select>
                             <div class="invalid-feedback">Informe o genero</div>
@@ -130,23 +130,23 @@
                             <div class="invalid-feedback">Informe a cidade</div>
                         </div>
                         <div class="col-md-4">
-                            <label for="estado_id" class="form-label">Estado</label>
-                            <select name="estado_id" id="estado_id" class="form-select" required>
+                            <label for="estado_abreviacao" class="form-label">Estado</label>
+                            <select name="estado_abreviacao" id="estado_abreviacao" class="form-select" required>
                                 <option value="" selected disabled>Selecione o estado</option>
                                 @foreach($estados as $value)
-                                    <option value="{{ $value->id }}"
-                                            @if(auth()->user()->Candidato->Estado && auth()->user()->Candidato->Estado->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                    <option value="{{ $value->abreviacao }}"
+                                            @if(auth()->user()->Candidato->Estado && auth()->user()->Candidato->Estado->abreviacao === $value->abreviacao || old('estado_abreviacao') === $value->abreviacao) selected @endif>{{ $value->nome }}</option>
                                 @endforeach
                             </select>
                             <div class="invalid-feedback">Selecione o estado</div>
                         </div>
                         <div class="col-md-4">
-                            <label for="pais_id" class="form-label">País</label>
-                            <select name="pais_id" id="pais_id" class="form-select" required>
+                            <label for="pais_slug" class="form-label">País</label>
+                            <select name="pais_slug" id="pais_slug" class="form-select" required>
                                 <option value="" selected disabled>Selecione o país</option>
                                 @foreach($paises as $value)
-                                    <option value="{{ $value->id }}"
-                                            @if(auth()->user()->Candidato->Pais && auth()->user()->Candidato->Pais->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                    <option value="{{ $value->slug }}"
+                                            @if(auth()->user()->Candidato->Pais && auth()->user()->Candidato->Pais->slug === $value->slug || old('pais_slug') === $value->slug) selected @endif>{{ $value->nome }}</option>
                                 @endforeach
                             </select>
                             <div class="invalid-feedback">Selecione o país</div>
@@ -189,23 +189,23 @@
                             <div class="invalid-feedback">Informe a quantidade de dependentes</div>
                         </div>
                         <div class="col-md-4">
-                            <label for="etnia_id" class="form-label">Etnia</label>
-                            <select name="etnia_id" id="etnia_id" class="form-select"
+                            <label for="etnia_slug" class="form-label">Etnia</label>
+                            <select name="etnia_slug" id="etnia_slug" class="form-select"
                                     aria-label="Selecione a etnia">
                                 <option selected disabled>Selecione a Etnia</option>
                                 @foreach($etnias as $value)
-                                    <option value="{{ $value->id }}"
-                                            @if(auth()->user()->Candidato->Etnia && auth()->user()->Candidato->Etnia->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                    <option value="{{ $value->slug }}"
+                                            @if(auth()->user()->Candidato->Etnia && auth()->user()->Candidato->Etnia->slug === $value->slug || old('etnia_slug') === $value->slug) selected @endif>{{ $value->nome }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-md-4">
-                            <label for="etnia_id" class="form-label">Escolaridade</label>
-                            <select name="escolaridade_id" id="escolaridade_id" class="form-select">
-                                <option selected disabled>Selecione a escolaridade</option>
+                            <label for="escolaridade_slug" class="form-label">Escolaridade</label>
+                            <select name="escolaridade_slug" id="escolaridade_slug" class="form-select">
+                                <option value="" selected disabled>Selecione a escolaridade</option>
                                 @foreach($escolaridades as $value)
-                                    <option value="{{ $value->id }}"
-                                            @if(auth()->user()->Candidato->Escolaridade && auth()->user()->Candidato->Escolaridade->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                    <option value="{{ $value->slug }}"
+                                            @if(auth()->user()->Candidato->Escolaridade && auth()->user()->Candidato->Escolaridade->slug === $value->slug || old('escolaridade_slug') === $value->slug) selected @endif>{{ $value->nome }}</option>
                                 @endforeach
                             </select>
                             <div class="invalid-feedback">Selecione a escolaridade</div>
@@ -231,12 +231,12 @@
                                     <div class="invalid-feedback">Informe o órgão emissor do PIS</div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="pis_estado_id" class="form-label">Estado de Emissão do PIS</label>
-                                    <select name="pis_estado_id" id="pis_estado_id" class="form-select">
+                                    <label for="pis_estado_slug" class="form-label">Estado de Emissão do PIS</label>
+                                    <select name="pis_estado_slug" id="pis_estado_slug" class="form-select">
                                         <option selected disabled>Selecione o estado de emissão do PIS</option>
                                         @foreach($estados as $value)
-                                            <option value="{{ $value->id }}"
-                                                    @if(auth()->user()->Candidato->EstadoPis && auth()->user()->Candidato->EstadoPis->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                            <option value="{{ $value->slug }}"
+                                                    @if(auth()->user()->Candidato->EstadoPis && auth()->user()->Candidato->EstadoPis->slug === $value->slug || old('pis_estado_slug') === $value->slug) selected @endif>{{ $value->nome }}</option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">Selecione o estado de emissão do PIS</div>
@@ -272,12 +272,12 @@
                                     <div class="invalid-feedback">Informe o número/série da CTPS</div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="ctps_estado_id" class="form-label">Estado de Emissão da CTPS</label>
-                                    <select name="ctps_estado_id" id="ctps_estado_id" class="form-select">
+                                    <label for="ctps_estado_slug" class="form-label">Estado de Emissão da CTPS</label>
+                                    <select name="ctps_estado_slug" id="ctps_estado_slug" class="form-select">
                                         <option selected disabled>Selecione o estado de emissão da CTPS</option>
                                         @foreach($estados as $value)
-                                            <option value="{{ $value->id }}"
-                                                    @if(auth()->user()->Candidato->EstadoCTPS && auth()->user()->Candidato->EstadoCTPS->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                            <option value="{{ $value->slug }}"
+                                                    @if(auth()->user()->Candidato->EstadoCTPS && auth()->user()->Candidato->EstadoCTPS->slug === $value->slug || old('ctps_estado_slug') === $value->slug) selected @endif>{{ $value->nome }}</option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">Selecione o estado de emissão da CTPS</div>
@@ -308,12 +308,12 @@
                                     <div class="invalid-feedback">Informe a data de emissão do CNH</div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="cnh_estado_id" class="form-label">Estado de Emissão da CNH</label>
-                                    <select name="cnh_estado_id" id="cnh_estado_id" class="form-select">
+                                    <label for="cnh_estado_slug" class="form-label">Estado de Emissão da CNH</label>
+                                    <select name="cnh_estado_slug" id="cnh_estado_slug" class="form-select">
                                         <option selected disabled>Selecione o estado de emissão da CNH</option>
                                         @foreach($estados as $value)
-                                            <option value="{{ $value->id }}"
-                                                    @if(auth()->user()->Candidato->EstadoCNH && auth()->user()->Candidato->EstadoCNH->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                            <option value="{{ $value->slug }}"
+                                                    @if(auth()->user()->Candidato->EstadoCNH && auth()->user()->Candidato->EstadoCNH->slug === $value->slug || old('cnh_estado_slug') === $value->slug) selected @endif>{{ $value->nome }}</option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">Selecione o estado de emissão da CNH</div>
@@ -379,13 +379,13 @@
                                     <div class="invalid-feedback">Informe a seção eleitoral</div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="tit_eleitor_estado_id" class="form-label">Estado de Emissão do
+                                    <label for="tit_eleitor_estado_slug" class="form-label">Estado de Emissão do
                                         Titulo</label>
-                                    <select name="tit_eleitor_estado_id" id="tit_eleitor_estado_id" class="form-select">
+                                    <select name="tit_eleitor_estado_slug" id="tit_eleitor_estado_slug" class="form-select">
                                         <option selected disabled>Selecione o estado de emissão do Titulo</option>
                                         @foreach($estados as $value)
-                                            <option value="{{ $value->id }}"
-                                                    @if(auth()->user()->Candidato->EstadoTituloEleitor && auth()->user()->Candidato->EstadoTituloEleitor->slug === $value->slug) selected @endif>{{ $value->nome }}</option>
+                                            <option value="{{ $value->slug }}"
+                                                    @if(auth()->user()->Candidato->EstadoTituloEleitor && auth()->user()->Candidato->EstadoTituloEleitor->slug === $value->slug || old('tit_eleitor_estado_slug') === $value->slug) selected @endif>{{ $value->nome }}</option>
                                         @endforeach
                                     </select>
                                     <div class="invalid-feedback">Selecione o estado de emissão do Titulo</div>
@@ -590,7 +590,7 @@
 
                         <div class="card" style="margin-bottom: 10px">
                             <div class="card-body">
-                                <form method="POST" action=" {{ route('candidato-experiencia.update') }}" >
+                                <form method="POST" action=" {{ route('candidato-experiencia.update') }}" class="row g-4 needs-validation" novalidate autocomplete="off">
                                     @csrf
                                     @method('PUT')
 
@@ -599,7 +599,7 @@
 
                                         <button class="btn btn-success {{ 'buttonExperiencia'.$experiencia->id }}" type="submit"  style="display: none">Salvar</button>
 
-                                        <button  class="btn btn-danger {{ 'buttonExperiencia'.$experiencia->id }}" type="button" onclick="submitForm('formDeleteExperiencia', {{ $experiencia->id  }})" style="display: block; margin-right: 5px ">Excluir</button>
+                                        <button  class="btn btn-danger {{ 'buttonExperiencia'.$experiencia->id }}" type="button" onclick="deleteExp('formDeleteExperiencia','experiencia', {{ $experiencia->id  }})" style="display: block; margin-right: 5px ">Excluir</button>
 
                                         <button class="btn btn-primary {{ 'buttonExperiencia'.$experiencia->id }}" type="button"  style="display: block" onclick="habilitaForm('buttonExperiencia','formExperiencia', 'botao_add_experiencia', {{ $experiencia->id }})">Editar</button>
                                     </div>
@@ -613,7 +613,7 @@
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="nome_empresa" class="form-label">Nome da Empresa</label>
-                                                <input type="text" class="form-control {{'formExperiencia'.$experiencia->id }}" id="nome_empresa" name="nome_empresa" value="{{ $experiencia->nome_empresa }}" disabled>
+                                                <input type="text" class="form-control {{'formExperiencia'.$experiencia->id }}" id="nome_empresa" name="nome_empresa" value="{{ $experiencia->nome_empresa }}" disabled required>
                                             </div>
                                         </div>
                                     </div>
@@ -622,14 +622,14 @@
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="cidade" class="form-label">Cidade</label>
-                                                <input type="text" class="form-control {{'formExperiencia'.$experiencia->id }}" id="cidade" name="cidade" value="{{ $experiencia->cidade }}" disabled>
+                                                <input type="text" class="form-control {{'formExperiencia'.$experiencia->id }}" id="cidade" name="cidade" value="{{ $experiencia->cidade }}" disabled required>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="estado_id" class="form-label">Estado</label>
-                                                <select name="estado_id" id="estado_id" class="form-select {{'formExperiencia'.$experiencia->id }}" disabled>
-                                                    <option selected>Selecione o estado</option>
+                                                <select name="estado_id" id="estado_id" class="form-select {{'formExperiencia'.$experiencia->id }}" disabled required>
+                                                    <option va selected>Selecione o estado</option>
                                                     @foreach($estados as $value)
                                                         <option value="{{ $value->id }}" @selected($value->id === $experiencia->estado_id)> {{ $value->nome }}</option>
                                                     @endforeach
@@ -639,8 +639,8 @@
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="pais_id" class="form-label">País</label>
-                                                <select name="pais_id" id="pais_id" class="form-select {{'formExperiencia'.$experiencia->id }}" disabled>
-                                                    <option selected>Selecione o país</option>
+                                                <select name="pais_id" id="pais_id" class="form-select {{'formExperiencia'.$experiencia->id }}" disabled required>
+                                                    <option va selected>Selecione o país</option>
                                                     @foreach($paises as $value)
                                                         <option value="{{ $value->id }}" @selected($value->id === $experiencia->pais_id)>{{ $value->nome }}</option>
                                                     @endforeach
@@ -653,7 +653,7 @@
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="funcao" class="form-label">Função</label>
-                                                <input type="text" class="form-control {{'formExperiencia'.$experiencia->id }}" id="funcao" name="funcao" value="{{ $experiencia->funcao }}" disabled>
+                                                <input type="text" class="form-control {{'formExperiencia'.$experiencia->id }}" id="funcao" name="funcao" value="{{ $experiencia->funcao }}" disabled required>
                                             </div>
                                         </div>
                                         <div class="col">
@@ -665,13 +665,13 @@
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="data_inicio" class="form-label">Data de Início</label>
-                                                <input type="date" class="form-control {{'formExperiencia'.$experiencia->id }}" id="data_inicio" name="data_inicio" value="{{ $experiencia->data_inicio }}" disabled>
+                                                <input type="date" class="form-control {{'formExperiencia'.$experiencia->id }}" id="data_inicio" name="data_inicio" value="{{ $experiencia->data_inicio }}" disabled required>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="data_fim" class="form-label">Data de Fim</label>
-                                                <input type="date" class="form-control {{'formExperiencia'.$experiencia->id }}" id="data_fim" name="data_fim" value="{{ $experiencia->data_fim }}" disabled>
+                                                <input type="date" class="form-control {{'formExperiencia'.$experiencia->id }}" id="data_fim" name="data_fim" value="{{ $experiencia->data_fim }}" disabled required>
                                             </div>
                                         </div>
                                     </div>
@@ -695,7 +695,7 @@
                     </div>
 
                     <div id="adicionar_experiencia" style="display: none">
-                        <form method="POST" action=" {{ route('candidato-experiencia.create') }}">
+                        <form method="POST" action=" {{ route('candidato-experiencia.create') }}" class="row g-4 needs-validation" novalidate autocomplete="off">
                             @csrf
                             @method('POST')
                             <div class="mb-3">
@@ -706,7 +706,8 @@
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="nome_empresa" class="form-label">Nome da Empresa</label>
-                                        <input type="text" class="form-control" id="nome_empresa" name="nome_empresa">
+                                        <input type="text" class="form-control" id="nome_empresa" name="nome_empresa" required>
+                                        <div class="invalid-feedback">Informe o nome</div>
                                     </div>
                                 </div>
                             </div>
@@ -715,29 +716,32 @@
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="cidade" class="form-label">Cidade</label>
-                                        <input type="text" class="form-control" id="cidade" name="cidade">
+                                        <input type="text" class="form-control" id="cidade" name="cidade" required>
+                                        <div class="invalid-feedback">Informe a cidade</div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="estado_id" class="form-label">Estado</label>
                                         <select name="estado_id" id="estado_id" class="form-select" required>
-                                            <option selected disabled>Selecione o estado</option>
+                                            <option value="" selected disabled>Selecione o estado</option>
                                             @foreach($estados as $value)
                                                 <option value="{{ $value->id }}"> {{ $value->nome }}</option>
                                             @endforeach
                                         </select>
+                                        <div class="invalid-feedback">Informe o estado</div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="pais_id" class="form-label">País</label>
                                         <select name="pais_id" id="pais_id" class="form-select" required>
-                                            <option selected disabled>Selecione o país</option>
+                                            <option value="" selected disabled>Selecione o país</option>
                                             @foreach($paises as $value)
                                                 <option value="{{ $value->id }}">{{ $value->nome }}</option>
                                             @endforeach
                                         </select>
+                                        <div class="invalid-feedback">Informe o pais</div>
                                     </div>
                                 </div>
                             </div>
@@ -746,7 +750,8 @@
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="funcao" class="form-label">Função</label>
-                                        <input type="text" class="form-control" id="funcao" name="funcao">
+                                        <input type="text" class="form-control" id="funcao" name="funcao" required>
+                                        <div class="invalid-feedback">Informe a função</div>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -758,13 +763,15 @@
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="data_inicio" class="form-label">Data de Início</label>
-                                        <input type="date" class="form-control" id="data_inicio" name="data_inicio">
+                                        <input type="date" class="form-control" id="data_inicio" name="data_inicio" required>
+                                        <div class="invalid-feedback">Informe a data de inicio</div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="data_fim" class="form-label">Data de Fim</label>
-                                        <input type="date" class="form-control" id="data_fim" name="data_fim">
+                                        <input type="date" class="form-control" id="data_fim" name="data_fim" required>
+                                        <div class="invalid-feedback">Informe a data de fim</div>
                                     </div>
                                 </div>
                             </div>
@@ -774,7 +781,6 @@
                                     <div class="mb-3">
                                         <label for="observacao" class="form-label">Observação</label>
                                         <textarea class="form-control" id="observacao" name="observacao" maxlength="300" rows="3"></textarea>
-                                        <div id="observacao-counter">300 caracteres restantes</div>
                                     </div>
                                 </div>
 
@@ -789,7 +795,7 @@
                 </div>
 
                 <div class="tab-pane fade {{ session()->has('aba') && session()->get('aba') === 'formacao' ? 'show active' : '' }}" id="pills-profile-academy" role="tabpanel" aria-labelledby="pills-profile-academy-tab">
-                    <h2>Formação Academica...</h2>
+
 
                     @foreach($formacaoAcademicas as $formacao)
 
@@ -800,7 +806,7 @@
 
                         <div class="card" style="margin-bottom: 10px">
                             <div class="card-body">
-                                <form method="POST" action=" {{ route('candidato-formacao.update') }}" >
+                                <form method="POST" action=" {{ route('candidato-formacao.update') }}" class="row g-4 needs-validation" novalidate autocomplete="off" >
                                     @csrf
                                     @method('PUT')
 
@@ -809,7 +815,7 @@
 
                                         <button class="btn btn-success {{ 'buttonFormacao'.$formacao->id }}" type="submit"  style="display: none">Salvar</button>
 
-                                        <button  class="btn btn-danger {{ 'buttonFormacao'.$formacao->id }}" type="button" onclick="submitForm({{ $formacao->id  }})" style="display: block; margin-right: 5px ">Excluir</button>
+                                        <button  class="btn btn-danger {{ 'buttonFormacao'.$formacao->id }}" type="button"  style="display: block; margin-right: 5px" onclick="deleteExp('formDeleteFormacao','formacao', {{ $formacao->id  }})">Excluir</button>
 
                                         <button class="btn btn-primary {{ 'buttonFormacao'.$formacao->id }}" type="button"  style="display: block" onclick="habilitaForm('buttonFormacao', 'formFormacao', 'botao_add_formacao',  {{ $formacao->id }})">Editar</button>
                                     </div>
@@ -823,13 +829,13 @@
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="nome_instituicao" class="form-label">Instituição</label>
-                                                <input type="text" class="form-control {{'formFormacao'.$formacao->id }}" id="nome_instituicao" name="nome_instituicao" value="{{ $formacao->nome_instituicao }}" disabled>
+                                                <input type="text" class="form-control {{'formFormacao'.$formacao->id }}" id="nome_instituicao" name="nome_instituicao" value="{{ $formacao->nome_instituicao }}" disabled required>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="curso" class="form-label">Curso</label>
-                                                <input type="text" class="form-control {{'formFormacao'.$formacao->id }}" id="curso" name="curso" value="{{ $formacao->curso }}" disabled>
+                                                <input type="text" class="form-control {{'formFormacao'.$formacao->id }}" id="curso" name="curso" value="{{ $formacao->curso }}" disabled required>
                                             </div>
                                         </div>
                                     </div>
@@ -838,7 +844,7 @@
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="modalidade_id" class="form-label">Modalidade Curso</label>
-                                                <select name="modalidade_id" id="modalidade_id" class="form-select {{'formFormacao'.$formacao->id }}" disabled>
+                                                <select name="modalidade_id" id="modalidade_id" class="form-select {{'formFormacao'.$formacao->id }}" disabled required>
                                                     <option selected>Selecione o estado</option>
                                                     @foreach($modalidades as $value)
                                                         <option value="{{ $value->id }}" @selected($value->id === $formacao->modalidade_id)> {{ $value->nome }}</option>
@@ -849,7 +855,7 @@
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="status_id" class="form-label">Status</label>
-                                                <select name="status_id" id="status_id" class="form-select {{'formFormacao'.$formacao->id }}" disabled>
+                                                <select name="status_id" id="status_id" class="form-select {{'formFormacao'.$formacao->id }}" disabled required>
                                                     <option selected>Selecione o país</option>
                                                     @foreach($statusFormacao as $value)
                                                         <option value="{{ $value->id }}" @selected($value->id === $formacao->status_id)>{{ $value->nome }}</option>
@@ -863,13 +869,13 @@
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="data_inicio" class="form-label">Data de Início</label>
-                                                <input type="date" class="form-control {{'formFormacao'.$formacao->id }}" id="data_inicio" name="data_inicio" value="{{ $formacao->data_inicio }}" disabled>
+                                                <input type="date" class="form-control {{'formFormacao'.$formacao->id }}" id="data_inicio" name="data_inicio" value="{{ $formacao->data_inicio }}" disabled required>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="data_conclusao" class="form-label">Data de Conclusão</label>
-                                                <input type="date" class="form-control {{'formFormacao'.$formacao->id }}" id="data_conclusao" name="data_conclusao" value="{{ $formacao->data_conclusao }}" disabled>
+                                                <input type="date" class="form-control {{'formFormacao'.$formacao->id }}" id="data_conclusao" name="data_conclusao" value="{{ $formacao->data_conclusao }}" disabled required>
                                             </div>
                                         </div>
                                     </div>
@@ -893,7 +899,7 @@
                     </div>
 
                     <div id="adicionar_formacao" style="display: none">
-                        <form method="POST" action=" {{ route('candidato-formacao.create') }}">
+                        <form method="POST" action=" {{ route('candidato-formacao.create') }}" class="row g-4 needs-validation" novalidate autocomplete="off">
                             @csrf
                             @method('POST')
                             <div class="mb-3">
@@ -904,13 +910,15 @@
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="nome_instituicao" class="form-label">Instituição</label>
-                                        <input type="text" class="form-control" id="nome_instituicao" name="nome_instituicao">
+                                        <input type="text" class="form-control" id="nome_instituicao" name="nome_instituicao"required>
+                                        <div class="invalid-feedback">Informe o nome da instituição</div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="curso" class="form-label">Curso</label>
-                                        <input type="text" class="form-control" id="curso" name="curso">
+                                        <input type="text" class="form-control" id="curso" name="curso" required>
+                                        <div class="invalid-feedback">Informe o nome do curso</div>
                                     </div>
                                 </div>
                             </div>
@@ -919,23 +927,25 @@
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="modalidade_id" class="form-label">Modalidade Curso</label>
-                                        <select name="modalidade_id" id="modalidade_id" class="form-select">
-                                            <option selected>Selecione o estado</option>
+                                        <select name="modalidade_id" id="modalidade_id" class="form-select"required>
+                                            <option value=""  selected>Selecione o estado</option>
                                             @foreach($modalidades as $value)
                                                 <option value="{{ $value->id }}"> {{ $value->nome }}</option>
                                             @endforeach
                                         </select>
+                                        <div class="invalid-feedback">Informe a modalidade</div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="status_id" class="form-label">Status</label>
-                                        <select name="status_id" id="status_id" class="form-select">
-                                            <option selected>Selecione o país</option>
+                                        <select name="status_id" id="status_id" class="form-select"required>
+                                            <option value=""  selected>Selecione o país</option>
                                             @foreach($statusFormacao as $value)
                                                 <option value="{{ $value->id }}">{{ $value->nome }}</option>
                                             @endforeach
                                         </select>
+                                        <div class="invalid-feedback">Informe o status</div>
                                     </div>
                                 </div>
                             </div>
@@ -944,13 +954,15 @@
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="data_inicio" class="form-label">Data de Início</label>
-                                        <input type="date" class="form-control" id="data_inicio" name="data_inicio" >
+                                        <input type="date" class="form-control" id="data_inicio" name="data_inicio" required>
+                                        <div class="invalid-feedback">Informe a data de inicio</div>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="mb-3">
                                         <label for="data_conclusao" class="form-label">Data de Conclusão</label>
-                                        <input type="date" class="form-control" id="data_conclusao" name="data_conclusao" >
+                                        <input type="date" class="form-control" id="data_conclusao" name="data_conclusao" required>
+                                        <div class="invalid-feedback">Informe a data de conclusão</div>
                                     </div>
                                 </div>
                             </div>
@@ -974,8 +986,10 @@
 
                 </div>
             </div>
-        </div>
+
     </main>
+
+    <x-modal-exclusao></x-modal-exclusao>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
 

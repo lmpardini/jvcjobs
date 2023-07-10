@@ -124,7 +124,7 @@ class CandidatoFormacaoAcademicaController extends Controller
 
             DB::commit();
 
-            return back()->with(['success' => 'Experiencia excluida com sucesso!','aba' => 'experiencia']);
+            return back()->with(['success' => 'Formação Academica excluida com sucesso!','aba' => 'experiencia']);
 
         } catch (\Exception $e){
             DB::rollBack();
