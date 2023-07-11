@@ -31,17 +31,21 @@
             </div>
             <div class="col-sm-9 pt-2">
                 <div class="row">
-                    @foreach($vagas as $vaga)
-                        @component('components/card-vagas', ['item' => $vaga, 'loop' => $loop])
-                        @endcomponent
-                    @endforeach
+                    @if(count($vagas) > 0)
+                        @foreach($vagas as $vaga)
+                            @component('components/card-vagas', ['item' => $vaga, 'loop' => $loop])
+                            @endcomponent
+                        @endforeach
+                    @else
+                        <div class="d-flex justify-content-center">
+                            <p>Nenhum registro encontrado</p>
+                        </div>
+                    @endif
                 </div>
                 <div class="d-flex justify-content-center" style="margin-top: 10px">
                     {{ $vagas->links() }}
                 </div>
             </div>
-
-
         </div>
     </div>
 </main>

@@ -29,10 +29,8 @@ class VagasController extends Controller
             $query->where('nome', $request->cargo);
         })->with('LocalVaga')->orderByDesc('destaque')->paginate(10);
 
-
-
-        $cidades = collect($cidades)->unique()->values();
-        $cargos = collect($cargos)->unique()->values();
+        $cidades = collect($cidades)->unique()->values()->sort();
+        $cargos = collect($cargos)->unique()->values()->sort();
 
         return view('vagas', [
             'vagas' => $vagas,
