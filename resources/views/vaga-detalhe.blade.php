@@ -4,8 +4,8 @@
 <main>
     <div class="container mt-3 mb-3" style="max-width: 720px;">
         <div class="row">
-            <div class="col-6 pb-5" style="display: {{ auth()->user()->PerfilUsuario->slug === 'colaborador' ? 'none' : 'block' }}"><button class="btn btn-{{ $inscrito ? 'success' : 'primary' }} w-50" @disabled($inscrito)  data-bs-toggle="modal" data-bs-target="#confirmModal">@if(!$inscrito)Inscrever @else Inscrito @endif</button></div>
-            <div class="col-{{ auth()->user()->PerfilUsuario->slug === 'colaborador' ? '12' : '6' }} text-end pb-5">Publicada em {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $vaga->created_at)->locale('pt')->isoFormat('LL') }}</div>
+            <div class="col-6 pb-5" style="display: {{ auth()->check() && auth()->user()->PerfilUsuario->slug === 'colaborador' ? 'none' : 'block' }}"><button class="btn btn-{{ $inscrito ? 'success' : 'primary' }} w-50" @disabled($inscrito)  data-bs-toggle="modal" data-bs-target="#confirmModal">@if(!$inscrito)Inscrever @else Inscrito @endif</button></div>
+            <div class="col-{{ auth()->check() && auth()->user()->PerfilUsuario->slug === 'colaborador' ? '12' : '6' }} text-end pb-5">Publicada em {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $vaga->created_at)->locale('pt')->isoFormat('LL') }}</div>
             <div class="col-12 pb-1"><h2>{{ $vaga->nome }}</h2></div>
             <div class="col-12 pb-3"><h3><strong>{{ $vaga->LocalVaga->nome }}</strong></h3></div>
             <div class="col-12 pb-3 text-end"><strong>Número de vagas:</strong> {{ $vaga->numero_candidatos }}</div>
