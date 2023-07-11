@@ -263,9 +263,7 @@ function deleteExp(form, seletor,  id) {
         submitForm(form, seletor, id);
 
         $('#deleteModal').modal('hide');
-
     });
-
 }
 
 
