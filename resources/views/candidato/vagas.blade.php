@@ -8,30 +8,49 @@
             @foreach($vagas as $vaga)
                 <div class="accordion-item" style="margin-top: 15px">
                     <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button collapsed "  data-bs-toggle="collapse" data-bs-target="{{ "#collapse".$vaga->id }}" aria-expanded="true" aria-controls="collapseOne">
+                        <button class="accordion-button collapsed"  data-bs-toggle="collapse" data-bs-target="{{ "#collapse".$vaga->id }}" aria-expanded="true" aria-controls="collapseOne">
                             <p><strong>{{ $vaga->Vaga->nome }}</strong> ({{ $vaga->Vaga->LocalVaga->nome }})</p>
                         </button>
                     </h2>
                     <div id="{{ "collapse".$vaga->id }}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <div class="d-flex justify-content-center">
-                                @switch($vaga->StatusCandidatura->slug)
-                                    @case('inscrito')
-                                        <span class="badge text-bg-primary">{{ $vaga->StatusCandidatura->nome }}</span>
-                                        @break
 
-                                    @case('em_analise')
-                                        <span class="badge text-bg-info">{{ $vaga->StatusCandidatura->nome }}</span>
-                                        @break
-
-                                    @case('aprovado')
-                                        <span class="badge text-bg-success">{{ $vaga->StatusCandidatura->nome }}</span>
-                                        @break
-                                    @default
-                                        <span class="badge text-bg-secondary">{{ $vaga->StatusCandidatura->nome }}</span>
-
-                                @endswitch
-
+                            <div class="container-fluid py-5">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="horizontal-timeline">
+                                            <ul class="list-inline items">
+                                                <li class="list-inline-item items-list">
+                                                    <div class="px-4">
+                                                        <div class="event-date badge bg-primary">Inscrito</div>
+                                                        <p class="text-muted">04/03/2023</p>
+                                                    </div>
+                                                </li>
+                                                <li class="list-inline-item items-list">
+                                                    <div class="px-4">
+                                                        @switch($vaga->StatusCandidatura->slug)
+                                                            @case('inscrito')
+                                                                <div class="event-date badge bg-primary">{{ $vaga->StatusCandidatura->nome }}</div>
+                                                                @break
+                                                            @case('em_analise')
+                                                                <div class="event-date badge bg-info">{{ $vaga->StatusCandidatura->nome }}</div>
+                                                                @break
+                                                            @case('aprovado')
+                                                                <div class="event-date badge bg-success">{{ $vaga->StatusCandidatura->nome }}</div>
+                                                                @break
+                                                            @case('reprovado')
+                                                                <div class="event-date badge bg-danger">{{ $vaga->StatusCandidatura->nome }}</div>
+                                                                @break
+                                                            @default
+                                                                <div class="event-date badge bg-secondary">{{ $vaga->StatusCandidatura->nome }}</div>
+                                                        @endswitch
+                                                        <p class="text-muted">04/06/2023</p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
