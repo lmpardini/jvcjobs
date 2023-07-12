@@ -108,7 +108,7 @@ class CandidatoFormacaoAcademicaController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return back()->withErrors($validator->errors())->withInput($request->input())->with('aba', 'experiencia');
+            return back()->withErrors($validator->errors())->withInput($request->input())->with('aba', 'formacao');
         }
 
         try {
@@ -124,7 +124,7 @@ class CandidatoFormacaoAcademicaController extends Controller
 
             DB::commit();
 
-            return back()->with(['success' => 'Formação Academica excluida com sucesso!','aba' => 'experiencia']);
+            return back()->with(['success' => 'Formação Academica excluida com sucesso!','aba' => 'formacao']);
 
         } catch (\Exception $e){
             DB::rollBack();
