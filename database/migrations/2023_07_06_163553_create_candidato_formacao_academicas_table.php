@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreign('status_id')->references('id')->on('formacao_academica_statuses');
             $table->date('data_inicio');
             $table->date('data_conclusao');
-            $table->text('observacao');
+            $table->text('observacao')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

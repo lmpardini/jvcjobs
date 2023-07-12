@@ -165,7 +165,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="telefone" class="form-label">Telefone</label>
-                            <input type="text" class="form-control" id="telefone" name="telefone" required
+                            <input type="text" class="form-control" id="telefone" name="telefone"
                                    value="@if(old('telefone')){{ old('telefone') }}@else{{ auth()->user()->Candidato->telefone }}@endif">
                             <div class="invalid-feedback">Informe o telefone</div>
                         </div>
