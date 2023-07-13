@@ -13,6 +13,7 @@ use App\Models\Paises;
 use App\Models\StatusCandidatura;
 use App\Models\Vagas;
 use App\Services\CandidatoService;
+use App\Services\MailService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -306,6 +307,8 @@ class CandidatoController extends Controller
         $candidaturaVaga->candidato_id = auth()->user()->Candidato->id;
         $candidaturaVaga->status_candidatura_id = $statusCandidatura->id;
         $candidaturaVaga->save();
+
+        MailService::emailInscricaoVaga(auth()->user(), $vaga);
 
         return redirect()->route('candidato.minhas-vagas')->with('success', 'Inscrição realizada com sucesso!');
     }

@@ -46,7 +46,7 @@
 </head>
 <body>
 <div class="container">
-    <p>Prezado(a) {{ $data['nome'] }},</p>
+    <p>Olá {{ $data['nome'] }},</p>
     <p>Obrigado por se cadastrar no JVCJobs Estamos muito felizes em tê-lo(a) como membro de nossa plataforma.</p>
     <p>Para finalizar o processo de cadastro e garantir a segurança de sua conta, solicitamos que insira o código de acesso abaixo no site do JVCJobs:</p>
     <div class="code-container">
