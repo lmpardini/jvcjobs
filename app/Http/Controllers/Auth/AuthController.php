@@ -159,6 +159,8 @@ class AuthController extends Controller
         $user->cadastro_verificado = true;
         $user->save();
 
+        MailService::emailBoasVindas($user);
+
         return redirect()->route('candidato.dados');
     }
 

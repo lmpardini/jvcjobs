@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('teste', function () {
+    \App\Services\MailService::emailBoasVindas(auth()->user());
+
+    return 'feito';
+
+});
+
 Route::controller(\App\Http\Controllers\HomeController::class)
     ->group(function () {
         Route::get('/', 'home')->name('home');
