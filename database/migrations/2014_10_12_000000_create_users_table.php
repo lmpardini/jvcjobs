@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->boolean('ativo')->default(true);
             $table->boolean('primeiro_acesso')->default(true);
+            $table->boolean('cadastro_verificado')->default(false);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

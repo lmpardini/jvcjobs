@@ -266,6 +266,14 @@ function deleteExp(form, seletor,  id) {
     });
 }
 
+function moveToNextInput(inputAtual, proxInput) {
+
+    var inputA = document.getElementById(inputAtual)
+    var inputB = document.getElementById(proxInput)
+
+    inputB.focus();
+}
+
 
 
 
