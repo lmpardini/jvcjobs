@@ -22,9 +22,11 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string $password
  * @property boolean $ativo
  * @property boolean $primeiro_acesso
+ * @property boolean $cadastro_verificado
  * @property Candidato $Candidato
  * @property integer $perfil_usuario_id
  * @property PerfilUsuario $PerfilUsuario
+ * @property UserCodigoVerificacao[] $UserCodigoVerificacao
  * @property string $remember_token
  * @property Carbon $created_at
  * @property Carbon $updated_at
@@ -72,5 +74,10 @@ class User extends Authenticatable
     public function PerfilUsuario()
     {
         return $this->hasOne(PerfilUsuario::class, 'id', 'perfil_usuario_id');
+    }
+
+    public function UserCodigoVerificacao()
+    {
+        return $this->hasMany(UserCodigoVerificacao::class, 'user_id', 'id');
     }
 }

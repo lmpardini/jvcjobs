@@ -36,6 +36,16 @@ Route::controller(\App\Http\Controllers\Auth\AuthController::class)
         Route::get('/logout', 'logout')->name('logout');
     });
 
+Route::controller(\App\Http\Controllers\Auth\AuthController::class)
+    ->middleware('auth:sanctum')
+    ->prefix('login')
+    ->as('auth.')
+    ->group(function () {
+        Route::get('/verifica-cadastro', 'verificarCadastro')->name('verifica-cadastro');
+        Route::get('/reenviar-codigo-acesso', 'reenviarCodigoAcesso')->name('reenviar-codigo-acesso');
+        Route::post('/valida-cadastro', 'validacaoCadastro')->name('valida-cadastro');
+    });
+
 Route::controller(\App\Http\Controllers\CandidatoController::class)
     ->middleware('auth:sanctum')
     ->prefix('candidato')

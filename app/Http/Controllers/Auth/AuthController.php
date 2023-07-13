@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Candidato;
 use App\Models\PerfilUsuario;
 use App\Models\User;
+use App\Models\UserCodigoVerificacao;
+use App\Services\CandidatoService;
+use App\Services\MailService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -21,7 +25,7 @@ class AuthController extends Controller
         /**
          * TODO Implementar verificação para ver se está logado antes de abrir home
          */
-        return view('login');
+        return view('login.login');
     }
 
     public function attempt(Request $request)
@@ -106,10 +110,63 @@ class AuthController extends Controller
 
             Session::regenerateToken();
 
+            CandidatoService::gerarCodigoVerificacao(auth()->user());
+
             return redirect()->route('vagas.listar')->with('success', 'Cadastro efetuado com sucesso');
         }
 
         return back()->withInput(['cpf' => $request->cpf])->with('success', 'Cadastro efetuado com sucesso');
+    }
+
+    public function verificarCadastro()
+    {
+        return view('login.confirmacao-cadastro');
+    }
+
+    public function validacaoCadastro(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'um'     => 'required|numeric',
+            'dois'   => 'required|numeric',
+            'tres'   => 'required|numeric',
+            'quatro' => 'required|numeric',
+            'cinco'  => 'required|numeric',
+            'seis'   => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator->errors());
+        }
+
+        /**
+         * @var User $user
+         */
+        $user = auth()->user();
+
+        $codigoVerificacaoInformado = $request->um.$request->dois.$request->tres.$request->quatro.$request->cinco.$request->seis;
+        $codigoVerificacao = (string)$user->UserCodigoVerificacao->last()->codigo_verificacao;
+
+        if ($codigoVerificacaoInformado !== $codigoVerificacao) {
+            return  back()->withErrors(["Codigo de validação Invalido"]);
+        }
+
+        $diffInMinutes = Carbon::now()->diffInMinutes($user->UserCodigoVerificacao->last()->created_at);
+
+        if ($diffInMinutes > getenv('TEMPO_CODIGO_VALIDACAO_EMAIL')) {
+            return  back()->withErrors(["Codigo de validação expirado"]);
+        }
+
+        $user->cadastro_verificado = true;
+        $user->save();
+
+        return redirect()->route('candidato.dados');
+    }
+
+    public function reenviarCodigoAcesso()
+    {
+        CandidatoService::gerarCodigoVerificacao(auth()->user());
+
+        return back()->with('success', 'Novo codigo gerado');
     }
 
     public function logout(Request $request)

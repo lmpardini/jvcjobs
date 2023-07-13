@@ -10,7 +10,10 @@ use App\Models\FormacaoAcademicaStatus;
 use App\Models\Genero;
 use App\Models\Local;
 use App\Models\Paises;
+use App\Models\User;
+use App\Models\UserCodigoVerificacao;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Str;
 
 class CandidatoService
 {
@@ -55,5 +58,24 @@ class CandidatoService
         }
 
         return $local;
+    }
+
+    /**
+     * @param User $user
+     * @return void
+     */
+    public static function gerarCodigoVerificacao(User $user): void
+    {
+        $codigoVerificacao = '';
+        for ($i = 0; $i < 6; $i++) {
+            $codigoVerificacao .= mt_rand(0, 9);
+        }
+
+        $codigo = new UserCodigoVerificacao();
+        $codigo->user_id = $user->id;
+        $codigo->codigo_verificacao = $codigoVerificacao;
+        $codigo->save();
+
+        MailService::emailCodigoConfirmacao($codigoVerificacao, auth()->user());
     }
 }
