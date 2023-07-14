@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('funcao');
             $table->string('salario')->nullable();
             $table->date('data_inicio');
-            $table->date('data_fim');
+            $table->date('data_fim')->nullable();
             $table->text('observacao')->nullable();
             $table->timestamps();
             $table->softDeletes();

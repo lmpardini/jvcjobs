@@ -20,12 +20,12 @@
 <body>
 <div style="max-width: 600px; margin: 0 auto;">
     <h2>Confirmação de Inscrição na Vaga</h2>
-    <p>Olá {{ $data['nome'] }},</p>
+    <p>Olá {{ $user->name }},</p>
     <p>Parabéns! Você confirmou a sua inscrição. </p>
     <p>A seguir, estão os detalhes da vaga na qual você se candidatou:</p>
     <ul>
-        <li><strong>Vaga:</strong>{{ $data['nome_vaga'] }} </li>
-        <li><strong>Local:</strong> {{ $data['local_vaga'] }}</li>
+        <li><strong>Vaga:</strong>{{ $vaga->nome }} </li>
+        <li><strong>Local:</strong> {{ $vaga->LocalVaga->nome }}</li>
 
     </ul>
     <p>Continue acompanhando o nosso sistema para receber atualizações sobre o processo seletivo. Desejamos muito sucesso em sua jornada profissional!</p>

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Mail\CodigoVerificacaoMail;
 use App\Models\Escolaridade;
 use App\Models\Estado;
 use App\Models\Etnia;
@@ -13,6 +14,7 @@ use App\Models\Paises;
 use App\Models\User;
 use App\Models\UserCodigoVerificacao;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class CandidatoService
@@ -76,6 +78,6 @@ class CandidatoService
         $codigo->codigo_verificacao = $codigoVerificacao;
         $codigo->save();
 
-        MailService::emailCodigoConfirmacao($codigoVerificacao, auth()->user());
+        Mail::send(new CodigoVerificacaoMail($user, $codigoVerificacao));
     }
 }

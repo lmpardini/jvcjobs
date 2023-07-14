@@ -46,11 +46,11 @@
 </head>
 <body>
 <div class="container">
-    <p>Olá {{ $data['nome'] }},</p>
+    <p>Olá {{ $user->name }},</p>
     <p>Obrigado por se cadastrar no JVCJobs Estamos muito felizes em tê-lo(a) como membro de nossa plataforma.</p>
     <p>Para finalizar o processo de cadastro e garantir a segurança de sua conta, solicitamos que insira o código de acesso abaixo no site do JVCJobs:</p>
     <div class="code-container">
-        <strong>Código de acesso: {{ Str::substr($data['codigo_verificacao'], 0, 3) . '-' . Str::substr($data['codigo_verificacao'], 3, 3) }}</strong>
+        <strong>Código de acesso: {{ Str::substr($codigoVerificacao, 0, 3) . '-' . Str::substr($codigoVerificacao, 3, 3) }}</strong>
     </div>
     <p>Por favor, siga as instruções abaixo para validar seu cadastro:</p>
     <ol>
