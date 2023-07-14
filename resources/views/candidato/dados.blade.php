@@ -594,199 +594,133 @@
                                     @csrf
                                     @method('PUT')
 
-                                    <div class="d-flex justify-content-end">
-                                        <button class="btn btn-danger {{ 'buttonExperiencia'.$experiencia->id }}" type="button"  style="display: none; margin-right: 5px " onclick="habilitaForm('buttonExperiencia', 'formExperiencia','botao_add_experiencia',  {{ $experiencia->id }})">Cancelar</button>
+                                    <div class="col-md-12 mb-3 text-end">
+                                        <button class="btn btn-danger {{ 'buttonExperiencia'.$experiencia->id }}" type="button" style="display: none; margin-right: 5px " onclick="habilitaForm('buttonExperiencia', 'formExperiencia','botao_add_experiencia',  {{ $experiencia->id }})">Cancelar</button>
 
-                                        <button class="btn btn-success {{ 'buttonExperiencia'.$experiencia->id }}" type="submit"  style="display: none">Salvar</button>
+                                        <button class="btn btn-success {{ 'buttonExperiencia'.$experiencia->id }}" type="submit" style="display: none">Salvar</button>
 
-                                        <button  class="btn btn-danger {{ 'buttonExperiencia'.$experiencia->id }}" type="button" onclick="deleteExp('formDeleteExperiencia','experiencia', {{ $experiencia->id  }})" style="display: block; margin-right: 5px ">Excluir</button>
+                                        <button  class="btn btn-danger {{ 'buttonExperiencia'.$experiencia->id }}" type="button" onclick="deleteExp('formDeleteExperiencia','experiencia', {{ $experiencia->id  }})" style="margin-right: 5px;">Excluir</button>
 
-                                        <button class="btn btn-primary {{ 'buttonExperiencia'.$experiencia->id }}" type="button"  style="display: block" onclick="habilitaForm('buttonExperiencia','formExperiencia', 'botao_add_experiencia', {{ $experiencia->id }})">Editar</button>
+                                        <button class="btn btn-primary {{ 'buttonExperiencia'.$experiencia->id }}" type="button" onclick="habilitaForm('buttonExperiencia','formExperiencia', 'botao_add_experiencia', {{ $experiencia->id }})">Editar</button>
                                     </div>
-
-                                    <div class="mb-3">
+                                    <div style="display: none;">
                                         <input type="hidden" class="form-control" id="candidato_id" name="candidato_id" value="{{ auth()->user()->Candidato->id }}">
                                         <input type="hidden" class="form-control" id="experiencia_id" name="experiencia_id" value="{{  $experiencia->id }}">
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="nome_empresa" class="form-label">Nome da Empresa</label>
-                                                <input type="text" class="form-control {{'formExperiencia'.$experiencia->id }}" id="nome_empresa" name="nome_empresa" value="{{ $experiencia->nome_empresa }}" disabled required>
-                                            </div>
-                                        </div>
+                                    <div class="col-md-4">
+                                        <label for="nome_empresa" class="form-label">Nome da Empresa</label>
+                                        <input type="text" class="form-control {{'formExperiencia'.$experiencia->id }}" id="nome_empresa" name="nome_empresa" value="{{ $experiencia->nome_empresa }}" disabled required>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="cidade" class="form-label">Cidade</label>
-                                                <input type="text" class="form-control {{'formExperiencia'.$experiencia->id }}" id="cidade" name="cidade" value="{{ $experiencia->cidade }}" disabled required>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="estado_id" class="form-label">Estado</label>
-                                                <select name="estado_id" id="estado_id" class="form-select {{'formExperiencia'.$experiencia->id }}" disabled required>
-                                                    <option va selected>Selecione o estado</option>
-                                                    @foreach($estados as $value)
-                                                        <option value="{{ $value->id }}" @selected($value->id === $experiencia->estado_id)> {{ $value->nome }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="pais_id" class="form-label">País</label>
-                                                <select name="pais_id" id="pais_id" class="form-select {{'formExperiencia'.$experiencia->id }}" disabled required>
-                                                    <option va selected>Selecione o país</option>
-                                                    @foreach($paises as $value)
-                                                        <option value="{{ $value->id }}" @selected($value->id === $experiencia->pais_id)>{{ $value->nome }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
+                                    <div class="col-md-4">
+                                        <label for="data_inicio" class="form-label">Data de Início</label>
+                                        <input type="date" class="form-control {{'formExperiencia'.$experiencia->id }}" id="data_inicio" name="data_inicio" value="{{ $experiencia->data_inicio }}" disabled required>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="funcao" class="form-label">Função</label>
-                                                <input type="text" class="form-control {{'formExperiencia'.$experiencia->id }}" id="funcao" name="funcao" value="{{ $experiencia->funcao }}" disabled required>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="salario" class="form-label">Salário</label>
-                                                <input type="text" class="form-control {{'formExperiencia'.$experiencia->id }}" id="salario" name="salario" value="{{ $experiencia->salario }}" disabled>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="data_inicio" class="form-label">Data de Início</label>
-                                                <input type="date" class="form-control {{'formExperiencia'.$experiencia->id }}" id="data_inicio" name="data_inicio" value="{{ $experiencia->data_inicio }}" disabled required>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="data_fim" class="form-label">Data de Fim</label>
-                                                <input type="date" class="form-control {{'formExperiencia'.$experiencia->id }}" id="data_fim" name="data_fim" value="{{ $experiencia->data_fim }}" disabled required>
-                                            </div>
-                                        </div>
+                                    <div class="col-md-4">
+                                        <label for="data_fim" class="form-label">Data de Fim</label>
+                                        <input type="date" class="form-control {{'formExperiencia'.$experiencia->id }}" id="data_fim" name="data_fim" value="{{ $experiencia->data_fim }}" disabled required>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="observacao" class="form-label">Observação</label>
-                                                <textarea class="form-control {{'formExperiencia'.$experiencia->id }}" id="observacao" name="observacao" maxlength="300" rows="3" disabled>{{ $experiencia->observacao }}</textarea>
-                                            </div>
-                                        </div>
+                                    <div class="col-md-4">
+                                        <label for="cidade" class="form-label">Cidade</label>
+                                        <input type="text" class="form-control {{'formExperiencia'.$experiencia->id }}" id="cidade" name="cidade" value="{{ $experiencia->cidade }}" disabled required>
                                     </div>
-
+                                    <div class="col-md-4">
+                                        <label for="estado_id" class="form-label">Estado</label>
+                                        <select name="estado_id" id="estado_id" class="form-select {{'formExperiencia'.$experiencia->id }}" disabled required>
+                                            <option va selected>Selecione o estado</option>
+                                            @foreach($estados as $value)
+                                                <option value="{{ $value->id }}" @selected($value->id === $experiencia->estado_id)> {{ $value->nome }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="pais_id" class="form-label">País</label>
+                                        <select name="pais_id" id="pais_id" class="form-select {{'formExperiencia'.$experiencia->id }}" disabled required>
+                                            <option va selected>Selecione o país</option>
+                                            @foreach($paises as $value)
+                                                <option value="{{ $value->id }}" @selected($value->id === $experiencia->pais_id)>{{ $value->nome }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="funcao" class="form-label">Função</label>
+                                        <input type="text" class="form-control {{'formExperiencia'.$experiencia->id }}" id="funcao" name="funcao" value="{{ $experiencia->funcao }}" disabled required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="salario" class="form-label">Salário</label>
+                                        <input type="text" class="form-control {{'formExperiencia'.$experiencia->id }}" id="salario" name="salario" value="{{ $experiencia->salario }}" disabled>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="observacao" class="form-label">Observação</label>
+                                        <textarea class="form-control {{'formExperiencia'.$experiencia->id }}" id="observacao" name="observacao" maxlength="300" rows="3" disabled>{{ $experiencia->observacao }}</textarea>
+                                    </div>
                                 </form>
                             </div>
                         </div>
                     @endforeach
-
-                    <div class="d-flex justify-content-end">
-                        <button class="btn btn-primary" style="display: block" id="botao_add_experiencia" onclick="exibirAddExperiencia('botao_add_experiencia','adicionar_experiencia')">Nova Experiencia Profissional </button>
+                    <div class="col-md-12 mb-3">
+                        <button class="btn btn-primary" style="display: block" id="botao_add_experiencia" onclick="exibirAddExperiencia('botao_add_experiencia','adicionar_experiencia')">Nova Experiência Profissional</button>
                     </div>
-
                     <div id="adicionar_experiencia" style="display: none">
                         <form method="POST" action=" {{ route('candidato-experiencia.create') }}" class="row g-4 needs-validation" novalidate autocomplete="off">
                             @csrf
                             @method('POST')
-                            <div class="mb-3">
+                            <div style="display: none;">
                                 <input type="hidden" class="form-control" id="candidato_id" name="candidato_id" value="{{ auth()->user()->Candidato->id }}">
                             </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="nome_empresa" class="form-label">Nome da Empresa</label>
-                                        <input type="text" class="form-control" id="nome_empresa" name="nome_empresa" required>
-                                        <div class="invalid-feedback">Informe o nome</div>
-                                    </div>
-                                </div>
+                            <div class="col-md-4">
+                                <label for="nome_empresa" class="form-label">Nome da Empresa</label>
+                                <input type="text" class="form-control" id="nome_empresa" name="nome_empresa" required>
+                                <div class="invalid-feedback">Informe o nome da empresa</div>
                             </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="cidade" class="form-label">Cidade</label>
-                                        <input type="text" class="form-control" id="cidade" name="cidade" required>
-                                        <div class="invalid-feedback">Informe a cidade</div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="estado_id" class="form-label">Estado</label>
-                                        <select name="estado_id" id="estado_id" class="form-select" required>
-                                            <option value="" selected disabled>Selecione o estado</option>
-                                            @foreach($estados as $value)
-                                                <option value="{{ $value->id }}"> {{ $value->nome }}</option>
-                                            @endforeach
-                                        </select>
-                                        <div class="invalid-feedback">Informe o estado</div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="pais_id" class="form-label">País</label>
-                                        <select name="pais_id" id="pais_id" class="form-select" required>
-                                            <option value="" selected disabled>Selecione o país</option>
-                                            @foreach($paises as $value)
-                                                <option value="{{ $value->id }}">{{ $value->nome }}</option>
-                                            @endforeach
-                                        </select>
-                                        <div class="invalid-feedback">Informe o pais</div>
-                                    </div>
-                                </div>
+                            <div class="col-md-4">
+                                <label for="data_inicio" class="form-label">Data de Início</label>
+                                <input type="date" class="form-control" id="data_inicio" name="data_inicio" required>
+                                <div class="invalid-feedback">Informe a data de inicio</div>
                             </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="funcao" class="form-label">Função</label>
-                                        <input type="text" class="form-control" id="funcao" name="funcao" required>
-                                        <div class="invalid-feedback">Informe a função</div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="salario" class="form-label">Salário</label>
-                                        <input type="text" class="form-control" id="salario" name="salario">
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="data_inicio" class="form-label">Data de Início</label>
-                                        <input type="date" class="form-control" id="data_inicio" name="data_inicio" required>
-                                        <div class="invalid-feedback">Informe a data de inicio</div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="data_fim" class="form-label">Data de Fim</label>
-                                        <input type="date" class="form-control" id="data_fim" name="data_fim" required>
-                                        <div class="invalid-feedback">Informe a data de fim</div>
-                                    </div>
-                                </div>
+                            <div class="col-md-4">
+                                <label for="data_fim" class="form-label">Data de Fim</label>
+                                <input type="date" class="form-control" id="data_fim" name="data_fim" required>
+                                <div class="invalid-feedback">Informe a data de fim</div>
                             </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="observacao" class="form-label">Observação</label>
-                                        <textarea class="form-control" id="observacao" name="observacao" maxlength="300" rows="3"></textarea>
-                                    </div>
-                                </div>
-
+                            <div class="col-md-4">
+                                <label for="cidade" class="form-label">Cidade</label>
+                                <input type="text" class="form-control" id="cidade" name="cidade" required>
+                                <div class="invalid-feedback">Informe a cidade</div>
                             </div>
-
-                            <div class="d-flex justify-content-end">
+                            <div class="col-md-4">
+                                <label for="estado_id" class="form-label">Estado</label>
+                                <select name="estado_id" id="estado_id" class="form-select" required>
+                                    <option value="" selected disabled>Selecione o estado</option>
+                                    @foreach($estados as $value)
+                                        <option value="{{ $value->id }}"> {{ $value->nome }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="invalid-feedback">Informe o estado</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="pais_id" class="form-label">País</label>
+                                <select name="pais_id" id="pais_id" class="form-select" required>
+                                    <option value="" selected disabled>Selecione o país</option>
+                                    @foreach($paises as $value)
+                                        <option value="{{ $value->id }}">{{ $value->nome }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="invalid-feedback">Informe o pais</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="funcao" class="form-label">Função</label>
+                                <input type="text" class="form-control" id="funcao" name="funcao" required>
+                                <div class="invalid-feedback">Informe a função</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="salario" class="form-label">Salário</label>
+                                <input type="text" class="form-control" id="salario" name="salario">
+                            </div>
+                            <div class="col-md-12">
+                                <label for="observacao" class="form-label">Observação</label>
+                                <textarea class="form-control" id="observacao" name="observacao" maxlength="300" rows="3"></textarea>
+                            </div>
+                            <div class="col-md-12 mb-5 text-end">
                                 <button type="button" class="btn btn-danger" onclick="ocultarAddExperiencia('botao_add_experiencia','adicionar_experiencia')" style="margin-right: 5px">Cancelar</button>
                                 <button type="submit" class="btn btn-success">Salvar</button>
                             </div>
@@ -810,173 +744,116 @@
                                     @csrf
                                     @method('PUT')
 
-                                    <div class="d-flex justify-content-end">
+                                    <div class="col-md-12 mb-3 text-end">
                                         <button class="btn btn-danger {{ 'buttonFormacao'.$formacao->id }}" type="button"  style="display: none; margin-right: 5px " onclick="habilitaForm('buttonFormacao', 'formFormacao', 'botao_add_formacao',  {{ $formacao->id }})">Cancelar</button>
 
                                         <button class="btn btn-success {{ 'buttonFormacao'.$formacao->id }}" type="submit"  style="display: none">Salvar</button>
 
-                                        <button  class="btn btn-danger {{ 'buttonFormacao'.$formacao->id }}" type="button"  style="display: block; margin-right: 5px" onclick="deleteExp('formDeleteFormacao','formacao', {{ $formacao->id  }})">Excluir</button>
+                                        <button  class="btn btn-danger {{ 'buttonFormacao'.$formacao->id }}" type="button"  style="margin-right: 5px;" onclick="deleteExp('formDeleteFormacao','formacao', {{ $formacao->id  }})">Excluir</button>
 
-                                        <button class="btn btn-primary {{ 'buttonFormacao'.$formacao->id }}" type="button"  style="display: block" onclick="habilitaForm('buttonFormacao', 'formFormacao', 'botao_add_formacao',  {{ $formacao->id }})">Editar</button>
+                                        <button class="btn btn-primary {{ 'buttonFormacao'.$formacao->id }}" type="button" onclick="habilitaForm('buttonFormacao', 'formFormacao', 'botao_add_formacao',  {{ $formacao->id }})">Editar</button>
                                     </div>
-
-                                    <div class="mb-3">
+                                    <div style="display: none;">
                                         <input type="hidden" class="form-control" id="candidato_id" name="candidato_id" value="{{ auth()->user()->Candidato->id }}">
                                         <input type="hidden" class="form-control" id="formacao_id" name="formacao_id" value="{{  $formacao->id }}">
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="nome_instituicao" class="form-label">Instituição</label>
-                                                <input type="text" class="form-control {{'formFormacao'.$formacao->id }}" id="nome_instituicao" name="nome_instituicao" value="{{ $formacao->nome_instituicao }}" disabled required>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="curso" class="form-label">Curso</label>
-                                                <input type="text" class="form-control {{'formFormacao'.$formacao->id }}" id="curso" name="curso" value="{{ $formacao->curso }}" disabled required>
-                                            </div>
-                                        </div>
+                                    <div class="col-md-4">
+                                        <label for="nome_instituicao" class="form-label">Instituição</label>
+                                        <input type="text" class="form-control {{'formFormacao'.$formacao->id }}" id="nome_instituicao" name="nome_instituicao" value="{{ $formacao->nome_instituicao }}" disabled required>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="modalidade_id" class="form-label">Modalidade Curso</label>
-                                                <select name="modalidade_id" id="modalidade_id" class="form-select {{'formFormacao'.$formacao->id }}" disabled required>
-                                                    <option selected>Selecione o estado</option>
-                                                    @foreach($modalidades as $value)
-                                                        <option value="{{ $value->id }}" @selected($value->id === $formacao->modalidade_id)> {{ $value->nome }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="status_id" class="form-label">Status</label>
-                                                <select name="status_id" id="status_id" class="form-select {{'formFormacao'.$formacao->id }}" disabled required>
-                                                    <option selected>Selecione o país</option>
-                                                    @foreach($statusFormacao as $value)
-                                                        <option value="{{ $value->id }}" @selected($value->id === $formacao->status_id)>{{ $value->nome }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
+                                    <div class="col-md-4">
+                                        <label for="curso" class="form-label">Curso</label>
+                                        <input type="text" class="form-control {{'formFormacao'.$formacao->id }}" id="curso" name="curso" value="{{ $formacao->curso }}" disabled required>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="data_inicio" class="form-label">Data de Início</label>
-                                                <input type="date" class="form-control {{'formFormacao'.$formacao->id }}" id="data_inicio" name="data_inicio" value="{{ $formacao->data_inicio }}" disabled required>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="data_conclusao" class="form-label">Data de Conclusão</label>
-                                                <input type="date" class="form-control {{'formFormacao'.$formacao->id }}" id="data_conclusao" name="data_conclusao" value="{{ $formacao->data_conclusao }}" disabled required>
-                                            </div>
-                                        </div>
+                                    <div class="col-md-4">
+                                        <label for="modalidade_id" class="form-label">Modalidade Curso</label>
+                                        <select name="modalidade_id" id="modalidade_id" class="form-select {{'formFormacao'.$formacao->id }}" disabled required>
+                                            <option selected>Selecione a modalidade</option>
+                                            @foreach($modalidades as $value)
+                                                <option value="{{ $value->id }}" @selected($value->id === $formacao->modalidade_id)> {{ $value->nome }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="observacao" class="form-label">Observação</label>
-                                                <textarea class="form-control {{'formFormacao'.$formacao->id }}" id="observacao" name="observacao" maxlength="300" rows="3" disabled>{{ $formacao->observacao }}</textarea>
-                                            </div>
-                                        </div>
+                                    <div class="col-md-4">
+                                        <label for="status_id" class="form-label">Status</label>
+                                        <select name="status_id" id="status_id" class="form-select {{'formFormacao'.$formacao->id }}" disabled required>
+                                            <option selected>Selecione o status</option>
+                                            @foreach($statusFormacao as $value)
+                                                <option value="{{ $value->id }}" @selected($value->id === $formacao->status_id)>{{ $value->nome }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
-
+                                    <div class="col-md-4">
+                                        <label for="data_inicio" class="form-label">Data de Início</label>
+                                        <input type="date" class="form-control {{'formFormacao'.$formacao->id }}" id="data_inicio" name="data_inicio" value="{{ $formacao->data_inicio }}" disabled required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="data_conclusao" class="form-label">Data de Conclusão</label>
+                                        <input type="date" class="form-control {{'formFormacao'.$formacao->id }}" id="data_conclusao" name="data_conclusao" value="{{ $formacao->data_conclusao }}" disabled required>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="observacao" class="form-label">Observação</label>
+                                        <textarea class="form-control {{'formFormacao'.$formacao->id }}" id="observacao" name="observacao" maxlength="300" rows="3" disabled>{{ $formacao->observacao }}</textarea>
+                                    </div>
                                 </form>
                             </div>
                         </div>
                     @endforeach
-
-                    <div class="d-flex justify-content-end">
-                        <button class="btn btn-primary" style="display: block" id="botao_add_formacao" onclick="exibirAddExperiencia('botao_add_formacao','adicionar_formacao')">Nova Formação Academica </button>
+                    <div class="col-md-12 mb-3">
+                        <button class="btn btn-primary" style="display: block" id="botao_add_formacao" onclick="exibirAddExperiencia('botao_add_formacao','adicionar_formacao')">Nova Formação Academica</button>
                     </div>
-
                     <div id="adicionar_formacao" style="display: none">
                         <form method="POST" action=" {{ route('candidato-formacao.create') }}" class="row g-4 needs-validation" novalidate autocomplete="off">
                             @csrf
                             @method('POST')
-                            <div class="mb-3">
+                            <div style="display: none;">
                                 <input type="hidden" class="form-control" id="candidato_id" name="candidato_id" value="{{ auth()->user()->Candidato->id }}">
                             </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="nome_instituicao" class="form-label">Instituição</label>
-                                        <input type="text" class="form-control" id="nome_instituicao" name="nome_instituicao"required>
-                                        <div class="invalid-feedback">Informe o nome da instituição</div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="curso" class="form-label">Curso</label>
-                                        <input type="text" class="form-control" id="curso" name="curso" required>
-                                        <div class="invalid-feedback">Informe o nome do curso</div>
-                                    </div>
-                                </div>
+                            <div class="col-md-4">
+                                <label for="nome_instituicao" class="form-label">Instituição</label>
+                                <input type="text" class="form-control" id="nome_instituicao" name="nome_instituicao"required>
+                                <div class="invalid-feedback">Informe o nome da instituição</div>
                             </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="modalidade_id" class="form-label">Modalidade Curso</label>
-                                        <select name="modalidade_id" id="modalidade_id" class="form-select"required>
-                                            <option value=""  selected>Selecione o estado</option>
-                                            @foreach($modalidades as $value)
-                                                <option value="{{ $value->id }}"> {{ $value->nome }}</option>
-                                            @endforeach
-                                        </select>
-                                        <div class="invalid-feedback">Informe a modalidade</div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="status_id" class="form-label">Status</label>
-                                        <select name="status_id" id="status_id" class="form-select"required>
-                                            <option value=""  selected>Selecione o país</option>
-                                            @foreach($statusFormacao as $value)
-                                                <option value="{{ $value->id }}">{{ $value->nome }}</option>
-                                            @endforeach
-                                        </select>
-                                        <div class="invalid-feedback">Informe o status</div>
-                                    </div>
-                                </div>
+                            <div class="col-md-4">
+                                <label for="curso" class="form-label">Curso</label>
+                                <input type="text" class="form-control" id="curso" name="curso" required>
+                                <div class="invalid-feedback">Informe o nome do curso</div>
                             </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="data_inicio" class="form-label">Data de Início</label>
-                                        <input type="date" class="form-control" id="data_inicio" name="data_inicio" required>
-                                        <div class="invalid-feedback">Informe a data de inicio</div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="data_conclusao" class="form-label">Data de Conclusão</label>
-                                        <input type="date" class="form-control" id="data_conclusao" name="data_conclusao" required>
-                                        <div class="invalid-feedback">Informe a data de conclusão</div>
-                                    </div>
-                                </div>
+                            <div class="col-md-4">
+                                <label for="modalidade_id" class="form-label">Modalidade Curso</label>
+                                <select name="modalidade_id" id="modalidade_id" class="form-select"required>
+                                    <option value=""  selected>Selecione a modalidade</option>
+                                    @foreach($modalidades as $value)
+                                        <option value="{{ $value->id }}"> {{ $value->nome }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="invalid-feedback">Informe a modalidade</div>
                             </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <div class="mb-3">
-                                        <label for="observacao" class="form-label">Observação</label>
-                                        <textarea class="form-control" id="observacao" name="observacao" maxlength="300" rows="3"></textarea>
-                                    </div>
-                                </div>
+                            <div class="col-md-4">
+                                <label for="status_id" class="form-label">Status</label>
+                                <select name="status_id" id="status_id" class="form-select"required>
+                                    <option value=""  selected>Selecione o status</option>
+                                    @foreach($statusFormacao as $value)
+                                        <option value="{{ $value->id }}">{{ $value->nome }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="invalid-feedback">Informe o status</div>
                             </div>
-
-                            <div class="d-flex justify-content-end">
+                            <div class="col-md-4">
+                                <label for="data_inicio" class="form-label">Data de Início</label>
+                                <input type="date" class="form-control" id="data_inicio" name="data_inicio" required>
+                                <div class="invalid-feedback">Informe a data de inicio</div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="data_conclusao" class="form-label">Data de Conclusão</label>
+                                <input type="date" class="form-control" id="data_conclusao" name="data_conclusao" required>
+                                <div class="invalid-feedback">Informe a data de conclusão</div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="observacao" class="form-label">Observação</label>
+                                <textarea class="form-control" id="observacao" name="observacao" maxlength="300" rows="3"></textarea>
+                            </div>
+                            <div class="col-md-12 mb-5 text-end">
                                 <button type="button" class="btn btn-danger" onclick="ocultarAddExperiencia('botao_add_formacao','adicionar_formacao')" style="margin-right: 5px">Cancelar</button>
                                 <button type="submit" class="btn btn-success">Salvar</button>
                             </div>
