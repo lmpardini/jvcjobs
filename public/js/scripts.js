@@ -144,7 +144,7 @@ function habilitaForm(button,form, buttonAdd, id) {
     var buttons = document.getElementsByClassName(button+id);
 
     if (btnAdd.style.display === 'none') {
-        btnAdd.style.display = 'block';
+        btnAdd.style.display = 'inline-block';
     } else {
         btnAdd.style.display = 'none';
     }
@@ -153,7 +153,7 @@ function habilitaForm(button,form, buttonAdd, id) {
         var elemento = buttons[i];
 
         if (elemento.style.display === 'none') {
-            elemento.style.display = 'block';
+            elemento.style.display = 'inline-block';
         } else {
             elemento.style.display = 'none';
         }
