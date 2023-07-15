@@ -21,7 +21,7 @@ class CandidadoExperienciaProfissionalController extends Controller
             'funcao'       => 'required|string|max:255',
             'salario'      => 'nullable|string|max:255',
             'data_inicio'  => 'required|date_format:Y-m-d',
-            'data_fim'     => 'required|date_format:Y-m-d',
+            'data_fim'     => 'nullable|date_format:Y-m-d',
             'observacao'   => 'nullable|max:300'
         ]);
 

@@ -617,7 +617,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <label for="data_fim" class="form-label">Data de Fim</label>
-                                        <input type="date" class="form-control {{'formExperiencia'.$experiencia->id }}" id="data_fim" name="data_fim" value="{{ $experiencia->data_fim }}" disabled required>
+                                        <input type="date" class="form-control {{'formExperiencia'.$experiencia->id }}" id="data_fim" name="data_fim" value="{{ $experiencia->data_fim }}" disabled>
                                     </div>
                                     <div class="col-md-4">
                                         <label for="cidade" class="form-label">Cidade</label>
@@ -679,7 +679,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="data_fim" class="form-label">Data de Fim</label>
-                                <input type="date" class="form-control" id="data_fim" name="data_fim" required>
+                                <input type="date" class="form-control" id="data_fim" name="data_fim" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Caso seja seu atual emprego, deixar campo em branco">
                                 <div class="invalid-feedback">Informe a data de fim</div>
                             </div>
                             <div class="col-md-4">

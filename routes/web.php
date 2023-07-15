@@ -1,5 +1,6 @@
 <?php
 
+use App\Mail\BoasVindasMail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,13 +13,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('teste', function () {
-    \App\Services\MailService::emailBoasVindas(auth()->user());
-
-    return 'feito';
-
-});
 
 Route::controller(\App\Http\Controllers\HomeController::class)
     ->group(function () {

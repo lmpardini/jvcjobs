@@ -3,16 +3,18 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\BoasVindasMail;
 use App\Models\Candidato;
 use App\Models\PerfilUsuario;
 use App\Models\User;
 use App\Models\UserCodigoVerificacao;
 use App\Services\CandidatoService;
-use App\Services\MailService;
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -159,7 +161,7 @@ class AuthController extends Controller
         $user->cadastro_verificado = true;
         $user->save();
 
-        MailService::emailBoasVindas($user);
+        Mail::send(new BoasVindasMail($user));
 
         return redirect()->route('candidato.dados');
     }
@@ -179,9 +181,6 @@ class AuthController extends Controller
 
             return redirect()->route('home')->with('success', 'Deslogado...');
         }
-
         return back();
     }
-
-
 }
