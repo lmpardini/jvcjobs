@@ -6,7 +6,7 @@
         <div class="container mt-3">
             <div class="row pb-4">
                 <div class="col-12 mt-3 mb-2">
-                    <h2 class="title-destaque primary-color">VAGAS EM DESTAQUE</h2>
+                    <h2 class="title-destaque primary-color">VAGAS EM DESTAQUE teste edição via git 123</h2>
                 </div>
 
                 @each('components\card-vagas-home', $vagasDestaque, 'item')
