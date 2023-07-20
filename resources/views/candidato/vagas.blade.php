@@ -26,27 +26,6 @@
                                                         <p class="text-muted">04/03/2023</p>
                                                     </div>
                                                 </li>
-                                                <li class="list-inline-item items-list">
-                                                    <div class="px-4">
-                                                        @switch($vaga->StatusCandidatura->slug)
-                                                            @case('inscrito')
-                                                                <div class="event-date badge bg-primary">{{ $vaga->StatusCandidatura->nome }}</div>
-                                                                @break
-                                                            @case('em_analise')
-                                                                <div class="event-date badge bg-info">{{ $vaga->StatusCandidatura->nome }}</div>
-                                                                @break
-                                                            @case('aprovado')
-                                                                <div class="event-date badge bg-success">{{ $vaga->StatusCandidatura->nome }}</div>
-                                                                @break
-                                                            @case('reprovado')
-                                                                <div class="event-date badge bg-danger">{{ $vaga->StatusCandidatura->nome }}</div>
-                                                                @break
-                                                            @default
-                                                                <div class="event-date badge bg-secondary">{{ $vaga->StatusCandidatura->nome }}</div>
-                                                        @endswitch
-                                                        <p class="text-muted">04/06/2023</p>
-                                                    </div>
-                                                </li>
                                             </ul>
                                         </div>
                                     </div>

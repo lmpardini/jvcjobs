@@ -29,10 +29,10 @@
 <header>
     <div class="container-fluid p-0">
         <!-- NAVBAR -->
-        <nav class="navbar navbar-expand-lg" id="navbar">
+        <nav class="navbar navbar-expand-lg bg-bluefenix" id="navbar">
             <div class="container">
                 <a class="navbar-brand" href="/">
-                    <img src="/images/logo-mini.jpg" alt="JVCJobs" width="75%" height="75%" />
+                    <img src="/images/fenix.jpg" alt="JVCJobs" width="75%" height="75%" />
                 </a>
                 <button
                     class="navbar-toggler"
@@ -56,7 +56,7 @@
 
                         @auth
                             <li class="nav-item dropdown">
-                                <button class="btn btn-secondary dropdown-toggle w-100 text-start" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn bg-bluefenix dropdown-toggle w-100 text-start" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
                                     Olá, {{ auth()->user()->name }}
                                 </button>
 
@@ -71,8 +71,8 @@
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                     <li><a href="{{ route('candidato.dados') }}" class="dropdown-item {{ Request::is('candidato/dados') ? ' active' : '' }}" type="button">Meus Dados</a></li>
                                     <li><a href="{{ route('candidato.minhas-vagas') }}" class="dropdown-item {{ Request::is('candidato/vagas') ? ' active' : '' }}" type="button">Minhas Vagas</a></li>
-                                    <li><button class="dropdown-item" type="button">Alterar Senha</button></li>
-                                    <li><a href=" {{ route('auth.logout') }}" class="dropdown-item" type="button" >Sair</a></li>
+                                    <li><a href="#" class="dropdown-item" type="button">Alterar Senha</a></li>
+                                    <li><a href=" {{ route('auth.logout') }}" class="dropdown-item" type="button">Sair</a></li>
                                 </ul>
                             </li>
                         @endauth

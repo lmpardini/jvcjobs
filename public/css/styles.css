@@ -12,6 +12,11 @@ a {
     color: black;
 }
 
+.bg-bluefenix {
+    background-color: #004a87;
+    color: #fff;
+}
+
 .bg-primary-color {
   background-color: #fff;
 }
@@ -42,24 +47,37 @@ a {
 }
 
 #navbar a {
-  color: #050505;
+  color: #fff;
+    /*color: #050505;*/
 }
 
 #navbar a:hover {
-  color: #7a7a7a;
+  /*color: #7a7a7a;*/
 }
 
 #navbar .active {
-  border-bottom: 1px solid #050505;
+    border-bottom: 1px solid #fff;
+  /*border-bottom: 1px solid #050505;*/
+}
+
+#navbar .dropdown a{
+    border: none;
+    /*background-color: #e0e0e0;*/
+    background-color: transparent;
+    color: #000000;
 }
 
 #navbar .dropdown .active {
     border: none;
-    background-color: #e0e0e0;
+    /*background-color: #e0e0e0;*/
+    background-color: transparent;
+    color: #000000;
+    text-decoration: underline;
 }
 
 #navbar .dropdown a:hover {
-    background-color: transparent;
+    /*background-color: transparent;*/
+    text-decoration: underline;
 }
 
 .navbar-brand {
