@@ -23,7 +23,7 @@
                                                 <li class="list-inline-item items-list">
                                                     <div class="px-4">
                                                         <div class="event-date badge bg-primary">Inscrito</div>
-                                                        <p class="text-muted">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $vaga->created_at)->format('d/m/Y') }}</p>
+                                                        <p class="text-muted">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $vaga->created_at)->format('d/m/Y')}}</p>
                                                     </div>
                                                 </li>
                                             </ul>
