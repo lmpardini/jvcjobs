@@ -43,7 +43,7 @@
                     aria-expanded="false"
                     aria-label="Toggle navigation"
                 >
-                    <i class="bi bi-list"></i>
+                    <i class="bi bi-list text-white"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbar-items">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">

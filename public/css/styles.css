@@ -60,6 +60,11 @@ a {
   /*border-bottom: 1px solid #050505;*/
 }
 
+#navbar .dropdown {
+    border: 1px solid #fff;
+}
+
+
 #navbar .dropdown a{
     border: none;
     /*background-color: #e0e0e0;*/
